@@ -53,8 +53,10 @@ export JAVA_HOME
 
 %ifarch amd64
 %define	_swtsrcdir	plugins/org.eclipse.swt.gtk64/ws/gtk
+%define	_swtgtkdir	plugins/org.eclipse.swt.gtk64
 %else
 %define	_swtsrcdir	plugins/org.eclipse.swt.gtk/ws/gtk
+%define	_swtgtkdir	plugins/org.eclipse.swt.gtk
 %endif
 
 rm -rf swt
@@ -75,11 +77,13 @@ patch -p0 < %{PATCH0}
 #    OPT="%{rpmcflags}"
 cd -
 
+mkdir plugins/org.eclipse.core.resources.linux/os/linux/%{_eclipse_arch}
 %{__make} -C plugins/org.eclipse.core.resources.linux/src \
     CFLAGS="%{rpmcflags} $JAVA_INC" \
     LDFLAGS="%{rpmldflags}"
 mv plugins/org.eclipse.core.resources.linux/{src/libcore*.so,os/linux/%{_eclipse_arch}}
 
+mkdir plugins/org.eclipse.update.core.linux/os/linux/%{_eclipse_arch}
 cd plugins/org.eclipse.update.core.linux/src
 %{__cc} %{rpmcflags} -fPIC %{rpmldflags} -I. $JAVA_INC update.c -o libupdate.so -shared
 mv libupdate.so ../os/linux/%{_eclipse_arch}
@@ -88,6 +92,7 @@ cd -
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_bindir},%{_libdir}/%{name}}
+install -d $RPM_BUILD_ROOT%{_libdir}/eclipse/%{_swtgtkdir}_3.1.0/os/linux/amd64
 
 ./build -os linux -ws gtk -arch %{_eclipse_arch} -target install
 
@@ -103,9 +108,9 @@ EOF
 
 cd swt
 install libswt-{atk-gtk,awt-gtk,gnome-gtk,gtk,kde,pi-gtk}-*.so \
-    $RPM_BUILD_ROOT%{_libdir}/eclipse/plugins/org.eclipse.swt.gtk_%{_ver_major}.%{_ver_minor}/os/linux/%{_eclipse_arch}
+    $RPM_BUILD_ROOT%{_libdir}/eclipse/%{_swtgtkdir}_%{_ver_major}.%{_ver_minor}/os/linux/%{_eclipse_arch}
 #install libswt-mozilla-gtk-*.so \
-#    $RPM_BUILD_ROOT%{_datadir}/eclipse/plugins/org.eclipse.swt.gtk_%{_ver_major}.%{_ver_minor}/os/linux/%{_eclipse_arch}
+#    $RPM_BUILD_ROOT%{_datadir}/eclipse/%{_swtgtkdir}_%{_ver_major}.%{_ver_minor}/os/linux/%{_eclipse_arch}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -198,25 +203,25 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}/plugins/org.eclipse.search_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.swt_*.*.*
 
-%dir %{_libdir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*
-%dir %{_libdir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/os
-%dir %{_libdir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/os/linux
-%dir %{_libdir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/os/linux/%{_eclipse_arch}
-%attr(755,root,root) %{_libdir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/os/linux/%{_eclipse_arch}/libswt-atk-gtk-*.so
-%attr(755,root,root) %{_libdir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/os/linux/%{_eclipse_arch}/libswt-awt-gtk-*.so
-%attr(755,root,root) %{_libdir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/os/linux/%{_eclipse_arch}/libswt-gnome-gtk-*.so
-%attr(755,root,root) %{_libdir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/os/linux/%{_eclipse_arch}/libswt-gtk-*.so
-%attr(755,root,root) %{_libdir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/os/linux/%{_eclipse_arch}/libswt-kde-gtk*.so
-#attr(755,root,root) %{_libdir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/os/linux/%{_eclipse_arch}/libswt-mozilla-gtk-*.so
-%attr(755,root,root) %{_libdir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/os/linux/%{_eclipse_arch}/libswt-pi-gtk-*.so
-%{_libdir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/ws
-%{_libdir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/META-INF
-%{_libdir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/about.html
-%{_libdir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/cpl-v10.html
-%{_libdir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/fragment.properties
-%{_libdir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/fragment.xml
-%{_libdir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/lgpl-v21.txt
-%{_libdir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/mpl-v11.txt
+%dir %{_libdir}/%{name}/%{_swtgtkdir}_*.*.*
+%dir %{_libdir}/%{name}/%{_swtgtkdir}_*.*.*/os
+%dir %{_libdir}/%{name}/%{_swtgtkdir}_*.*.*/os/linux
+%dir %{_libdir}/%{name}/%{_swtgtkdir}_*.*.*/os/linux/%{_eclipse_arch}
+%attr(755,root,root) %{_libdir}/%{name}/%{_swtgtkdir}_*.*.*/os/linux/%{_eclipse_arch}/libswt-atk-gtk-*.so
+%attr(755,root,root) %{_libdir}/%{name}/%{_swtgtkdir}_*.*.*/os/linux/%{_eclipse_arch}/libswt-awt-gtk-*.so
+%attr(755,root,root) %{_libdir}/%{name}/%{_swtgtkdir}_*.*.*/os/linux/%{_eclipse_arch}/libswt-gnome-gtk-*.so
+%attr(755,root,root) %{_libdir}/%{name}/%{_swtgtkdir}_*.*.*/os/linux/%{_eclipse_arch}/libswt-gtk-*.so
+%attr(755,root,root) %{_libdir}/%{name}/%{_swtgtkdir}_*.*.*/os/linux/%{_eclipse_arch}/libswt-kde-gtk*.so
+#attr(755,root,root) %{_libdir}/%{name}/%{_swtgtkdir}_*.*.*/os/linux/%{_eclipse_arch}/libswt-mozilla-gtk-*.so
+%attr(755,root,root) %{_libdir}/%{name}/%{_swtgtkdir}_*.*.*/os/linux/%{_eclipse_arch}/libswt-pi-gtk-*.so
+%{_libdir}/%{name}/%{_swtgtkdir}_*.*.*/ws
+%{_libdir}/%{name}/%{_swtgtkdir}_*.*.*/META-INF
+%{_libdir}/%{name}/%{_swtgtkdir}_*.*.*/about.html
+%{_libdir}/%{name}/%{_swtgtkdir}_*.*.*/cpl-v10.html
+%{_libdir}/%{name}/%{_swtgtkdir}_*.*.*/fragment.properties
+%{_libdir}/%{name}/%{_swtgtkdir}_*.*.*/fragment.xml
+%{_libdir}/%{name}/%{_swtgtkdir}_*.*.*/lgpl-v21.txt
+%{_libdir}/%{name}/%{_swtgtkdir}_*.*.*/mpl-v11.txt
 
 %{_libdir}/%{name}/plugins/org.eclipse.team.core_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.team.cvs.core_*.*.*
