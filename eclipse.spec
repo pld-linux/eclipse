@@ -32,8 +32,9 @@ ExclusiveArch:	%{ix86} ppc amd64
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_eclipse_arch	%(echo %{_target_cpu} | sed 's/i.86/x86/;s/athlon/x86/;s/pentium./x86/')
+%ifarch amd64
 %define         _noautostrip	.*\\.so
-
+%endif
 %description
 Eclipse is a kind of universal tool platform - an open extensible IDE
 for anything and nothing in particular.
@@ -84,7 +85,10 @@ cd -
     LDFLAGS="%{rpmldflags}"
 mv plugins/org.eclipse.core.resources.linux/{src/libcore*.so,os/linux/%{_eclipse_arch}}
 
+%ifarch amd64
 mkdir plugins/org.eclipse.update.core.linux/os/linux/%{_eclipse_arch}
+%endif
+
 cd plugins/org.eclipse.update.core.linux/src
 %{__cc} %{rpmcflags} -fPIC %{rpmldflags} -I. $JAVA_INC update.c -o libupdate.so -shared
 mv libupdate.so ../os/linux/%{_eclipse_arch}
@@ -93,11 +97,11 @@ cd -
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_bindir},%{_libdir}/%{name}}
-install -d $RPM_BUILD_ROOT%{_libdir}/eclipse/%{_swtgtkdir}_3.1.0/os/linux/amd64
+install -d $RPM_BUILD_ROOT%{_libdir}/eclipse/%{_swtgtkdir}_3.1.0/os/linux/%{_eclipse_arch}
 
 ./build -os linux -ws gtk -arch %{_eclipse_arch} -target install
 
-unzip result/org.eclipse.sdk-I%{_build_date}-2000-linux.gtk.amd64.zip -d $RPM_BUILD_ROOT%{_libdir}
+unzip result/org.eclipse.sdk-I%{_build_date}-2000-linux.gtk.%{_eclipse_arch}.zip -d $RPM_BUILD_ROOT%{_libdir}
 install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
 
 #wrapper
