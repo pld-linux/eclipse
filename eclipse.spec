@@ -8,8 +8,8 @@ Summary:	Eclipse - an open extensible IDE
 Summary(pl):	Eclipse - otwarte, rozszerzalne ¶rodowisko programistyczne
 Name:		eclipse
 Version:	%{_ver_major}
-Release:	1.1
-License:	Common Public Licence
+Release:	1.2
+License:	CPL v1.0
 Group:		Development/Tools
 Source0:	http://download2.eclipse.org/downloads/drops/R-%{_ver_major}-%{_buildid}/eclipse-sourceBuild-srcIncluded-%{_ver_major}.zip
 # Source0-md5:	962a41fe062f0ddc809ca956687c7e01
@@ -45,7 +45,7 @@ wszystkiego i niczego w szczególno¶ci.
 %setup -q -c
 
 %build
-JAVA_HOME=%{_libdir}/java
+JAVA_HOME=%{_prefix}/lib/java
 export JAVA_HOME
 ./build -os linux -ws gtk -arch %{_eclipse_arch} -target compile
 
@@ -94,7 +94,7 @@ install libswt-mozilla-gtk-*.so \
 %endif
 
 %clean
-#rm -rf $RPM_BUILD_ROOT
+rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
