@@ -18,16 +18,15 @@ Source0:	http://download2.eclipse.org/downloads/drops/R-%{_buildname}-%{_buildid
 # Source0-md5:	962a41fe062f0ddc809ca956687c7e01
 Source1:	%{name}.desktop
 URL:		http://www.eclipse.org/
-BuildRequires:	jdk
+BuildRequires:	jakarta-ant >= 1.6.1
+BuildRequires:	jdk >= 1.4
+BuildRequires:	gtk+2-devel
 BuildRequires:	unzip
 BuildRequires:	zip
-BuildRequires:	jakarta-ant >= 1.4
-BuildRequires:	gtk+2-devel
-Requires:	jdk
 Requires:	jakarta-ant
+Requires:	jdk
 Obsoletes:	eclipse-SDK
-#BuildArch:	noarch
-ExclusiveArch:	%{ix86}
+ExclusiveArch:	%{ix86} ppc amd64
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_javalibdir	/usr/share/java
