@@ -35,8 +35,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description -l pl
 
 %prep
-%setup -q -c -n %{name}-%{version}
-
+%setup -q -c
 
 %build
 JAVA_HOME=/usr/lib/java
