@@ -68,6 +68,7 @@ export JAVA_INC="-I$JAVA_HOME/include -I$JAVA_HOME/include/linux"
 
 patch -p0 < %{PATCH0}
 %{__make} -f make_linux.mak all \
+    XTEST_LIB_PATH=%{_prefix}/X11R6/%{_lib} \
     OPT="%{rpmcflags}"
 #cp library/* .
 #{__make} -f make_linux.mak make_mozilla \
