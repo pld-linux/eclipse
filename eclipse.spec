@@ -8,7 +8,7 @@ Summary:	Eclipse - an open extensible IDE
 Summary(pl):	Eclipse - otwarte, rozszerzalne ¶rodowisko programistyczne
 Name:		eclipse
 Version:	%{_ver_major}
-Release:	0.M1_%{_buildid}.1
+Release:	0.M1_%{_buildid}.2
 License:	CPL v1.0
 Group:		Development/Tools
 Source0:	http://download.eclipse.org/downloads/drops/S-%{_ver_major}M1-%{_buildid}/eclipse-sourceBuild-srcIncluded-%{_ver_major}M1.zip
