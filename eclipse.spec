@@ -15,7 +15,7 @@ Version:	%{_ver}
 Release:	0.%{_milestone}.1
 License:	Common Public Licence
 Group:		Development/Tools
-Source0:	http://download.eclipse.org/downloads/drops/S-%{_buildname}-%{_buildid}/eclipse-sourceBuild-srcIncluded-%{_buildname}.zip
+Source0:	http://download2.eclipse.org/downloads/drops/S-%{_buildname}-%{_buildid}/eclipse-sourceBuild-srcIncluded-%{_buildname}.zip
 # Source0-md5:	61e3c40be4c66d280aec95e786bb46dd
 Source1:	%{name}.desktop
 URL:		http://www.eclipse.org/
