@@ -1,7 +1,7 @@
 
 # TODO:
 # 	- conditional build with motiff
-#	- .so binaries should be removed and linked with PLD one... 
+#	- .so binaries should be removed and linked with PLD one...
 #         (we really need them here?)
 
 %define		_buildid	200303272130
@@ -53,17 +53,17 @@ find $RPM_BUILD_ROOT%{_datadir}/%{name} -type d -name src -exec rm -rf {} \; ||:
 find $RPM_BUILD_ROOT%{_datadir}/%{name} -type d -name temp.folder -exec rm -rf {} \; ||:
 find $RPM_BUILD_ROOT%{_datadir}/%{name} -type f -name build.xml -exec rm -f {} \; ||:
 find $RPM_BUILD_ROOT%{_datadir}/%{name} -type f -name build.properties -exec rm -f {} \; ||:
-find $RPM_BUILD_ROOT%{_datadir}/%{name} -type f -name ".*" -exec rm -f {} \; ||: 
-find $RPM_BUILD_ROOT%{_datadir}/%{name} -type f -name "*src.zip" -exec rm -f {} \; ||: 
-find $RPM_BUILD_ROOT%{_datadir}/%{name} -type  d -name "*solaris*" -exec rm -rf {} \; ||: 
-find $RPM_BUILD_ROOT%{_datadir}/%{name} -type  d -name "*hpux*" -exec rm -rf {} \; ||: 
-find $RPM_BUILD_ROOT%{_datadir}/%{name} -type  d -name "*macosx*" -exec rm -rf {} \; ||: 
-find $RPM_BUILD_ROOT%{_datadir}/%{name} -type  d -name "*aix*" -exec rm -rf {} \; ||: 
-find $RPM_BUILD_ROOT%{_datadir}/%{name} -type  d -name "*win32*" -exec rm -rf {} \; ||: 
-find $RPM_BUILD_ROOT%{_datadir}/%{name} -type  d -name "*qnx*" -exec rm -rf {} \; ||: 
+find $RPM_BUILD_ROOT%{_datadir}/%{name} -type f -name ".*" -exec rm -f {} \; ||:
+find $RPM_BUILD_ROOT%{_datadir}/%{name} -type f -name "*src.zip" -exec rm -f {} \; ||:
+find $RPM_BUILD_ROOT%{_datadir}/%{name} -type  d -name "*solaris*" -exec rm -rf {} \; ||:
+find $RPM_BUILD_ROOT%{_datadir}/%{name} -type  d -name "*hpux*" -exec rm -rf {} \; ||:
+find $RPM_BUILD_ROOT%{_datadir}/%{name} -type  d -name "*macosx*" -exec rm -rf {} \; ||:
+find $RPM_BUILD_ROOT%{_datadir}/%{name} -type  d -name "*aix*" -exec rm -rf {} \; ||:
+find $RPM_BUILD_ROOT%{_datadir}/%{name} -type  d -name "*win32*" -exec rm -rf {} \; ||:
+find $RPM_BUILD_ROOT%{_datadir}/%{name} -type  d -name "*qnx*" -exec rm -rf {} \; ||:
 
 # I'm not so sure about that:
-find $RPM_BUILD_ROOT%{_datadir}/%{name} -type f -name "*.java" -exec rm -f {} \; ||: 
+find $RPM_BUILD_ROOT%{_datadir}/%{name} -type f -name "*.java" -exec rm -f {} \; ||:
 
 rm -f $RPM_BUILD_ROOT%{_datadir}/%{name}/{build.bat,compilelog.txt,instructions.html,build}
 
