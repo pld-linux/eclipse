@@ -1,7 +1,4 @@
 #
-# TODO:
-#	- .so binaries should be removed and linked with PLD one... (we really need them here?)
-#
 %define		_buildid	200406251208
 %define		_ver_major	3.0
 %define		_ver_minor	0
@@ -22,7 +19,9 @@ URL:		http://www.eclipse.org/
 BuildRequires:	jakarta-ant >= 1.6.1
 BuildRequires:	jdk >= 1.4
 BuildRequires:	libgnomeui-devel
+%ifnarch amd64
 BuildRequires:	mozilla-devel
+%endif
 BuildRequires:	unzip
 BuildRequires:	zip
 Requires:	jakarta-ant
