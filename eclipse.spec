@@ -8,8 +8,8 @@
 %define		_milestone	M2
 %define		_buildname	%{_ver}%{_milestone}
 
-Summary:	eclipse
-Summary(pl):	eclipse
+Summary:	eclipse - an open extensible IDE
+Summary(pl):	eclipse - otwarte, rozszerzalne ¶rodowisko programistyczne
 Name:		eclipse
 Version:	%{_ver}
 Release:	0.%{_milestone}.1
@@ -19,13 +19,13 @@ Source0:	http://www.eclipse.ps.pl/downloads/drops/S-%{_buildname}-%{_buildid}/ec
 # Source0-md5:	12c9b31cf8605e58cf857715ac6ff5c3
 Source1:	%{name}.desktop
 URL:		http://www.eclipse.org/
-Obsoletes:	eclipse-SDK
 BuildRequires:	jdk
 BuildRequires:	unzip
 BuildRequires:	jakarta-ant >= 1.4
 BuildRequires:	gtk+2-devel
 Requires:	jdk
 Requires:	jakarta-ant
+Obsoletes:	eclipse-SDK
 #BuildArch:	noarch
 ExclusiveArch:	%{ix86}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -33,8 +33,13 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		_javalibdir	/usr/share/java
 
 %description
+Eclipse is a kind of universal tool platform - an open extensible IDE
+for anything and nothing in particular.
 
 %description -l pl
+Eclipse to rodzaj uniwersalnej platformy narzêdziowej - otwarte,
+rozszerzalne IDE (zintegrowane ¶rodowisko programistyczne) do
+wszystkiego i niczego w szczególno¶ci.
 
 %prep
 %setup -q -c
@@ -69,5 +74,5 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_datadir}/%{name}/eclipse
 %{_desktopdir}/eclipse.desktop
 %dir %{_datadir}/%{name}
-%{_datadir}/%{name}/.[^.]*
-%{_datadir}/%{name}/[^e]*
+%{_datadir}/%{name}/.[!.]*
+%{_datadir}/%{name}/[!e]*
