@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Eclipse
+Comment=Eclipse
+Comment[pl]=Eclipse
+Exec=eclipse
+Icon=%{_datadir}/%{name}/icon.xpm
+Terminal=false
+MultipleArgs=false
+Type=Application
+Categories=Application;Development;
+# vi: encoding=utf-8
