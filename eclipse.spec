@@ -87,7 +87,7 @@ exec %{_datadir}/%{name}/eclipse \$*
 EOF
 
 cd swt
-install libswt-{atk-gtk,awt-gtk,gnome-gtk,gtk,mozilla-gtk,pi-gtk}-*.so \
+install libswt-{atk-gtk,awt-gtk,gnome-gtk,gtk,pi-gtk}-*.so \
     $RPM_BUILD_ROOT%{_datadir}/eclipse/plugins/org.eclipse.swt.gtk_%{_ver_major}.%{_ver_minor}/os/linux/%{_eclipse_arch}
 %ifnarch
 install libswt-mozilla-gtk-*.so \
