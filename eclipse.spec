@@ -1,5 +1,5 @@
 #
-%define		_buildid	200408122000
+%define		_buildid	200409240800
 %define		_ver_major	3.1
 %define		_ver_minor	0
 %define		_ver		%{_ver_major}.%{_ver_minor}
@@ -8,21 +8,21 @@ Summary:	Eclipse - an open extensible IDE
 Summary(pl):	Eclipse - otwarte, rozszerzalne ¶rodowisko programistyczne
 Name:		eclipse
 Version:	%{_ver_major}
-Release:	0.M1_%{_buildid}.2
+Release:	0.M2_%{_buildid}.1
 License:	CPL v1.0
 Group:		Development/Tools
-Source0:	http://download.eclipse.org/downloads/drops/S-%{_ver_major}M1-%{_buildid}/eclipse-sourceBuild-srcIncluded-%{_ver_major}M1.zip
-# Source0-md5:	e2ed08cb88adc0262086a77c96ffa2b2
+Source0:	http://download.eclipse.org/downloads/drops/S-%{_ver_major}M2-%{_buildid}/eclipse-sourceBuild-srcIncluded-%{_ver_major}M2.zip
+# Source0-md5:	a10fc8b23fd7c6783d55d795168879f0
+# Source0-size:	56139196
 Source1:	%{name}.desktop
 Patch0:		%{name}-swt-makefile.patch
 Patch1:		%{name}-core_resources-makefile.patch
 URL:		http://www.eclipse.org/
 BuildRequires:	jakarta-ant >= 1.6.1
 BuildRequires:	jdk >= 1.4
+BuildRequires:	kdelibs-devel
 BuildRequires:	libgnomeui-devel
-%ifnarch amd64
-BuildRequires:	mozilla-devel
-%endif
+#BuildRequires:	mozilla-devel
 BuildRequires:	unzip
 BuildRequires:	zip
 Requires:	jakarta-ant
@@ -56,28 +56,27 @@ export JAVA_HOME
 %else
 %define	_swtsrcdir	plugins/org.eclipse.swt.gtk/ws/gtk
 %endif
+
 rm -rf swt
 mkdir swt && cd swt
+
 unzip -x %{_builddir}/%{name}-%{version}/%{_swtsrcdir}/swtsrc.zip
 unzip -x %{_builddir}/%{name}-%{version}/%{_swtsrcdir}/swt-pisrc.zip
-unzip -x %{_builddir}/%{name}-%{version}/%{_swtsrcdir}/swt-mozillasrc.zip
-ln -sf library/xpcom.cpp xpcom.cpp
+#unzip -x %{_builddir}/%{name}-%{version}/%{_swtsrcdir}/swt-mozillasrc.zip
+
+export JAVA_INC="-I$JAVA_HOME/include -I$JAVA_HOME/include/linux"
+
 patch -p0 < %{PATCH0}
-%ifnarch amd64
-%{__make} -f make_gtk.mak all \
-%else
-# amd64: mozilla disabled
-%{__make} -f make_gtk.mak all64 \
-%endif
+%{__make} -f make_linux.mak all \
     OPT="%{rpmcflags}"
+#cp library/* .
+#{__make} -f make_linux.mak make_mozilla \
+#    OPT="%{rpmcflags}"
 cd -
 
-JAVA_INC="-I$JAVA_HOME/include -I$JAVA_HOME/include/linux"
-
 %{__make} -C plugins/org.eclipse.core.resources.linux/src \
-    CFLAGS="%{rpmcflags}" \
-    LDFLAGS="%{rpmldflags}" \
-    INC_PATH="$JAVA_INC"
+    CFLAGS="%{rpmcflags} $JAVA_INC" \
+    LDFLAGS="%{rpmldflags}"
 mv plugins/org.eclipse.core.resources.linux/{src/libcore*.so,os/linux/%{_eclipse_arch}}
 
 cd plugins/org.eclipse.update.core.linux/src
@@ -102,12 +101,10 @@ exec %{_datadir}/%{name}/eclipse \$*
 EOF
 
 cd swt
-install libswt-{atk-gtk,awt-gtk,gnome-gtk,gtk,pi-gtk}-*.so \
+install libswt-{atk-gtk,awt-gtk,gnome-gtk,gtk,kde,pi-gtk}-*.so \
     $RPM_BUILD_ROOT%{_datadir}/eclipse/plugins/org.eclipse.swt.gtk_%{_ver_major}.%{_ver_minor}/os/linux/%{_eclipse_arch}
-%ifnarch amd64
-install libswt-mozilla-gtk-*.so \
-    $RPM_BUILD_ROOT%{_datadir}/eclipse/plugins/org.eclipse.swt.gtk_%{_ver_major}.%{_ver_minor}/os/linux/%{_eclipse_arch}
-%endif
+#install libswt-mozilla-gtk-*.so \
+#    $RPM_BUILD_ROOT%{_datadir}/eclipse/plugins/org.eclipse.swt.gtk_%{_ver_major}.%{_ver_minor}/os/linux/%{_eclipse_arch}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -208,9 +205,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_datadir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/os/linux/%{_eclipse_arch}/libswt-awt-gtk-*.so
 %attr(755,root,root) %{_datadir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/os/linux/%{_eclipse_arch}/libswt-gnome-gtk-*.so
 %attr(755,root,root) %{_datadir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/os/linux/%{_eclipse_arch}/libswt-gtk-*.so
-%ifnarch amd64
-%attr(755,root,root) %{_datadir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/os/linux/%{_eclipse_arch}/libswt-mozilla-gtk-*.so
-%endif
+%attr(755,root,root) %{_datadir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/os/linux/%{_eclipse_arch}/libswt-kde-gtk*.so
+#attr(755,root,root) %{_datadir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/os/linux/%{_eclipse_arch}/libswt-mozilla-gtk-*.so
 %attr(755,root,root) %{_datadir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/os/linux/%{_eclipse_arch}/libswt-pi-gtk-*.so
 %{_datadir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/ws
 %{_datadir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/META-INF
