@@ -47,7 +47,7 @@ wszystkiego i niczego w szczególno¶ci.
 %patch1 -p1
 
 %build
-JAVA_HOME=%{_prefix}/lib/java
+JAVA_HOME=%{_libdir}/java
 export JAVA_HOME
 ./build -os linux -ws gtk -arch %{_eclipse_arch} -target compile
 
