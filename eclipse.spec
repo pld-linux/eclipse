@@ -15,7 +15,7 @@ License:	Apache
 Group:		Development/Languages/Java
 Source0:	http://download2.eclipse.org/downloads/drops/R-2.1-%{_buildid}/eclipse-sourceBuild-srcIncluded-2.1.zip
 # Source0-md5:	cc193abe0cdc0f59a2e97b8a41290ffd
-URL:		http://www.eclipse.org
+URL:		http://www.eclipse.org/
 BuildRequires:	jdk
 BuildRequires:	jakarta-ant >= 1.4
 BuildRequires:	gtk+2-devel
