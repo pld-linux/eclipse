@@ -1,34 +1,28 @@
+#
 # TODO:
-#	- conditional build with motif (really needed?)
-#	http://www.eclipse.ps.pl/downloads/drops/
-#		R-3.0-200406251208/srcIncludedBuildInstructions.html#build_platforms
-#
-#	linux	gtk	x86
-#	linux	gtk	ppc
-#	linux	gtk	amd64
-#	linux	motif	x86
-#
-#	- .so binaries should be removed and linked with PLD one...
-#	  (we really need them here?)
+#	- .so binaries should be removed and linked with PLD one... (we really need them here?)
 #
 %define		_buildid	200406251208
-%define		_ver		3.0
-%define		_buildname	%{_ver}
+%define		_ver_major	3.0
+%define		_ver_minor	0
+%define		_buildname	%{_ver_major}
 #
-Summary:	eclipse - an open extensible IDE
-Summary(pl):	eclipse - otwarte, rozszerzalne ¶rodowisko programistyczne
+Summary:	Eclipse - an open extensible IDE
+Summary(pl):	Eclipse - otwarte, rozszerzalne ¶rodowisko programistyczne
 Name:		eclipse
-Version:	%{_ver}
+Version:	%{_ver_major}
 Release:	1
 License:	Common Public Licence
 Group:		Development/Tools
 Source0:	http://download2.eclipse.org/downloads/drops/R-%{_buildname}-%{_buildid}/eclipse-sourceBuild-srcIncluded-%{_buildname}.zip
 # Source0-md5:	962a41fe062f0ddc809ca956687c7e01
 Source1:	%{name}.desktop
+Patch0:		%{name}-swt-makefile.patch
 URL:		http://www.eclipse.org/
 BuildRequires:	jakarta-ant >= 1.6.1
 BuildRequires:	jdk >= 1.4
-BuildRequires:	gtk+2-devel
+BuildRequires:	libgnomeui-devel
+BuildRequires:	mozilla-devel
 BuildRequires:	unzip
 BuildRequires:	zip
 Requires:	jakarta-ant
@@ -57,6 +51,26 @@ JAVA_HOME=/usr/lib/java
 export JAVA_HOME
 ./build -os linux -ws gtk -arch %{_eclipse_arch} -target compile
 
+%ifarch amd64
+%define	_swtsrcdir	plugins/org.eclipse.swt.gtk64/ws/gtk
+%else
+%define	_swtsrcdir	plugins/org.eclipse.swt.gtk/ws/gtk
+%endif
+rm -rf swt
+mkdir swt && cd swt
+unzip -x %{_builddir}/%{name}-%{version}/%{_swtsrcdir}/swtsrc.zip
+unzip -x %{_builddir}/%{name}-%{version}/%{_swtsrcdir}/swt-pisrc.zip
+unzip -x %{_builddir}/%{name}-%{version}/%{_swtsrcdir}/swt-mozillasrc.zip
+ln -sf library/xpcom.cpp xpcom.cpp
+patch -p0 < %{PATCH0}
+%ifnarch amd64
+%{__make} -f make_gtk.mak all \
+%else
+# amd64: mozilla disabled
+%{__make} -f make_gtk.mak all64 \
+%endif
+    OPT="%{rpmcflags}"
+
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_bindir},%{_datadir}/%{name}}
@@ -72,6 +86,34 @@ cat > $RPM_BUILD_ROOT%{_bindir}/eclipse << EOF
 #!/bin/sh
 exec %{_datadir}/%{name}/eclipse \$*
 EOF
+
+# we don't supported all archs...
+#rm -rf plugins/org.eclipse.core.resources.{hpux,macosx,qnx,win32}
+# plugins/org.eclipse.core.resources.linux
+#rm -rf plugins/org.eclipse.swt.{carbon,motif,photon,win32}
+# plugins/org.eclipse.swt.gtk
+# plugins/org.eclipse.swt.gtk64
+#rm -rf plugins/org.eclipse.update.core.win32
+#rm -rf plugins/org.eclipse.platform.source.aix.motif.ppc
+#rm -rf plugins/org.eclipse.platform.source.hpux.motif.PA_RISC
+# org.eclipse.platform.source.linux.gtk.amd64
+# org.eclipse.platform.source.linux.gtk.ppc
+# org.eclipse.platform.source.linux.gtk.x86
+#rm -rf plugins/org.eclipse.pde.source.aix.motif.ppc:
+#rm -rf plugins/org.eclipse.pde.source.hpux.motif.PA_RISC:
+# plugins/org.eclipse.pde.source.linux.gtk.amd64
+# plugins/org.eclipse.pde.source.linux.gtk.ppc
+# plugins/org.eclipse.pde.source.linux.gtk.x86
+#rm -rf plugins/org.eclipse.pde.source.linux.motif.x86
+#rm -rf plugins/org.eclipse.pde.source.macosx.carbon.ppc
+#rm -rf plugins/org.eclipse.pde.source.qnx.photon.x86
+#rm -rf plugins/org.eclipse.pde.source.solaris.motif.sparc
+#rm -rf plugins/org.eclipse.pde.source.win32.win32.x86
+#rm -rf plugins/org.eclipse.platform.source.linux.motif.x86
+#rm -rf plugins/org.eclipse.platform.source.macosx.carbon.ppc
+#rm -rf plugins/org.eclipse.platform.source.qnx.photon.x86
+#rm -rf plugins/org.eclipse.platform.source.solaris.motif.sparc
+#rm -rf plugins/org.eclipse.platform.source.win32.win32.x86
 
 %clean
 rm -rf $RPM_BUILD_ROOT
