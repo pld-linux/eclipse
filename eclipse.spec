@@ -3,9 +3,9 @@
 #	- .so binaries should be removed and linked with PLD one...
 #	  (we really need them here?)
 
-%define		_buildid	200312182000
+%define		_buildid	200403261517
 %define		_ver		3.0
-%define		_milestone	M6
+%define		_milestone	M8
 %define		_buildname	%{_ver}%{_milestone}
 
 Summary:	eclipse - an open extensible IDE
@@ -15,8 +15,8 @@ Version:	%{_ver}
 Release:	0.%{_milestone}.1
 License:	Common Public Licence
 Group:		Development/Tools
-Source0:	http://www.eclipse.ps.pl/downloads/drops/S-%{_buildname}-%{_buildid}/eclipse-sourceBuild-srcIncluded-%{_buildname}.zip
-# Source0-md5:	370e4428578105019683f8882e2e3827
+Source0:	http://download.eclipse.org/downloads/drops/S-%{_buildname}-%{_buildid}/eclipse-sourceBuild-srcIncluded-%{_buildname}.zip
+# Source0-md5:	61e3c40be4c66d280aec95e786bb46dd
 Source1:	%{name}.desktop
 URL:		http://www.eclipse.org/
 BuildRequires:	jdk
