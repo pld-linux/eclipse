@@ -11,7 +11,7 @@ Version:	%{_ver_major}
 Release:	0.M1_%{_buildid}.1
 License:	CPL v1.0
 Group:		Development/Tools
-Source0:	http://download.eclipse.org/downloads/drops/S-%{_ver_major}-%{_buildid}/eclipse-sourceBuild-srcIncluded-%{_ver_major}M1.zip
+Source0:	http://download.eclipse.org/downloads/drops/S-%{_ver_major}M1-%{_buildid}/eclipse-sourceBuild-srcIncluded-%{_ver_major}M1.zip
 # Source0-md5:	e2ed08cb88adc0262086a77c96ffa2b2
 Source1:	%{name}.desktop
 Patch0:		%{name}-swt-makefile.patch
@@ -126,6 +126,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/%{name}/startup.jar
 
 # features
+%dir %{_datadir}/%{name}/features
 %{_datadir}/%{name}/features/org.eclipse.jdt_*.*.*
 %{_datadir}/%{name}/features/org.eclipse.jdt.source_*.*.*
 %{_datadir}/%{name}/features/org.eclipse.pde_*.*.*
@@ -135,6 +136,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/%{name}/features/org.eclipse.sdk_*.*.*
 
 # plugins
+%dir %{_datadir}/%{name}/plugins
 %{_datadir}/%{name}/plugins/org.apache.ant_*.*.*
 %{_datadir}/%{name}/plugins/org.apache.lucene_*.*.*
 %{_datadir}/%{name}/plugins/org.eclipse.ant.core_*.*.*
@@ -146,8 +148,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/%{name}/plugins/org.eclipse.core.resources_*.*.*
 
 %dir %{_datadir}/%{name}/plugins/org.eclipse.core.resources.linux_*.*.*
-%{_datadir}/%{name}/plugins/org.eclipse.core.resources.linux_*.*.*/fragment.xml
+%dir %{_datadir}/%{name}/plugins/org.eclipse.core.resources.linux_*.*.*/os
+%dir %{_datadir}/%{name}/plugins/org.eclipse.core.resources.linux_*.*.*/os/linux
+%dir %{_datadir}/%{name}/plugins/org.eclipse.core.resources.linux_*.*.*/os/linux/%{_eclipse_arch}
 %attr(755,root,root) %{_datadir}/%{name}/plugins/org.eclipse.core.resources.linux_*.*.*/os/linux/%{_eclipse_arch}/libcore_2_1_0b.so
+%{_datadir}/%{name}/plugins/org.eclipse.core.resources.linux_*.*.*/fragment.xml
+
 %{_datadir}/%{name}/plugins/org.eclipse.core.runtime_*.*.*
 %{_datadir}/%{name}/plugins/org.eclipse.core.runtime.compatibility_*.*.*
 %{_datadir}/%{name}/plugins/org.eclipse.core.variables_*.*.*
@@ -195,13 +201,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/%{name}/plugins/org.eclipse.swt_*.*.*
 
 %dir %{_datadir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*
-%{_datadir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/META-INF/MANIFEST.MF
-%{_datadir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/about.html
-%{_datadir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/cpl-v10.html
-%{_datadir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/fragment.properties
-%{_datadir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/fragment.xml
-%{_datadir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/lgpl-v21.txt
-%{_datadir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/mpl-v11.txt
+%dir %{_datadir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/os
+%dir %{_datadir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/os/linux
+%dir %{_datadir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/os/linux/%{_eclipse_arch}
 %attr(755,root,root) %{_datadir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/os/linux/%{_eclipse_arch}/libswt-atk-gtk-*.so
 %attr(755,root,root) %{_datadir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/os/linux/%{_eclipse_arch}/libswt-awt-gtk-*.so
 %attr(755,root,root) %{_datadir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/os/linux/%{_eclipse_arch}/libswt-gnome-gtk-*.so
@@ -210,9 +212,14 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_datadir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/os/linux/%{_eclipse_arch}/libswt-mozilla-gtk-*.so
 %endif
 %attr(755,root,root) %{_datadir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/os/linux/%{_eclipse_arch}/libswt-pi-gtk-*.so
-%{_datadir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/ws/gtk/swt-mozilla.jar
-%{_datadir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/ws/gtk/swt-pi.jar
-%{_datadir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/ws/gtk/swt.jar
+%{_datadir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/ws
+%{_datadir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/META-INF
+%{_datadir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/about.html
+%{_datadir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/cpl-v10.html
+%{_datadir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/fragment.properties
+%{_datadir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/fragment.xml
+%{_datadir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/lgpl-v21.txt
+%{_datadir}/%{name}/plugins/org.eclipse.swt.gtk_*.*.*/mpl-v11.txt
 
 %{_datadir}/%{name}/plugins/org.eclipse.team.core_*.*.*
 %{_datadir}/%{name}/plugins/org.eclipse.team.cvs.core_*.*.*
@@ -239,9 +246,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/%{name}/plugins/org.eclipse.update.core_*.*.*
 
 %dir %{_datadir}/%{name}/plugins/org.eclipse.update.core.linux_*.*.*
+%dir %{_datadir}/%{name}/plugins/org.eclipse.update.core.linux_*.*.*/os
+%dir %{_datadir}/%{name}/plugins/org.eclipse.update.core.linux_*.*.*/os/linux
+%dir %{_datadir}/%{name}/plugins/org.eclipse.update.core.linux_*.*.*/os/linux/%{_eclipse_arch}
+%attr(755,root,root) %{_datadir}/%{name}/plugins/org.eclipse.update.core.linux_*.*.*/os/linux/%{_eclipse_arch}/libupdate.so
 %{_datadir}/%{name}/plugins/org.eclipse.update.core.linux_*.*.*/about.html
 %{_datadir}/%{name}/plugins/org.eclipse.update.core.linux_*.*.*/fragment.xml
-%attr(755,root,root) %{_datadir}/%{name}/plugins/org.eclipse.update.core.linux_*.*.*/os/linux/%{_eclipse_arch}/libupdate.so
+
 %{_datadir}/%{name}/plugins/org.eclipse.update.scheduler_*.*.*
 %{_datadir}/%{name}/plugins/org.eclipse.update.ui_*.*.*
 %{_datadir}/%{name}/plugins/org.junit_*.*.*
