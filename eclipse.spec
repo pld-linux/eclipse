@@ -1,5 +1,5 @@
 # TODO:
-# 	- conditional build with motiff
+# 	- conditional build with motif
 #	- .so binaries should be removed and linked with PLD one...
 #	  (we really need them here?)
 
@@ -13,8 +13,8 @@ Summary(pl):	eclipse
 Name:		eclipse
 Version:	%{_ver}
 Release:	0.%{_milestone}.1
-License:	Apache
-Group:		Development/Languages/Java
+License:	Common Public Licence
+Group:		Development/Tools
 Source0:	http://www.eclipse.ps.pl/downloads/drops/S-%{_buildname}-%{_buildid}/eclipse-sourceBuild-srcIncluded-%{_buildname}.zip
 # Source0-md5:	12c9b31cf8605e58cf857715ac6ff5c3
 Source1:	%{name}.desktop
@@ -25,7 +25,9 @@ BuildRequires:	unzip
 BuildRequires:	jakarta-ant >= 1.4
 BuildRequires:	gtk+2-devel
 Requires:	jdk
+Requires:	jakarta-ant
 #BuildArch:	noarch
+ExclusiveArch:	%{ix86}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_javalibdir	/usr/share/java
@@ -49,13 +51,13 @@ install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_bindir},%{_datadir}/%{name}}
 ./build -os linux -ws gtk -arch x86 -target install
 
 unzip result/linux-gtk-x86-sdk.zip -d $RPM_BUILD_ROOT%{_datadir}
-install %{SOURCE1} %{_desktopdir}
+install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
 
 #wrapper
 install -d $RPM_BUILD_ROOT%{_bindir}
 cat > $RPM_BUILD_ROOT%{_bindir}/eclipse << EOF
 #!/bin/sh
-%{_datadir}/%{name}/eclipse 
+exec %{_datadir}/%{name}/eclipse \$*
 EOF
 
 %clean
@@ -66,4 +68,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/eclipse
 %attr(755,root,root) %{_datadir}/%{name}/eclipse
 %{_desktopdir}/eclipse.desktop
-%{_datadir}/%{name}
+%dir %{_datadir}/%{name}
+%{_datadir}/%{name}/.[^.]*
+%{_datadir}/%{name}/[^e]*
