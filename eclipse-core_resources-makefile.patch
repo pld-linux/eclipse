@@ -1,0 +1,13 @@
+--- eclipse-3.0/plugins/org.eclipse.core.resources.linux/src/Makefile.orig	2004-06-25 18:28:27.000000000 +0200
++++ eclipse-3.0/plugins/org.eclipse.core.resources.linux/src/Makefile	2004-07-15 17:58:26.889098776 +0200
+@@ -14,8 +14,8 @@
+ LIB_NAME_FULL = libcore_2_1_0b.so
+ 
+ core :
+-	gcc -fPIC -g -c -I$(JDK_INCLUDE) $(CORE.C) -o $(CORE.O)
+-	gcc -g -shared -Wl,-soname,$(LIB_NAME) -o $(LIB_NAME_FULL) $(CORE.O) -lc
++	gcc -fPIC $(CFLAGS) -c $(INC_PATH) $(CORE.C) -o $(CORE.O)
++	gcc $(LDFLAGS) -shared -Wl,-soname,$(LIB_NAME) -o $(LIB_NAME_FULL) $(CORE.O)
+ 
+ clean :
+ 	rm *.o
