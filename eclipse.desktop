@@ -8,5 +8,5 @@ Icon=/usr/share/eclipse/icon.xpm
 Terminal=false
 MultipleArgs=false
 Type=Application
-Categories=Application;Development;
+Categories=Development;
 # vi: encoding=utf-8
