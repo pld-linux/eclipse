@@ -4,19 +4,17 @@
 #	- .so binaries should be removed and linked with PLD one... 
 #         (we really need them here?)
 
-%define		_buildname	M5
-%define		_buildid	200302061700
+%define		_buildid	200303272130
 
 Summary:	eclipse
 Summary(pl):	eclipse
 Name:		eclipse-SDK
 Version:	2.1.0
-Release:	0.%{_buildname}.%{_buildid}.1
+Release:	1
 License:	Apache
 Group:		Development/Languages/Java
-Source0:	ftp://download.eclipse.org/S-%{_buildname}-%{_buildid}/eclipse-sourceBuild-srcIncluded-%{_buildname}.zip
+Source0:	http://download2.eclipse.org/downloads/drops/R-2.1-%{_buildid}/eclipse-sourceBuild-srcIncluded-2.1.zip
 URL:		http://www.eclipse.org
-BuildRequires:	java-env
 BuildRequires:	jdk
 BuildRequires:	jakarta-ant >= 1.4
 BuildRequires:	gtk+2-devel
@@ -25,9 +23,8 @@ Requires:	jdk
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_javalibdir	/usr/share/java
-%define		javacfgdir	/etc/sysconfig/java
 
-%define		_noautoreq	libc.so.2 libdb.so.2 libkdecore.so.3 libksycoca.so.3 libphexlib.so.2 libphrender.so.2 libph.so.2 libqt.so.2
+%define		_noautoreq	libc.so.2 libdb.so.2 libkdecore.so.4 libkdecore.so.3 libksycoca.so.3 libphexlib.so.2 libphrender.so.2 libph.so.2 libqt.so.2 libqt-mt.so.3
 
 %description
 
@@ -38,9 +35,6 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 
 %build
-JAVA_HOME=`javaenv --getjavahome`
-export JAVA_HOME
-
 ./build -os linux -ws gtk -target compile
 ./build -os linux -ws gtk -target buildDoc
 
@@ -70,12 +64,9 @@ find $RPM_BUILD_ROOT%{_datadir}/%{name} -type f -name "*.java" -exec rm -f {} \;
 
 rm -f $RPM_BUILD_ROOT%{_datadir}/%{name}/{build.bat,compilelog.txt,instructions.html,build}
 
-install -d $RPM_BUILD_ROOT%{javacfgdir}
-javacpmgr --findjars $RPM_BUILD_ROOT > $RPM_BUILD_ROOT%{javacfgdir}/cp.%{name}
-
 #desktop file
-install -d $RPM_BUILD_ROOT%{_applnkdir}/Development
-cat > $RPM_BUILD_ROOT%{_applnkdir}/Development/eclipse.desktop << EOF
+install -d $RPM_BUILD_ROOT%{_desktopdir}
+cat > $RPM_BUILD_ROOT%{_desktopdir}/eclipse.desktop << EOF
 [Desktop Entry]
 Name=Eclipse
 Comment=Eclipse
@@ -85,6 +76,7 @@ Icon=
 Terminal=false
 MultipleArgs=false
 Type=Application
+Categories=Application;Development;
 # vi: encoding=utf-8
 EOF
 
@@ -100,10 +92,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%config(noreplace) %verify(not size mtime md5) %{javacfgdir}/cp.%{name}
 %attr(755,root,root) %{_bindir}/eclipse
 %attr(755,root,root) %{_datadir}/%{name}/eclipse
-%{_applnkdir}/Development/eclipse.desktop
+%{_desktopdir}/eclipse.desktop
 
 %dir %{_datadir}/%{name}
 %dir %{_datadir}/%{name}/plugins
@@ -148,13 +139,13 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/%{name}/plugins/org.eclipse.update.core.linux
 %{_datadir}/%{name}/plugins/org.eclipse.update.core.linux/about.html
 %{_datadir}/%{name}/plugins/org.eclipse.update.core.linux/fragment.xml
-%attr(755,root,root) %{_datadir}/%{name}/plugins/org.eclipse.update.core.linux/os/linux/libupdate.so
 
 %{_datadir}/%{name}/plugins/org.eclipse.pde.runtime
 
 %dir %{_datadir}/%{name}/plugins/org.eclipse.swt.gtk
-%attr(755,root,root) %{_datadir}/%{name}/plugins/org.eclipse.swt.gtk/os/linux/x86/libswt-pi-gtk-2128.so
-%attr(755,root,root) %{_datadir}/%{name}/plugins/org.eclipse.swt.gtk/os/linux/x86/libswt-gtk-2128.so
+%attr(755,root,root) %{_datadir}/%{name}/plugins/org.eclipse.swt.gtk/os/linux/x86/libswt-pi-gtk-*.so
+%attr(755,root,root) %{_datadir}/%{name}/plugins/org.eclipse.swt.gtk/os/linux/x86/libswt-gtk-*.so
+%attr(755,root,root) %{_datadir}/%{name}/plugins/org.eclipse.swt.gtk/os/linux/x86/libswt-gnome-gtk-*.so
 %{_datadir}/%{name}/plugins/org.eclipse.swt.gtk/lgpl-v21.txt
 %{_datadir}/%{name}/plugins/org.eclipse.swt.gtk/cpl-v10.html
 %{_datadir}/%{name}/plugins/org.eclipse.swt.gtk/fragment.xml
@@ -171,9 +162,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/%{name}/plugins/org.eclipse.platform.doc.user
 
 %dir %{_datadir}/%{name}/plugins/org.eclipse.swt.motif
-%attr(755,root,root) %{_datadir}/%{name}/plugins/org.eclipse.swt.motif/os/linux/x86/libswt-kde-motif-2128.so
-%attr(755,root,root) %{_datadir}/%{name}/plugins/org.eclipse.swt.motif/os/linux/x86/libswt-gnome-motif-2128.so
-%attr(755,root,root) %{_datadir}/%{name}/plugins/org.eclipse.swt.motif/os/linux/x86/libswt-motif-2128.so
+%attr(755,root,root) %{_datadir}/%{name}/plugins/org.eclipse.swt.motif/os/linux/x86/libswt-kde-motif-*.so
+%attr(755,root,root) %{_datadir}/%{name}/plugins/org.eclipse.swt.motif/os/linux/x86/libswt-gnome-motif-*.so
+%attr(755,root,root) %{_datadir}/%{name}/plugins/org.eclipse.swt.motif/os/linux/x86/libswt-motif-*.so
 %{_datadir}/%{name}/plugins/org.eclipse.swt.motif/fragment.xml
 %{_datadir}/%{name}/plugins/org.eclipse.swt.motif/about.html
 %{_datadir}/%{name}/plugins/org.eclipse.swt.motif/fragment.properties
@@ -202,7 +193,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/%{name}/plugins/org.eclipse.sdk.linux.motif
 
 %dir %{_datadir}/%{name}/plugins/org.eclipse.core.resources.linux
-%attr(755,root,root) %{_datadir}/%{name}/plugins/org.eclipse.core.resources.linux/os/linux/x86/libcore_2_1_0.so
+%attr(755,root,root) %{_datadir}/%{name}/plugins/org.eclipse.core.resources.linux/os/linux/x86/libcore_2_1_0a.so
 %{_datadir}/%{name}/plugins/org.eclipse.core.resources.linux/fragment.xml
 %{_datadir}/%{name}/plugins/org.eclipse.core.resources.linux/about.html
 
