@@ -81,7 +81,7 @@ cd -
 mv plugins/org.eclipse.core.resources.linux/{src/libcore*.so,os/linux/%{_eclipse_arch}}
 
 cd plugins/org.eclipse.update.core.linux/src
-%{__cc} %{rpmcflags} %{rpmldflags} -I. $JAVA_INC update.c -o libupdate.so -shared
+%{__cc} %{rpmcflags} -fPIC %{rpmldflags} -I. $JAVA_INC update.c -o libupdate.so -shared
 mv libupdate.so ../os/linux/%{_eclipse_arch}
 cd -
 
