@@ -8,7 +8,7 @@ Summary:	Eclipse - an open extensible IDE
 Summary(pl):	Eclipse - otwarte, rozszerzalne ¶rodowisko programistyczne
 Name:		eclipse
 Version:	%{_ver_major}
-Release:	1
+Release:	1.1
 License:	Common Public Licence
 Group:		Development/Tools
 Source0:	http://download2.eclipse.org/downloads/drops/R-%{_buildname}-%{_buildid}/eclipse-sourceBuild-srcIncluded-%{_buildname}.zip
@@ -86,33 +86,13 @@ cat > $RPM_BUILD_ROOT%{_bindir}/eclipse << EOF
 exec %{_datadir}/%{name}/eclipse \$*
 EOF
 
-# we don't supported all archs...
-#rm -rf plugins/org.eclipse.core.resources.{hpux,macosx,qnx,win32}
-# plugins/org.eclipse.core.resources.linux
-#rm -rf plugins/org.eclipse.swt.{carbon,motif,photon,win32}
-# plugins/org.eclipse.swt.gtk
-# plugins/org.eclipse.swt.gtk64
-#rm -rf plugins/org.eclipse.update.core.win32
-#rm -rf plugins/org.eclipse.platform.source.aix.motif.ppc
-#rm -rf plugins/org.eclipse.platform.source.hpux.motif.PA_RISC
-# org.eclipse.platform.source.linux.gtk.amd64
-# org.eclipse.platform.source.linux.gtk.ppc
-# org.eclipse.platform.source.linux.gtk.x86
-#rm -rf plugins/org.eclipse.pde.source.aix.motif.ppc:
-#rm -rf plugins/org.eclipse.pde.source.hpux.motif.PA_RISC:
-# plugins/org.eclipse.pde.source.linux.gtk.amd64
-# plugins/org.eclipse.pde.source.linux.gtk.ppc
-# plugins/org.eclipse.pde.source.linux.gtk.x86
-#rm -rf plugins/org.eclipse.pde.source.linux.motif.x86
-#rm -rf plugins/org.eclipse.pde.source.macosx.carbon.ppc
-#rm -rf plugins/org.eclipse.pde.source.qnx.photon.x86
-#rm -rf plugins/org.eclipse.pde.source.solaris.motif.sparc
-#rm -rf plugins/org.eclipse.pde.source.win32.win32.x86
-#rm -rf plugins/org.eclipse.platform.source.linux.motif.x86
-#rm -rf plugins/org.eclipse.platform.source.macosx.carbon.ppc
-#rm -rf plugins/org.eclipse.platform.source.qnx.photon.x86
-#rm -rf plugins/org.eclipse.platform.source.solaris.motif.sparc
-#rm -rf plugins/org.eclipse.platform.source.win32.win32.x86
+cd swt
+install libswt-{atk-gtk,awt-gtk,gnome-gtk,gtk,mozilla-gtk,pi-gtk}-*.so \
+    $RPM_BUILD_ROOT%{_datadir}/eclipse/plugins/org.eclipse.swt.gtk_%{_ver_major}.%{_ver_minor}/os/linux/%{_eclipse_arch}
+%ifnarch
+install libswt-mozilla-gtk-*.so \
+    $RPM_BUILD_ROOT%{_datadir}/eclipse/plugins/org.eclipse.swt.gtk_%{_ver_major}.%{_ver_minor}/os/linux/%{_eclipse_arch}
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
