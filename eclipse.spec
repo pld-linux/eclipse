@@ -36,6 +36,8 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 
 %build
+JAVA_HOME=/usr/lib/java
+export JAVA_HOME
 ./build -os linux -ws gtk -target compile
 ./build -os linux -ws gtk -target buildDoc
 
