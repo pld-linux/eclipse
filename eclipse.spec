@@ -8,13 +8,14 @@ Summary:	Eclipse - an open extensible IDE
 Summary(pl):	Eclipse - otwarte, rozszerzalne ¶rodowisko programistyczne
 Name:		eclipse
 Version:	%{_ver_major}
-Release:	1.2
+Release:	2
 License:	CPL v1.0
 Group:		Development/Tools
 Source0:	http://download2.eclipse.org/downloads/drops/R-%{_ver_major}-%{_buildid}/eclipse-sourceBuild-srcIncluded-%{_ver_major}.zip
 # Source0-md5:	962a41fe062f0ddc809ca956687c7e01
 Source1:	%{name}.desktop
 Patch0:		%{name}-swt-makefile.patch
+Patch1:		%{name}-core_resources-makefile.patch
 URL:		http://www.eclipse.org/
 BuildRequires:	jakarta-ant >= 1.6.1
 BuildRequires:	jdk >= 1.4
@@ -43,6 +44,7 @@ wszystkiego i niczego w szczególno¶ci.
 
 %prep
 %setup -q -c
+%patch1 -p1
 
 %build
 JAVA_HOME=%{_prefix}/lib/java
@@ -68,6 +70,20 @@ patch -p0 < %{PATCH0}
 %{__make} -f make_gtk.mak all64 \
 %endif
     OPT="%{rpmcflags}"
+cd -
+
+JAVA_INC="-I$JAVA_HOME/include -I$JAVA_HOME/include/linux"
+
+%{__make} -C plugins/org.eclipse.core.resources.linux/src \
+    CFLAGS="%{rpmcflags}" \
+    LDFLAGS="%{rpmldflags}" \
+    INC_PATH="$JAVA_INC"
+mv plugins/org.eclipse.core.resources.linux/{src/libcore*.so,os/linux/%{_eclipse_arch}}
+
+cd plugins/org.eclipse.update.core.linux/src
+%{__cc} %{rpmcflags} %{rpmldflags} -I. $JAVA_INC update.c -o libupdate.so -shared
+mv libupdate.so ../os/linux/%{_eclipse_arch}
+cd -
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -131,9 +147,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %dir %{_datadir}/%{name}/plugins/org.eclipse.core.resources.linux_%{_ver}
 %{_datadir}/%{name}/plugins/org.eclipse.core.resources.linux_%{_ver}/fragment.xml
-# todo: native version
 %attr(755,root,root) %{_datadir}/%{name}/plugins/org.eclipse.core.resources.linux_%{_ver}/os/linux/%{_eclipse_arch}/libcore_2_1_0b.so
-
 %{_datadir}/%{name}/plugins/org.eclipse.core.runtime_%{_ver}
 %{_datadir}/%{name}/plugins/org.eclipse.core.runtime.compatibility_%{_ver}
 %{_datadir}/%{name}/plugins/org.eclipse.core.variables_%{_ver}
@@ -227,9 +241,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/%{name}/plugins/org.eclipse.update.core.linux_%{_ver}
 %{_datadir}/%{name}/plugins/org.eclipse.update.core.linux_%{_ver}/about.html
 %{_datadir}/%{name}/plugins/org.eclipse.update.core.linux_%{_ver}/fragment.xml
-# todo: native version
 %attr(755,root,root) %{_datadir}/%{name}/plugins/org.eclipse.update.core.linux_%{_ver}/os/linux/%{_eclipse_arch}/libupdate.so
-
 %{_datadir}/%{name}/plugins/org.eclipse.update.scheduler_%{_ver}
 %{_datadir}/%{name}/plugins/org.eclipse.update.ui_%{_ver}
 %{_datadir}/%{name}/plugins/org.junit_3.8.1
