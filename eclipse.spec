@@ -1,12 +1,20 @@
 # TODO:
-# 	- conditional build with motif
+#	- conditional build with motif (really needed?)
+#	http://www.eclipse.ps.pl/downloads/drops/
+#		R-3.0-200406251208/srcIncludedBuildInstructions.html#build_platforms
+#
+#	linux	gtk	x86
+#	linux	gtk	ppc
+#	linux	gtk	amd64
+#	linux	motif	x86
+#
 #	- .so binaries should be removed and linked with PLD one...
 #	  (we really need them here?)
-
+#
 %define		_buildid	200406251208
 %define		_ver		3.0
 %define		_buildname	%{_ver}
-
+#
 Summary:	eclipse - an open extensible IDE
 Summary(pl):	eclipse - otwarte, rozszerzalne ¶rodowisko programistyczne
 Name:		eclipse
@@ -30,6 +38,7 @@ ExclusiveArch:	%{ix86} ppc amd64
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_javalibdir	/usr/share/java
+%define		_eclipse_arch	%(echo %{_target_cpu} | sed 's/i.86/x86/;s/athlon/x86/;s/pentium./x86/')
 
 %description
 Eclipse is a kind of universal tool platform - an open extensible IDE
@@ -46,15 +55,15 @@ wszystkiego i niczego w szczególno¶ci.
 %build
 JAVA_HOME=/usr/lib/java
 export JAVA_HOME
-./build -os linux -ws gtk -arch x86 -target compile
+./build -os linux -ws gtk -arch %{_eclipse_arch} -target compile
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_bindir},%{_datadir}/%{name}}
 
-./build -os linux -ws gtk -arch x86 -target install
+./build -os linux -ws gtk -arch %{_eclipse_arch} -target install
 
-unzip result/linux-gtk-x86-sdk.zip -d $RPM_BUILD_ROOT%{_datadir}
+unzip result/linux-gtk-%{_eclipse_arch}-sdk.zip -d $RPM_BUILD_ROOT%{_datadir}
 install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
 
 #wrapper
