@@ -21,6 +21,7 @@ Source1:	%{name}.desktop
 URL:		http://www.eclipse.org/
 BuildRequires:	jdk
 BuildRequires:	unzip
+BuildRequires:	zip
 BuildRequires:	jakarta-ant >= 1.4
 BuildRequires:	gtk+2-devel
 Requires:	jdk
