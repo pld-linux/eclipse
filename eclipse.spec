@@ -1,11 +1,9 @@
-
 # TODO:
 # 	- conditional build with motiff
 #	- .so binaries should be removed and linked with PLD one...
-#         (we really need them here?)
+#	  (we really need them here?)
 
 %define		_buildid	200307181617
-
 %define		_ver		3.0
 %define		_milestone	M2
 %define		_buildname	%{_ver}%{_milestone}
@@ -19,6 +17,7 @@ License:	Apache
 Group:		Development/Languages/Java
 Source0:	http://www.eclipse.ps.pl/downloads/drops/S-%{_buildname}-%{_buildid}/eclipse-sourceBuild-srcIncluded-%{_buildname}.zip
 # Source0-md5:	12c9b31cf8605e58cf857715ac6ff5c3
+Source1:	%{name}.desktop
 URL:		http://www.eclipse.org/
 Obsoletes:	eclipse-SDK
 BuildRequires:	jdk
@@ -46,28 +45,12 @@ export JAVA_HOME
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_bindir},%{_datadir}/%{name}}
 
 ./build -os linux -ws gtk -arch x86 -target install
 
-install -d $RPM_BUILD_ROOT%{_datadir}/%{name}
 unzip result/linux-gtk-x86-sdk.zip -d $RPM_BUILD_ROOT%{_datadir}
-
-
-# desktop file
-install -d $RPM_BUILD_ROOT%{_desktopdir}
-cat > $RPM_BUILD_ROOT%{_desktopdir}/eclipse.desktop << EOF
-[Desktop Entry]
-Name=Eclipse
-Comment=Eclipse
-Comment[pl]=Eclipse
-Exec=eclipse
-Icon=%{_datadir}/%{name}/icon.xpm
-Terminal=false
-MultipleArgs=false
-Type=Application
-Categories=Application;Development;
-# vi: encoding=utf-8
-EOF
+install %{SOURCE1} %{_desktopdir}
 
 #wrapper
 install -d $RPM_BUILD_ROOT%{_bindir}
@@ -84,5 +67,4 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/eclipse
 %attr(755,root,root) %{_datadir}/%{name}/eclipse
 %{_desktopdir}/eclipse.desktop
-
 %{_datadir}/%{name}
