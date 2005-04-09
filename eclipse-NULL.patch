@@ -1,0 +1,10 @@
+--- eclipse-3.1/plugins/org.eclipse.update.core.linux/src/update.c.orig	2005-04-09 15:15:26.000000000 +0000
++++ eclipse-3.1/plugins/org.eclipse.update.core.linux/src/update.c	2005-04-09 15:15:41.000000000 +0000
+@@ -9,6 +9,7 @@
+  *     IBM Corporation - initial API and implementation
+  *******************************************************************************/
+ 
++# include <stdlib.h>
+ # include <sys/types.h>
+ # include <sys/statfs.h>
+ # include <update.h>
