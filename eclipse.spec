@@ -17,12 +17,16 @@ Source0:	http://download.eclipse.org/downloads/drops/S-%{_ver_major}M4-%{_buildi
 Source1:	%{name}.desktop
 Patch0:		%{name}-swt-makefile.patch
 Patch1:		%{name}-core_resources-makefile.patch
+Patch2:		%{name}-jikesbuild.patch
+Patch3:		%{name}-swt-NULL.patch
+Patch4:		%{name}-NULL.patch
 URL:		http://www.eclipse.org/
 BuildRequires:	jakarta-ant >= 1.6.1
 BuildRequires:	jdk >= 1.4
 BuildRequires:	kdelibs-devel
 BuildRequires:	libgnomeui-devel
 #BuildRequires:	mozilla-devel
+BuildRequires:	pkgconfig
 BuildRequires:	unzip
 BuildRequires:	zip
 Requires:	jakarta-ant
@@ -47,6 +51,8 @@ wszystkiego i niczego w szczególno¶ci.
 %prep
 %setup -q -c
 %patch1 -p0
+%patch2 -p1
+%patch4 -p1
 
 %build
 JAVA_HOME=%{_libdir}/java
@@ -71,6 +77,7 @@ unzip -x %{_builddir}/%{name}-%{version}/%{_swtsrcdir}/swt-mozillasrc.zip
 export JAVA_INC="-I$JAVA_HOME/include -I$JAVA_HOME/include/linux"
 
 patch -p0 < %{PATCH0}
+patch -p0 < %{PATCH3}
 %{__make} -f make_linux.mak all \
     XTEST_LIB_PATH=%{_prefix}/X11R6/%{_lib} \
     OPT="%{rpmcflags}"
