@@ -22,14 +22,16 @@
  		LinkedPositionAnnotations fAnnotationModel;
 --- eclipse-3.1/plugins/org.eclipse.help.webapp/build.xml.orig	2005-04-09 10:59:29.000000000 +0000
 +++ eclipse-3.1/plugins/org.eclipse.help.webapp/build.xml	2005-04-09 10:59:35.000000000 +0000
-@@ -134,7 +134,6 @@
- 		<!-- compile the source code -->
- 		<javac destdir="${temp.folder}/WEB-INF/lib/jsp.jar.bin" failonerror="${javacFailOnError}" verbose="${javacVerbose}" debug="${javacDebugInfo}" includeAntRuntime="no" bootclasspath="${bootclasspath}" classpath="../org.eclipse.core.boot/bin;../org.eclipse.core.boot/boot.jar;bin;webapp.jar;WEB-INF/lib/servlets.jar;../org.eclipse.tomcat/servlet.jar;../org.eclipse.tomcat/jasper-runtime.jar;../org.eclipse.core.runtime/bin;../org.eclipse.core.runtime/runtime.jar;../org.eclipse.osgi/bin;../org.eclipse.osgi/osgi.jar;../org.eclipse.osgi/core.jar;../org.eclipse.osgi/resolver.jar;../org.eclipse.osgi/defaultAdaptor.jar;../org.eclipse.osgi/eclipseAdaptor.jar;../org.eclipse.osgi/console.jar;../org.eclipse.osgi.services/bin;../org.eclipse.osgi.services/services.jar;../org.eclipse.osgi.util/bin;../org.eclipse.osgi.util/util.jar;../org.eclipse.help.base/bin;../org.eclipse.help.base/helpbase.jar;../org.apache.lucene/bin;../org.apache.lucene/parser.jar;../org.apache.lucene/lucene-1.3-final.jar;../org.eclipse.help/bin;../org.eclipse.help/help.jar;../org.eclipse.help.appserver/bin;../org.eclipse.help.appserver/appserver.jar;../org.eclipse.core.runtime.compatibility/bin;../org.eclipse.core.runtime.compatibility/compatibility.jar;../org.eclipse.update.configurator/bin;../org.eclipse.update.configurator/configurator.jar" source="${javacSource}" target="${javacTarget}"		>
+@@ -206,9 +206,6 @@
+ 				<pathelement path="../org.eclipse.tomcat/jasper-runtime.jar"/>
+ 			</classpath>
  			<src path="${temp.folder}/jsp.jar.src/"			/>
+-<!-- custom begin -->
 -			<compilerarg value="-warn:-serial" />
- 		</javac>
- 		<!-- copy necessary resources -->
- 		<copy todir="${temp.folder}/WEB-INF/lib/jsp.jar.bin">
+-<!-- custom end -->	
+ 			</javac>
+ 		<!-- Copy necessary resources -->
+ 		<copy todir="${temp.folder}/WEB-INF/lib/jsp.jar.bin" failonerror="true">
 --- eclipse-3.1/plugins/org.eclipse.team.core/src/org/eclipse/team/internal/core/subscribers/BatchingLock.java.orig	2005-04-09 13:21:52.000000000 +0000
 +++ eclipse-3.1/plugins/org.eclipse.team.core/src/org/eclipse/team/internal/core/subscribers/BatchingLock.java	2005-04-09 13:22:21.000000000 +0000
 @@ -230,7 +230,7 @@
