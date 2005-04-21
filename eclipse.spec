@@ -1,6 +1,7 @@
 #
-%define		_buildid	200412162000
-%define		_build_date	20041216
+%define		_buildid	200504011645
+%define		_build_date	20040401
+%define		_mver		M6
 %define		_ver_major	3.1
 %define		_ver_minor	0
 %define		_ver		%{_ver_major}.%{_ver_minor}
@@ -9,17 +10,16 @@ Summary:	Eclipse - an open extensible IDE
 Summary(pl):	Eclipse - otwarte, rozszerzalne ¶rodowisko programistyczne
 Name:		eclipse
 Version:	%{_ver_major}
-Release:	0.M4_%{_buildid}.1
+Release:	0.%{_mver}_%{_buildid}.1
 License:	CPL v1.0
 Group:		Development/Tools
-Source0:	http://download.eclipse.org/downloads/drops/S-%{_ver_major}M4-%{_buildid}/eclipse-sourceBuild-srcIncluded-%{_ver_major}M4.zip
-# Source0-md5:	9d529492c9cac1add34e96192504ac22
+Source0:	http://download.eclipse.org/downloads/drops/S-%{_ver_major}%{_mver}-%{_buildid}/eclipse-sourceBuild-srcIncluded-%{_ver_major}%{_mver}.zip
+# Source0-md5:	51d81345d2fa0e8aa0b455f6cf4c447f
 Source1:	%{name}.desktop
 Patch0:		%{name}-swt-makefile.patch
 Patch1:		%{name}-core_resources-makefile.patch
 Patch2:		%{name}-jikesbuild.patch
 Patch3:		%{name}-swt-NULL.patch
-Patch4:		%{name}-NULL.patch
 URL:		http://www.eclipse.org/
 BuildRequires:	jakarta-ant >= 1.6.1
 BuildRequires:	jdk >= 1.4
@@ -52,7 +52,6 @@ wszystkiego i niczego w szczególno¶ci.
 %setup -q -c
 %patch1 -p0
 %patch2 -p1
-%patch4 -p1
 
 %build
 JAVA_HOME=%{_libdir}/java
