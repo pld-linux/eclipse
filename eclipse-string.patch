@@ -1,0 +1,18 @@
+--- eclipse.org/plugins/org.eclipse.ui.browser/src/org/eclipse/ui/internal/browser/ExternalBrowserInstance.java.org	2005-04-22 22:03:17.187138192 +0200
++++ eclipse/plugins/org.eclipse.ui.browser/src/org/eclipse/ui/internal/browser/ExternalBrowserInstance.java	2005-04-22 22:03:49.504520112 +0200
+@@ -74,7 +74,7 @@
+ 			public void run() {
+ 				try {
+ 					process.waitFor();
+-					DefaultBrowserSupport.getInstance().removeBrowser(getId());
++					DefaultBrowserSupport.getInstance().removeBrowser(Long.toString(getId()));
+ 				} catch (Exception e) {
+ 					// ignore
+ 				}
+@@ -92,4 +92,4 @@
+ 			return false;
+ 		}
+ 	}
+-}
+\ Brak znaku nowej linii na koñcu pliku
++}
