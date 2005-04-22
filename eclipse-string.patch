@@ -5,7 +5,7 @@
  				try {
  					process.waitFor();
 -					DefaultBrowserSupport.getInstance().removeBrowser(getId());
-+					DefaultBrowserSupport.getInstance().removeBrowser(Long.toString(getId()));
++					DefaultBrowserSupport.getInstance().removeBrowser(ExternalBrowserInstance.this.getId());
  				} catch (Exception e) {
  					// ignore
  				}
