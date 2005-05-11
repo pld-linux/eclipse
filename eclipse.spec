@@ -1,6 +1,5 @@
 #
 %define		_buildid	200504011645
-%define		_build_date	20040401
 %define		_mver		M6
 %define		_ver_major	3.1
 %define		_ver_minor	0
@@ -54,6 +53,7 @@ wszystkiego i niczego w szczególno¶ci.
 
 %prep
 %setup -q -c
+# Patch0 is used below in build section
 %patch1 -p0
 %patch2 -p1
 # Patch3 is used below in build section
