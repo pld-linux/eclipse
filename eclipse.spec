@@ -28,17 +28,18 @@ BuildRequires:	kdelibs-devel
 BuildRequires:	libgnomeui-devel
 #BuildRequires:	mozilla-devel
 BuildRequires:	pkgconfig
+BuildRequires:	rpmbuild(macros) >= 1.213
 BuildRequires:	unzip
 BuildRequires:	zip
 Requires:	jakarta-ant
 Requires:	jdk >= 1.4
 Obsoletes:	eclipse-SDK
-ExclusiveArch:	%{ix86} ppc amd64
+ExclusiveArch:	%{ix86} %{x8664} ppc
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_eclipse_arch	%(echo %{_target_cpu} | sed 's/i.86/x86/;s/athlon/x86/;s/pentium./x86/')
 %define		no_install_post_chrpath		1
-%ifarch amd64
+%ifarch %{x8664}
 %define         _noautostrip	.*\\.so
 %endif
 
@@ -63,7 +64,7 @@ JAVA_HOME=%{_libdir}/java
 export JAVA_HOME
 ./build -os linux -ws gtk -arch %{_eclipse_arch} -target compile
 
-%ifarch amd64
+%ifarch %{x8664}
 %define	_swtsrcdir	plugins/org.eclipse.swt.gtk64
 %define	_swtgtkdir	plugins/org.eclipse.swt.gtk64
 %else
@@ -96,7 +97,7 @@ cd ..
     LDFLAGS="%{rpmldflags}"
 mv plugins/org.eclipse.core.resources.linux/{src/libcore*.so,os/linux/%{_eclipse_arch}}
 
-%ifarch amd64
+%ifarch %{x8664}
 mkdir plugins/org.eclipse.update.core.linux/os/linux/%{_eclipse_arch}
 %endif
 
