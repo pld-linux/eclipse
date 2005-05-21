@@ -1,4 +1,10 @@
 #
+# TODO:
+#			- separate SWT (there are separate tarballs at http://www.eclipse.org/swt/)
+#			  and add proper provides, obsoletes, conflicts etc. where needed.
+#			  This will make building such things like Azureus possible without having
+#			  whole Eclipse suite installed.
+#
 %define		_buildid	200504011645
 %define		_mver		M6
 %define		_ver_major	3.1
