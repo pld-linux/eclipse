@@ -9,17 +9,6 @@
  				if (listenerInfo.filter != null && !deltas.containsKey(listenerInfo.filter))
  					continue;
  				try {
---- eclipse-3.1/plugins/org.eclipse.jface.text/src/org/eclipse/jface/text/link/LinkedModeUI.java.orig	2005-04-09 10:52:13.000000000 +0000
-+++ eclipse-3.1/plugins/org.eclipse.jface.text/src/org/eclipse/jface/text/link/LinkedModeUI.java	2005-04-09 10:52:46.000000000 +0000
-@@ -161,7 +161,7 @@
- 		Shell fShell;
- 		
- 		/** The registered listener, or <code>null</code>. */
--		KeyListener fKeyListener;
-+		LinkedModeUI.KeyListener fKeyListener;
- 		
- 		/** The cached custom annotation model. */
- 		LinkedPositionAnnotations fAnnotationModel;
 --- eclipse-3.1/plugins/org.eclipse.help.webapp/build.xml.orig	2005-04-09 10:59:29.000000000 +0000
 +++ eclipse-3.1/plugins/org.eclipse.help.webapp/build.xml	2005-04-09 10:59:35.000000000 +0000
 @@ -206,9 +206,6 @@
@@ -119,3 +108,14 @@
  			    } else if (obj instanceof Control) {
  			        ((Group)obj).setEnabled(enabled);
  			    }
+--- eclipse-3.1/plugins/org.eclipse.jface.text/src/org/eclipse/jface/text/link/LinkedModeUI.java.orig	2005-06-27 20:54:39.000000000 +0200
++++ eclipse-3.1/plugins/org.eclipse.jface.text/src/org/eclipse/jface/text/link/LinkedModeUI.java	2005-06-30 18:06:27.000000000 +0200
+@@ -164,7 +164,7 @@
+ 		Shell fShell;
+ 
+ 		/** The registered listener, or <code>null</code>. */
+-		KeyListener fKeyListener;
++		LinkedModeUI.KeyListener fKeyListener;
+ 
+ 		/** The cached custom annotation model. */
+ 		LinkedPositionAnnotations fAnnotationModel;
