@@ -5,8 +5,11 @@
 #			  This will make building such things like Azureus possible without having
 #			  whole Eclipse suite installed.
 #
-%define		_buildid	200504011645
-%define		_mver		M6
+
+%bcond_without	gnome
+
+%define		_buildid	200506271435
+#define		_mver		M6
 %define		_ver_major	3.1
 %define		_ver_minor	0
 %define		_ver		%{_ver_major}.%{_ver_minor}
@@ -15,11 +18,13 @@ Summary:	Eclipse - an open extensible IDE
 Summary(pl):	Eclipse - otwarte, rozszerzalne ¶rodowisko programistyczne
 Name:		eclipse
 Version:	%{_ver_major}
-Release:	0.%{_mver}_%{_buildid}.1
+#Release:	0.%{_mver}_%{_buildid}.1
+Release:	1
 License:	CPL v1.0
 Group:		Development/Tools
-Source0:	http://download.eclipse.org/downloads/drops/S-%{_ver_major}%{_mver}-%{_buildid}/eclipse-sourceBuild-srcIncluded-%{_ver_major}%{_mver}.zip
-# Source0-md5:	51d81345d2fa0e8aa0b455f6cf4c447f
+#Source0:	http://download.eclipse.org/downloads/drops/S-%{_ver_major}%{_mver}-%{_buildid}/eclipse-sourceBuild-srcIncluded-%{_ver_major}%{_mver}.zip
+Source0:	http://download.eclipse.org/eclipse/downloads/drops/R-%{_ver_major}-%{_buildid}/eclipse-sourceBuild-srcIncluded-%{_ver_major}.zip
+# Source0-md5:	19ad65d52005da5eaa1d3687b3a50de2
 Source1:	%{name}.desktop
 Patch0:		%{name}-swt-makefile.patch
 Patch1:		%{name}-core_resources-makefile.patch
@@ -29,9 +34,6 @@ Patch4:		%{name}-string.patch
 URL:		http://www.eclipse.org/
 BuildRequires:	jakarta-ant >= 1.6.1
 BuildRequires:	jdk >= 1.4
-BuildRequires:	kdelibs-devel
-BuildRequires:	libgnomeui-devel
-#BuildRequires:	mozilla-devel
 BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.213
 BuildRequires:	unzip
@@ -63,25 +65,35 @@ wszystkiego i niczego w szczególno¶ci.
 %patch1 -p0
 %patch2 -p1
 # Patch3 is used below in build section
-%patch4 -p1
+#patch4 -p1
 
 %build
 JAVA_HOME=%{_libdir}/java
 export JAVA_HOME
+%if 0
 ./build -os linux -ws gtk -arch %{_eclipse_arch} -target compile
+%endif
 
 %ifarch %{x8664}
-%define	_swtsrcdir	plugins/org.eclipse.swt.gtk64
-%define	_swtgtkdir	plugins/org.eclipse.swt.gtk64
-%else
-%define	_swtsrcdir	plugins/org.eclipse.swt.gtk
-%define	_swtgtkdir	plugins/org.eclipse.swt.gtk
+%define	_swtsrcdir	plugins/org.eclipse.swt.gtk.linux.x86_64
+%define	_swtgtkdir	plugins/org.eclipse.swt.gtk.linux.x86_64
+%endif
+
+%ifarch ppc
+%define	_swtsrcdir	plugins/org.eclipse.swt.gtk.linux.ppc
+%define	_swtgtkdir	plugins/org.eclipse.swt.gtk.linux.ppc
+%endif
+	
+%ifarch %{ix86}
+%define	_swtsrcdir	plugins/org.eclipse.swt.gtk.linux.x86
+%define	_swtgtkdir	plugins/org.eclipse.swt.gtk.linux.x86
 %endif
 
 rm -rf swt
 mkdir swt && cd swt
 
 unzip -x %{_builddir}/%{name}-%{version}/%{_swtsrcdir}/src.zip
+
 
 export JAVA_INC="-I$JAVA_HOME/include -I$JAVA_HOME/include/linux"
 
