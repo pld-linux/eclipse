@@ -15,7 +15,7 @@ Summary(pl):	Eclipse - otwarte, rozszerzalne ¶rodowisko programistyczne
 Name:		eclipse
 Version:	%{_ver_major}
 #Release:	0.%{_mver}_%{_buildid}.1
-Release:	1
+Release:	2	
 License:	EPL v1.0
 Group:		Development/Tools
 #Source0:	http://download.eclipse.org/downloads/drops/S-%{_ver_major}%{_mver}-%{_buildid}/eclipse-sourceBuild-srcIncluded-%{_ver_major}%{_mver}.zip
@@ -74,6 +74,8 @@ cd -
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_bindir},%{_libdir}/%{name}}
+# place for arch independent plugins
+install -d $RPM_BUILD_ROOT%{_datadir}/%{name}/{features,plugins}
 
 ./build -os linux -ws gtk -arch %{_eclipse_arch} -target install
 
@@ -86,6 +88,8 @@ cat > $RPM_BUILD_ROOT%{_bindir}/eclipse << EOF
 #!/bin/sh
 exec %{_libdir}/%{name}/eclipse \$*
 EOF
+
+:> $RPM_BUILD_ROOT%{_datadir}/%{name}/.eclipseextension
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -203,3 +207,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}/plugins/org.eclipse.update.scheduler_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.update.ui_*.*.*
 %{_libdir}/%{name}/plugins/org.junit_*.*.*
+
+%dir %{_datadir}/%{name}
+%dir %{_datadir}/%{name}/features
+%dir %{_datadir}/%{name}/plugins
+%{_datadir}/%{name}/.eclipseextension
