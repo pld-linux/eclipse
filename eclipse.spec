@@ -5,12 +5,10 @@
 #			  This will make building such things like Azureus possible without having
 #			  whole Eclipse suite installed.
 #
-
 %define		_buildid	200506271435
 #define		_mver		M6
 %define		_ver_major	3.1
 %define		_ver_minor	0
-%define		_ver		%{_ver_major}.%{_ver_minor}
 #
 Summary:	Eclipse - an open extensible IDE
 Summary(pl):	Eclipse - otwarte, rozszerzalne ¶rodowisko programistyczne
@@ -18,7 +16,7 @@ Name:		eclipse
 Version:	%{_ver_major}
 #Release:	0.%{_mver}_%{_buildid}.1
 Release:	0.1
-License:	CPL v1.0
+License:	EPL v1.0
 Group:		Development/Tools
 #Source0:	http://download.eclipse.org/downloads/drops/S-%{_ver_major}%{_mver}-%{_buildid}/eclipse-sourceBuild-srcIncluded-%{_ver_major}%{_mver}.zip
 Source0:	http://download.eclipse.org/eclipse/downloads/drops/R-%{_ver_major}-%{_buildid}/eclipse-sourceBuild-srcIncluded-%{_ver_major}.zip
@@ -26,7 +24,6 @@ Source0:	http://download.eclipse.org/eclipse/downloads/drops/R-%{_ver_major}-%{_
 Source1:	%{name}.desktop
 Patch0:		%{name}-core_resources-makefile.patch
 Patch1:		%{name}-jikesbuild.patch
-Patch2:		%{name}-string.patch
 URL:		http://www.eclipse.org/
 BuildRequires:	jakarta-ant >= 1.6.1
 BuildRequires:	jdk >= 1.4
@@ -59,19 +56,14 @@ wszystkiego i niczego w szczególno¶ci.
 %setup -q -c
 %patch0 -p0
 %patch1 -p1
-#patch2 -p1
 
 %build
-JAVA_HOME=%{_libdir}/java
-export JAVA_HOME
+export JAVA_HOME=%{_libdir}/java
 
 ./build -os linux -ws gtk -arch %{_eclipse_arch} -target compile
 
-
-
 export JAVA_INC="-I$JAVA_HOME/include -I$JAVA_HOME/include/linux"
 
-#mkdir plugins/org.eclipse.core.resources.linux/os/linux/%{_eclipse_arch}
 %{__make} -C plugins/org.eclipse.core.resources.linux/src \
     CFLAGS="%{rpmcflags} $JAVA_INC" \
     LDFLAGS="%{rpmldflags}"
@@ -86,15 +78,11 @@ cd plugins/org.eclipse.update.core.linux/src
 mv libupdate.so ../os/linux/%{_eclipse_arch}
 cd -
 
-
 %install
-
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_bindir},%{_libdir}/%{name}}
-install -d $RPM_BUILD_ROOT%{_libdir}/eclipse/%{_swtgtkdir}_3.1.0/os/linux/%{_eclipse_arch}
 
 ./build -os linux -ws gtk -arch %{_eclipse_arch} -target install
-
 
 tar xfz result/linux-gtk-%{_eclipse_arch}-sdk.tar.gz -C $RPM_BUILD_ROOT%{_libdir}
 install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
@@ -123,8 +111,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}/notice.html
 %{_libdir}/%{name}/readme
 %{_libdir}/%{name}/startup.jar
-
-# features
 %dir %{_libdir}/%{name}/features
 %{_libdir}/%{name}/features/org.eclipse.jdt_*.*.*
 %{_libdir}/%{name}/features/org.eclipse.jdt.source_*.*.*
@@ -135,8 +121,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}/features/org.eclipse.rcp_*.*.*
 %{_libdir}/%{name}/features/org.eclipse.rcp.source_*.*.*
 %{_libdir}/%{name}/features/org.eclipse.sdk_*.*.*
-
-# plugins
 %dir %{_libdir}/%{name}/plugins
 %{_libdir}/%{name}/plugins/org.apache.ant_*.*.*
 %{_libdir}/%{name}/plugins/org.apache.lucene_*.*.*
@@ -149,14 +133,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}/plugins/org.eclipse.core.filebuffers_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.core.resources_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.core.resources.compatibility_*.*.*
-
 %{_libdir}/%{name}/plugins/org.eclipse.core.resources.linux_*.*.*.jar
-#%dir %{_libdir}/%{name}/plugins/org.eclipse.core.resources.linux_*.*.*/os
-#%dir %{_libdir}/%{name}/plugins/org.eclipse.core.resources.linux_*.*.*/os/linux
-#%dir %{_libdir}/%{name}/plugins/org.eclipse.core.resources.linux_*.*.*/os/linux/%{_eclipse_arch}
-#%attr(755,root,root) %{_libdir}/%{name}/plugins/org.eclipse.core.resources.linux_*.*.*/os/linux/%{_eclipse_arch}/libcore_3_1_0.so
-#%{_libdir}/%{name}/plugins/org.eclipse.core.resources.linux_*.*.*/fragment.xml
-
 %{_libdir}/%{name}/plugins/org.eclipse.core.runtime_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.core.runtime.compatibility_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.core.variables_*.*.*
@@ -165,7 +142,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}/plugins/org.eclipse.help_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.help.appserver_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.help.base_*.*.*
-#%{_libdir}/%{name}/plugins/org.eclipse.help.ide_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.help.ui_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.help.webapp_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.jdt_*.*.*
@@ -207,8 +183,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}/plugins/org.eclipse.search_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.swt_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.ui.browser_*.*.*
-
-
 %{_libdir}/%{name}/plugins/org.eclipse.team.core_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.team.cvs.core_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.team.cvs.ssh2_*.*.*
@@ -232,16 +206,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}/plugins/org.eclipse.ui.workbench.texteditor_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.update.configurator_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.update.core_*.*.*
-
 %{_libdir}/%{name}/plugins/org.eclipse.update.core.linux_*.*.*.jar
-#%dir %{_libdir}/%{name}/plugins/org.eclipse.update.core.linux_*.*.*/os
-#%dir %{_libdir}/%{name}/plugins/org.eclipse.update.core.linux_*.*.*/os/linux
-#%dir %{_libdir}/%{name}/plugins/org.eclipse.update.core.linux_*.*.*/os/linux/%{_eclipse_arch}
-#%attr(755,root,root) %{_libdir}/%{name}/plugins/org.eclipse.update.core.linux_*.*.*/os/linux/%{_eclipse_arch}/libupdate.so
-#%{_libdir}/%{name}/plugins/org.eclipse.update.core.linux_*.*.*/about.html
-#%{_libdir}/%{name}/plugins/org.eclipse.update.core.linux_*.*.*/fragment.xml
-
 %{_libdir}/%{name}/plugins/org.eclipse.update.scheduler_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.update.ui_*.*.*
 %{_libdir}/%{name}/plugins/org.junit_*.*.*
-%{_libdir}/%{name}/plugins/org.eclipse.update.scheduler_*.*.*
