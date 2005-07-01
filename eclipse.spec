@@ -15,7 +15,7 @@ Summary(pl):	Eclipse - otwarte, rozszerzalne ¶rodowisko programistyczne
 Name:		eclipse
 Version:	%{_ver_major}
 #Release:	0.%{_mver}_%{_buildid}.1
-Release:	0.1
+Release:	1
 License:	EPL v1.0
 Group:		Development/Tools
 #Source0:	http://download.eclipse.org/downloads/drops/S-%{_ver_major}%{_mver}-%{_buildid}/eclipse-sourceBuild-srcIncluded-%{_ver_major}%{_mver}.zip
@@ -37,11 +37,8 @@ Obsoletes:	eclipse-SDK
 ExclusiveArch:	%{ix86} %{x8664} ppc
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_eclipse_arch	%(echo %{_target_cpu} | sed 's/i.86/x86/;s/athlon/x86/;s/pentium./x86/')
+%define		_eclipse_arch	%(echo %{_target_cpu} | sed 's/i.86\\|athlon\\|pentium/x86/;s/amd64/x86_64/')
 %define		no_install_post_chrpath		1
-%ifarch %{x8664}
-%define         _noautostrip	.*\\.so
-%endif
 
 %description
 Eclipse is a kind of universal tool platform - an open extensible IDE
@@ -68,10 +65,6 @@ export JAVA_INC="-I$JAVA_HOME/include -I$JAVA_HOME/include/linux"
     CFLAGS="%{rpmcflags} $JAVA_INC" \
     LDFLAGS="%{rpmldflags}"
 mv plugins/org.eclipse.core.resources.linux/{src/libcore*.so,os/linux/%{_eclipse_arch}}
-
-%ifarch %{x8664}
-mkdir plugins/org.eclipse.update.core.linux/os/linux/%{_eclipse_arch}
-%endif
 
 cd plugins/org.eclipse.update.core.linux/src
 %{__cc} %{rpmcflags} -fPIC %{rpmldflags} -I. $JAVA_INC update.c -o libupdate.so -shared
