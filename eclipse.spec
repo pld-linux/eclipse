@@ -77,6 +77,7 @@ install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_bindir},%{_libdir}/%{name}}
 # place for arch independent plugins
 install -d $RPM_BUILD_ROOT%{_datadir}/%{name}/{features,plugins}
 
+export JAVA_HOME=%{_libdir}/java
 ./build -os linux -ws gtk -arch %{_eclipse_arch} -target install
 
 tar xfz result/linux-gtk-%{_eclipse_arch}-sdk.tar.gz -C $RPM_BUILD_ROOT%{_libdir}
