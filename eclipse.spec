@@ -5,9 +5,8 @@
 #			  This will make building such things like Azureus possible without having
 #			  whole Eclipse suite installed.
 #
-%define		_buildid	200509290840
-#define		_mver		M6
-%define		_ver_major	3.1.1
+%define		_buildid	200601181600
+%define		_ver_major	3.1.2
 %define		_ver_minor	1
 #
 Summary:	Eclipse - an open extensible IDE
@@ -18,9 +17,8 @@ Version:	%{_ver_major}
 Release:	1
 License:	EPL v1.0
 Group:		Development/Tools
-#Source0:	http://download.eclipse.org/downloads/drops/S-%{_ver_major}%{_mver}-%{_buildid}/eclipse-sourceBuild-srcIncluded-%{_ver_major}%{_mver}.zip
 Source0:	http://download.eclipse.org/eclipse/downloads/drops/R-%{_ver_major}-%{_buildid}/eclipse-sourceBuild-srcIncluded-%{_ver_major}.zip
-# Source0-md5:	0d78d5f8afe767014a1cc69ee8c20869
+# Source0-md5:	f2c8066151de14c5ccdf420266ce9f39
 Source1:	%{name}.desktop
 Patch0:		%{name}-core_resources-makefile.patch
 Patch1:		%{name}-jikesbuild.patch
