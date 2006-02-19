@@ -90,6 +90,10 @@ EOF
 
 :> $RPM_BUILD_ROOT%{_datadir}/%{name}/.eclipseextension
 
+if [ ! -f "$RPM_BUILD_ROOT%{_libdir}/%{name}/icon.xpm" ]; then
+	install features/org.eclipse.platform.launchers/bin/gtk/linux/x86/icon.xpm $RPM_BUILD_ROOT%{_libdir}/%{name}/icon.xpm
+fi
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
