@@ -17,7 +17,7 @@ Version:	%{_ver_major}
 Release:	1
 License:	EPL v1.0
 Group:		Development/Tools
-Source0:	http://download.eclipse.org/eclipse/downloads/drops/R-%{_ver_major}-%{_buildid}/eclipse-sourceBuild-srcIncluded-%{_ver_major}.zip
+Source0:	http://download.eclipse.org/eclipse/downloads/drops/R-%{_ver_major}-%{_buildid}/%{name}-sourceBuild-srcIncluded-%{_ver_major}.zip
 # Source0-md5:	f2c8066151de14c5ccdf420266ce9f39
 Source1:	%{name}.desktop
 Patch0:		%{name}-core_resources-makefile.patch
@@ -83,9 +83,9 @@ install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
 
 #wrapper
 install -d $RPM_BUILD_ROOT%{_bindir}
-cat > $RPM_BUILD_ROOT%{_bindir}/eclipse << EOF
+cat > $RPM_BUILD_ROOT%{_bindir}/eclipse << 'EOF'
 #!/bin/sh
-exec %{_libdir}/%{name}/eclipse \$*
+exec %{_libdir}/%{name}/eclipse $*
 EOF
 
 :> $RPM_BUILD_ROOT%{_datadir}/%{name}/.eclipseextension
