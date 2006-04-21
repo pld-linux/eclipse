@@ -128,6 +128,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}/features/org.eclipse.rcp.source_*.*.*
 %{_libdir}/%{name}/features/org.eclipse.sdk_*.*.*
 %dir %{_libdir}/%{name}/plugins
+%{_libdir}/%{name}/plugins/com.ibm.icu_*.*.*
+%{_libdir}/%{name}/plugins/com.ibm.icu.source_*.*.*
+%{_libdir}/%{name}/plugins/com.jcraft.jsch_*.*.*
 %{_libdir}/%{name}/plugins/org.apache.ant_*.*.*
 %{_libdir}/%{name}/plugins/org.apache.lucene_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.ant.core_*.*.*
