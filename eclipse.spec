@@ -60,14 +60,12 @@ export JAVA_HOME=%{_libdir}/java
 
 export JAVA_INC="-I$JAVA_HOME/include -I$JAVA_HOME/include/linux"
 
-#%{__make} -C plugins/org.eclipse.core.filesystem/natives/unix/linux/ \
-#    CFLAGS="%{rpmcflags} $JAVA_INC" \
-#    LDFLAGS="%{rpmldflags}"
-#mv plugins/org.eclipse.core.filesystem/natives/unix/linux/{src/lib*.so,os/linux/%{_eclipse_arch}}
+%{__make} -C plugins/org.eclipse.core.filesystem/natives/unix/linux/ \
+    CFLAGS="%{rpmcflags} $JAVA_INC" \
+    LDFLAGS="%{rpmldflags}"
 
 cd plugins/org.eclipse.update.core.linux/src
 %{__cc} %{rpmcflags} -fPIC %{rpmldflags} -I. $JAVA_INC update.c -o libupdate.so -shared
-mv libupdate.so ../os/linux/%{_eclipse_arch}
 cd -
 
 %install
@@ -81,6 +79,9 @@ export JAVA_HOME=%{_libdir}/java
 
 tar xfz result/linux-gtk-%{_eclipse_arch}-sdk.tar.gz -C $RPM_BUILD_ROOT%{_libdir}
 install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
+
+install plugins/org.eclipse.core.filesystem/natives/unix/linux/lib*.so $RPM_BUILD_ROOT%{_libdir}/%{name}
+install plugins/org.eclipse.update.core.linux/src/lib*.so $RPM_BUILD_ROOT%{_libdir}/%{name}
 
 cp -a baseLocation/plugins/* $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins
 
