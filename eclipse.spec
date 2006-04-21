@@ -5,20 +5,21 @@
 #			  This will make building such things like Azureus possible without having
 #			  whole Eclipse suite installed.
 #
-%define		_buildid	200601181600
-%define		_ver_major	3.1.2
+%define		_buildid	200604191640
+%define		_ver_major	3.2
+%define		_ver_rc		RC1a
 %define		_ver_minor	1
 #
 Summary:	Eclipse - an open extensible IDE
 Summary(pl):	Eclipse - otwarte, rozszerzalne ¶rodowisko programistyczne
 Name:		eclipse
 Version:	%{_ver_major}
-#Release:	0.%{_mver}_%{_buildid}.1
-Release:	1
+Release:	0.%{_ver_rc}_%{_buildid}.1
+#Release:	1
 License:	EPL v1.0
 Group:		Development/Tools
-Source0:	http://download.eclipse.org/eclipse/downloads/drops/R-%{_ver_major}-%{_buildid}/%{name}-sourceBuild-srcIncluded-%{_ver_major}.zip
-# Source0-md5:	f2c8066151de14c5ccdf420266ce9f39
+Source0:	http://download.eclipse.org/eclipse/downloads/drops/S-%{_ver_major}%{_ver_rc}-%{_buildid}/%{name}-sourceBuild-srcIncluded-%{_ver_major}%{_ver_rc}.zip
+# Source0-md5:	ce7957ba841223b7ad6e2f4623086d95
 Source1:	%{name}.desktop
 Patch0:		%{name}-core_resources-makefile.patch
 Patch1:		%{name}-jikesbuild.patch
@@ -50,19 +51,19 @@ wszystkiego i niczego w szczególno¶ci.
 %prep
 %setup -q -c
 %patch0 -p0
-%patch1 -p1
+#%patch1 -p1
 
 %build
 export JAVA_HOME=%{_libdir}/java
 
-./build -os linux -ws gtk -arch %{_eclipse_arch} -target compile
+./build -os linux -ws gtk -arch %{_eclipse_arch} -target compile -java5home %{_libdir}/java
 
 export JAVA_INC="-I$JAVA_HOME/include -I$JAVA_HOME/include/linux"
 
-%{__make} -C plugins/org.eclipse.core.resources.linux/src \
+%{__make} -C plugins/org.eclipse.core.filesystem/natives/unix/linux/ \
     CFLAGS="%{rpmcflags} $JAVA_INC" \
     LDFLAGS="%{rpmldflags}"
-mv plugins/org.eclipse.core.resources.linux/{src/libcore*.so,os/linux/%{_eclipse_arch}}
+mv plugins/org.eclipse.core.filesystem/natives/unix/linux/{src/libcore*.so,os/linux/%{_eclipse_arch}}
 
 cd plugins/org.eclipse.update.core.linux/src
 %{__cc} %{rpmcflags} -fPIC %{rpmldflags} -I. $JAVA_INC update.c -o libupdate.so -shared
