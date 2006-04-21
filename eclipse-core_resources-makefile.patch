@@ -1,14 +1,17 @@
---- plugins/org.eclipse.core.resources.linux/src/Makefile.orig	2004-12-29 14:30:14.722860888 +0000
-+++ plugins/org.eclipse.core.resources.linux/src/Makefile	2004-12-29 14:30:50.293453336 +0000
-@@ -22,8 +22,8 @@
+--- plugins/org.eclipse.core.filesystem/natives/unix/linux/Makefile.org	2006-04-21 20:11:42.010647000 +0200
++++ plugins/org.eclipse.core.filesystem/natives/unix/linux/Makefile	2006-04-21 20:14:21.592620250 +0200
+@@ -20,11 +20,11 @@
+ JAVA_HOME = ~/vm/sun142
+ 
  JDK_INCLUDE = -I ${JAVA_HOME}/include -I ${JAVA_HOME}/include/${OS_TYPE}
+-COMMON_INCLUDE = -I include
++COMMON_INCLUDE = -Iinclude
  
  core :
--	gcc -fPIC -g -c $(JDK_INCLUDE) -o $(CORE.O) $(CORE.C)
+-	gcc -fPIC -g -c $(JDK_INCLUDE) $(COMMON_INCLUDE) -o $(CORE.O) $(CORE.C)
 -	gcc -g -shared -Wl,-soname,$(LIB_NAME) -o $(LIB_NAME_FULL) $(CORE.O) -lc
--
-+	gcc -fPIC $(CFLAGS) -c $(INC_PATH) $(CORE.C) -o $(CORE.O)
++	gcc -fPIC $(CFLAGS) -c $(INC_PATH) $(COMMON_INCLUDE) -o $(CORE.O) $(CORE.C)
 +	gcc $(LDFLAGS) -shared -Wl,-soname,$(LIB_NAME) -o $(LIB_NAME_FULL) $(CORE.O)
-+	
+ 
  clean :
  	rm *.o
