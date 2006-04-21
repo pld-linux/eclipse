@@ -22,7 +22,7 @@ Source0:	http://download.eclipse.org/eclipse/downloads/drops/S-%{_ver_major}%{_v
 # Source0-md5:	ce7957ba841223b7ad6e2f4623086d95
 Source1:	%{name}.desktop
 Patch0:		%{name}-core_resources-makefile.patch
-Patch1:		%{name}-jikesbuild.patch
+Patch1:		%{name}-build.patch
 URL:		http://www.eclipse.org/
 BuildRequires:	jakarta-ant >= 1.6.1
 BuildRequires:	jdk >= 1.4
@@ -51,7 +51,7 @@ wszystkiego i niczego w szczególno¶ci.
 %prep
 %setup -q -c
 %patch0 -p0
-#%patch1 -p1
+%patch1 -p0
 
 %build
 export JAVA_HOME=%{_libdir}/java
@@ -60,10 +60,10 @@ export JAVA_HOME=%{_libdir}/java
 
 export JAVA_INC="-I$JAVA_HOME/include -I$JAVA_HOME/include/linux"
 
-%{__make} -C plugins/org.eclipse.core.filesystem/natives/unix/linux/ \
-    CFLAGS="%{rpmcflags} $JAVA_INC" \
-    LDFLAGS="%{rpmldflags}"
-mv plugins/org.eclipse.core.filesystem/natives/unix/linux/{src/libcore*.so,os/linux/%{_eclipse_arch}}
+#%{__make} -C plugins/org.eclipse.core.filesystem/natives/unix/linux/ \
+#    CFLAGS="%{rpmcflags} $JAVA_INC" \
+#    LDFLAGS="%{rpmldflags}"
+#mv plugins/org.eclipse.core.filesystem/natives/unix/linux/{src/lib*.so,os/linux/%{_eclipse_arch}}
 
 cd plugins/org.eclipse.update.core.linux/src
 %{__cc} %{rpmcflags} -fPIC %{rpmldflags} -I. $JAVA_INC update.c -o libupdate.so -shared
@@ -77,10 +77,12 @@ install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_bindir},%{_libdir}/%{name}}
 install -d $RPM_BUILD_ROOT%{_datadir}/%{name}/{features,plugins}
 
 export JAVA_HOME=%{_libdir}/java
-./build -os linux -ws gtk -arch %{_eclipse_arch} -target install
+./build -os linux -ws gtk -arch %{_eclipse_arch} -target install -java5home %{_libdir}/java
 
 tar xfz result/linux-gtk-%{_eclipse_arch}-sdk.tar.gz -C $RPM_BUILD_ROOT%{_libdir}
 install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
+
+cp -a baseLocation/plugins/* $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins
 
 #wrapper
 install -d $RPM_BUILD_ROOT%{_bindir}
@@ -102,6 +104,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/eclipse
 %attr(755,root,root) %{_libdir}/%{name}/eclipse
+%attr(755,root,root) %{_libdir}/%{name}/lib*.so
 %{_desktopdir}/eclipse.desktop
 %dir %{_libdir}/%{name}
 %{_libdir}/%{name}/.eclipseproduct
@@ -112,6 +115,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}/notice.html
 %{_libdir}/%{name}/readme
 %{_libdir}/%{name}/startup.jar
+%{_libdir}/%{name}/about.html
+%{_libdir}/%{name}/about_files
 %dir %{_libdir}/%{name}/features
 %{_libdir}/%{name}/features/org.eclipse.jdt_*.*.*
 %{_libdir}/%{name}/features/org.eclipse.jdt.source_*.*.*
@@ -130,33 +135,46 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}/plugins/org.eclipse.compare_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.core.boot_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.core.commands_*.*.*
+%{_libdir}/%{name}/plugins/org.eclipse.core.contenttype_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.core.expressions_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.core.filebuffers_*.*.*
+%{_libdir}/%{name}/plugins/org.eclipse.core.filesystem_*.*.*
+%{_libdir}/%{name}/plugins/org.eclipse.core.filesystem.linux.*_*.*.*
+%{_libdir}/%{name}/plugins/org.eclipse.core.jobs_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.core.resources_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.core.resources.compatibility_*.*.*
-%{_libdir}/%{name}/plugins/org.eclipse.core.resources.linux_*.*.*.jar
 %{_libdir}/%{name}/plugins/org.eclipse.core.runtime_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.core.runtime.compatibility_*.*.*
+%{_libdir}/%{name}/plugins/org.eclipse.core.runtime.compatibility.auth_*.*.*
+%{_libdir}/%{name}/plugins/org.eclipse.core.runtime.compatibility.registry_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.core.variables_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.debug.core_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.debug.ui_*.*.*
+%{_libdir}/%{name}/plugins/org.eclipse.equinox.common_*.*.*
+%{_libdir}/%{name}/plugins/org.eclipse.equinox.preferences_*.*.*
+%{_libdir}/%{name}/plugins/org.eclipse.equinox.registry_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.help_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.help.appserver_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.help.base_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.help.ui_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.help.webapp_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.jdt_*.*.*
+%{_libdir}/%{name}/plugins/org.eclipse.jdt.apt.core_*.*.*
+%{_libdir}/%{name}/plugins/org.eclipse.jdt.apt.ui_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.jdt.core_*.*.*
+%{_libdir}/%{name}/plugins/org.eclipse.jdt.core.manipulation*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.jdt.debug_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.jdt.debug.ui_*.*.*
-%{_libdir}/%{name}/plugins/org.eclipse.jdt.doc.isv_*.*.*
-%{_libdir}/%{name}/plugins/org.eclipse.jdt.doc.user_*.*.*
+#%{_libdir}/%{name}/plugins/org.eclipse.jdt.doc.isv_*.*.*
+#%{_libdir}/%{name}/plugins/org.eclipse.jdt.doc.user_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.jdt.junit_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.jdt.junit.runtime_*.*.*
+%{_libdir}/%{name}/plugins/org.eclipse.jdt.junit4.runtime_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.jdt.launching_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.jdt.source_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.jdt.ui_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.jface_*.*.*
+%{_libdir}/%{name}/plugins/org.eclipse.jface.databinding_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.jface.text_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.ltk.core.refactoring_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.ltk.ui.refactoring_*.*.*
@@ -166,14 +184,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}/plugins/org.eclipse.pde_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.pde.build_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.pde.core_*.*.*
-%{_libdir}/%{name}/plugins/org.eclipse.pde.doc.user_*.*.*
+#%{_libdir}/%{name}/plugins/org.eclipse.pde.doc.user_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.pde.junit.runtime_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.pde.runtime_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.pde.source_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.pde.ui_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.platform_*.*.*
-%{_libdir}/%{name}/plugins/org.eclipse.platform.doc.isv_*.*.*
-%{_libdir}/%{name}/plugins/org.eclipse.platform.doc.user_*.*.*
+#%{_libdir}/%{name}/plugins/org.eclipse.platform.doc.isv_*.*.*
+#%{_libdir}/%{name}/plugins/org.eclipse.platform.doc.user_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.platform.source_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.platform.source.linux.gtk.%{_eclipse_arch}_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.rcp_*.*.*
@@ -184,6 +202,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}/plugins/org.eclipse.search_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.swt_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.ui.browser_*.*.*
+%{_libdir}/%{name}/plugins/org.eclipse.ui.navigator_*.*.*
+%{_libdir}/%{name}/plugins/org.eclipse.ui.navigator.resources_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.team.core_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.team.cvs.core_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.team.cvs.ssh2_*.*.*
@@ -200,8 +220,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}/plugins/org.eclipse.ui.forms_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.ui.ide_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.ui.intro_*.*.*
+%{_libdir}/%{name}/plugins/org.eclipse.ui.intro.universal_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.ui.presentations.r21_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.ui.views_*.*.*
+%{_libdir}/%{name}/plugins/org.eclipse.ui.views.properties.tabbed_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.ui.workbench_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.ui.workbench.compatibility_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.ui.workbench.texteditor_*.*.*
@@ -211,6 +233,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}/plugins/org.eclipse.update.scheduler_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.update.ui_*.*.*
 %{_libdir}/%{name}/plugins/org.junit_*.*.*
+%{_libdir}/%{name}/plugins/org.junit4_*.*.*
 
 %dir %{_datadir}/%{name}
 %dir %{_datadir}/%{name}/features
