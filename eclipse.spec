@@ -5,10 +5,26 @@
 #			  This will make building such things like Azureus possible without having
 #			  whole Eclipse suite installed.
 #
-%define		_buildid	200604191640
+# unpackaged files:
+#   /usr/lib64/eclipse/plugins/com.ibm.icu.base.source_3.4.4.1/META-INF/MANIFEST.MF
+#   /usr/lib64/eclipse/plugins/com.ibm.icu.base.source_3.4.4.1/about.html
+#   /usr/lib64/eclipse/plugins/com.ibm.icu.base.source_3.4.4.1/plugin.properties
+#   /usr/lib64/eclipse/plugins/com.ibm.icu.base.source_3.4.4.1/plugin.xml
+#   /usr/lib64/eclipse/plugins/com.ibm.icu.base.source_3.4.4.1/src/com.ibm.icu.base_3.4.4.1/about.html
+#   /usr/lib64/eclipse/plugins/com.ibm.icu.base.source_3.4.4.1/src/com.ibm.icu.base_3.4.4.1/about_files/license.html
+#   /usr/lib64/eclipse/plugins/com.ibm.icu.base.source_3.4.4.1/src/com.ibm.icu.base_3.4.4.1/about_files/ucdterms.txt
+#   /usr/lib64/eclipse/plugins/com.ibm.icu.base.source_3.4.4.1/src/com.ibm.icu.base_3.4.4.1/src.zip
+#   /usr/lib64/eclipse/plugins/com.ibm.icu.base_3.4.4.1.jar
+#   /usr/lib64/eclipse/plugins/org.eclipse.jdt.doc.isv_3.2.0.v20060512.jar
+#   /usr/lib64/eclipse/plugins/org.eclipse.jdt.doc.user_3.2.0.v20060511-1600.jar
+#   /usr/lib64/eclipse/plugins/org.eclipse.pde.doc.user_3.2.0.v20060511-0800.jar
+#   /usr/lib64/eclipse/plugins/org.eclipse.platform.doc.isv_3.2.0.v20060512.jar
+#   /usr/lib64/eclipse/plugins/org.eclipse.platform.doc.user_3.2.0.v20060512.jar
+#
 %define		_ver_major	3.2
-%define		_ver_rc		RC1a
 %define		_ver_minor	1
+%define		_ver_rc		RC4
+%define		_buildid	200605121600
 #
 Summary:	Eclipse - an open extensible IDE
 Summary(pl):	Eclipse - otwarte, rozszerzalne ¶rodowisko programistyczne
@@ -19,7 +35,7 @@ Release:	0.%{_ver_rc}_%{_buildid}.1
 License:	EPL v1.0
 Group:		Development/Tools
 Source0:	http://download.eclipse.org/eclipse/downloads/drops/S-%{_ver_major}%{_ver_rc}-%{_buildid}/%{name}-sourceBuild-srcIncluded-%{_ver_major}%{_ver_rc}.zip
-# Source0-md5:	ce7957ba841223b7ad6e2f4623086d95
+# Source0-md5:	c0a82a20347c0de3f956fdb6826e1d04
 Source1:	%{name}.desktop
 Patch0:		%{name}-core_resources-makefile.patch
 Patch1:		%{name}-build.patch
