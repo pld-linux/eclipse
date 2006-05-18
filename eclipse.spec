@@ -133,7 +133,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}/readme
 %{_libdir}/%{name}/startup.jar
 %{_libdir}/%{name}/about.html
-%{_libdir}/%{name}/about_files
+#%{_libdir}/%{name}/about_files
 %dir %{_libdir}/%{name}/features
 %{_libdir}/%{name}/features/org.eclipse.jdt_*.*.*
 %{_libdir}/%{name}/features/org.eclipse.jdt.source_*.*.*
@@ -147,6 +147,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/%{name}/plugins
 %{_libdir}/%{name}/plugins/com.ibm.icu_*.*.*
 %{_libdir}/%{name}/plugins/com.ibm.icu.source_*.*.*
+%{_libdir}/%{name}/plugins/com.ibm.icu.base_*.*.*
+%{_libdir}/%{name}/plugins/com.ibm.icu.base.source_*.*.*
 %{_libdir}/%{name}/plugins/com.jcraft.jsch_*.*.*
 %{_libdir}/%{name}/plugins/org.apache.ant_*.*.*
 %{_libdir}/%{name}/plugins/org.apache.lucene_*.*.*
@@ -185,8 +187,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}/plugins/org.eclipse.jdt.core.manipulation*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.jdt.debug_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.jdt.debug.ui_*.*.*
-#%{_libdir}/%{name}/plugins/org.eclipse.jdt.doc.isv_*.*.*
-#%{_libdir}/%{name}/plugins/org.eclipse.jdt.doc.user_*.*.*
+%{_libdir}/%{name}/plugins/org.eclipse.jdt.doc.isv_*.*.*
+%{_libdir}/%{name}/plugins/org.eclipse.jdt.doc.user_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.jdt.junit_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.jdt.junit.runtime_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.jdt.junit4.runtime_*.*.*
@@ -204,14 +206,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}/plugins/org.eclipse.pde_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.pde.build_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.pde.core_*.*.*
-#%{_libdir}/%{name}/plugins/org.eclipse.pde.doc.user_*.*.*
+%{_libdir}/%{name}/plugins/org.eclipse.pde.doc.user_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.pde.junit.runtime_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.pde.runtime_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.pde.source_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.pde.ui_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.platform_*.*.*
-#%{_libdir}/%{name}/plugins/org.eclipse.platform.doc.isv_*.*.*
-#%{_libdir}/%{name}/plugins/org.eclipse.platform.doc.user_*.*.*
+%{_libdir}/%{name}/plugins/org.eclipse.platform.doc.isv_*.*.*
+%{_libdir}/%{name}/plugins/org.eclipse.platform.doc.user_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.platform.source_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.platform.source.linux.gtk.%{_eclipse_arch}_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.rcp_*.*.*
