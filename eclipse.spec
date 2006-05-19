@@ -5,22 +5,6 @@
 #			  This will make building such things like Azureus possible without having
 #			  whole Eclipse suite installed.
 #
-# unpackaged files:
-#   /usr/lib64/eclipse/plugins/com.ibm.icu.base.source_3.4.4.1/META-INF/MANIFEST.MF
-#   /usr/lib64/eclipse/plugins/com.ibm.icu.base.source_3.4.4.1/about.html
-#   /usr/lib64/eclipse/plugins/com.ibm.icu.base.source_3.4.4.1/plugin.properties
-#   /usr/lib64/eclipse/plugins/com.ibm.icu.base.source_3.4.4.1/plugin.xml
-#   /usr/lib64/eclipse/plugins/com.ibm.icu.base.source_3.4.4.1/src/com.ibm.icu.base_3.4.4.1/about.html
-#   /usr/lib64/eclipse/plugins/com.ibm.icu.base.source_3.4.4.1/src/com.ibm.icu.base_3.4.4.1/about_files/license.html
-#   /usr/lib64/eclipse/plugins/com.ibm.icu.base.source_3.4.4.1/src/com.ibm.icu.base_3.4.4.1/about_files/ucdterms.txt
-#   /usr/lib64/eclipse/plugins/com.ibm.icu.base.source_3.4.4.1/src/com.ibm.icu.base_3.4.4.1/src.zip
-#   /usr/lib64/eclipse/plugins/com.ibm.icu.base_3.4.4.1.jar
-#   /usr/lib64/eclipse/plugins/org.eclipse.jdt.doc.isv_3.2.0.v20060512.jar
-#   /usr/lib64/eclipse/plugins/org.eclipse.jdt.doc.user_3.2.0.v20060511-1600.jar
-#   /usr/lib64/eclipse/plugins/org.eclipse.pde.doc.user_3.2.0.v20060511-0800.jar
-#   /usr/lib64/eclipse/plugins/org.eclipse.platform.doc.isv_3.2.0.v20060512.jar
-#   /usr/lib64/eclipse/plugins/org.eclipse.platform.doc.user_3.2.0.v20060512.jar
-#
 %define		_ver_major	3.2
 %define		_ver_minor	1
 %define		_ver_rc		RC4
