@@ -40,7 +40,7 @@ Source1:	%{name}.desktop
 Patch0:		%{name}-core_resources-makefile.patch
 Patch1:		%{name}-build.patch
 URL:		http://www.eclipse.org/
-BuildRequires:	jakarta-ant >= 1.6.1
+BuildRequires:	ant >= 1.6.1
 BuildRequires:	jdk >= 1.4
 BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.213
