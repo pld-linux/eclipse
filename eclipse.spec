@@ -30,7 +30,7 @@ BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.213
 BuildRequires:	unzip
 BuildRequires:	zip
-Requires:	jakarta-ant
+Requires:	ant
 Requires:	jdk >= 1.4
 Obsoletes:	eclipse-SDK
 ExclusiveArch:	%{ix86} %{x8664} ppc
