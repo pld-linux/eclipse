@@ -1,3 +1,4 @@
+%include /usr/lib/rpm/macros.java
 #
 # TODO:
 #			- separate SWT (there are separate tarballs at http://www.eclipse.org/swt/)
@@ -14,7 +15,7 @@ Summary(pl):	Eclipse - otwarte, rozszerzalne ¶rodowisko programistyczne
 Name:		eclipse
 Version:	%{_ver_major}
 #Release:	0.%{_mver}_%{_buildid}.1
-Release:	1
+Release:	2
 License:	EPL v1.0
 Group:		Development/Tools
 Source0:	http://download.eclipse.org/eclipse/downloads/drops/R-%{_ver_major}-%{_buildid}/%{name}-sourceBuild-srcIncluded-%{_ver_major}.zip
@@ -23,16 +24,17 @@ Source1:	%{name}.desktop
 Patch0:		%{name}-core_resources-makefile.patch
 Patch1:		%{name}-jikesbuild.patch
 URL:		http://www.eclipse.org/
-BuildRequires:	jakarta-ant >= 1.6.1
+BuildRequires:	ant >= 1.6.1
 BuildRequires:	jdk >= 1.4
+BuildRequires:	jpackage-utils
 BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.213
 BuildRequires:	unzip
 BuildRequires:	zip
-Requires:	jakarta-ant
+Requires:	ant
 Requires:	jdk >= 1.4
 Obsoletes:	eclipse-SDK
-ExclusiveArch:	%{ix86} %{x8664} ppc
+ExclusiveArch:	i586 i686 pentium3 pentium4 athlon %{x8664} noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_eclipse_arch	%(echo %{_target_cpu} | sed 's/i.86\\|athlon\\|pentium/x86/;s/amd64/x86_64/')
@@ -53,7 +55,8 @@ wszystkiego i niczego w szczególno¶ci.
 %patch1 -p1
 
 %build
-export JAVA_HOME=%{_libdir}/java
+unset JAVA_HOME || :
+export JAVA_HOME="%{java_home}" 
 
 ./build -os linux -ws gtk -arch %{_eclipse_arch} -target compile
 
@@ -75,7 +78,8 @@ install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_bindir},%{_libdir}/%{name}}
 # place for arch independent plugins
 install -d $RPM_BUILD_ROOT%{_datadir}/%{name}/{features,plugins}
 
-export JAVA_HOME=%{_libdir}/java
+unset JAVA_HOME || :
+export JAVA_HOME="%{java_home}" 
 ./build -os linux -ws gtk -arch %{_eclipse_arch} -target install
 
 tar xfz result/linux-gtk-%{_eclipse_arch}-sdk.tar.gz -C $RPM_BUILD_ROOT%{_libdir}
