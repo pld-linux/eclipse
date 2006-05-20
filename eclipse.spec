@@ -1,3 +1,4 @@
+%include /usr/lib/rpm/macros.java
 #
 # TODO:
 #			- separate SWT (there are separate tarballs at http://www.eclipse.org/swt/)
@@ -30,10 +31,11 @@ BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.213
 BuildRequires:	unzip
 BuildRequires:	zip
+BuildRequires:	jpackage-utils
 Requires:	ant
 Requires:	jdk >= 1.4
 Obsoletes:	eclipse-SDK
-ExclusiveArch:	%{ix86} %{x8664} ppc
+ExclusiveArch:	i586 i686 pentium3 pentium4 athlon %{x8664} noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_eclipse_arch	%(echo %{_target_cpu} | sed 's/i.86\\|athlon\\|pentium/x86/;s/amd64/x86_64/')
@@ -54,7 +56,8 @@ wszystkiego i niczego w szczególno¶ci.
 %patch1 -p0
 
 %build
-export JAVA_HOME=%{_libdir}/java
+unset JAVA_HOME || :
+export JAVA_HOME=%{java_home}
 
 ./build -os linux -ws gtk -arch %{_eclipse_arch} -target compile -java5home %{_libdir}/java
 
@@ -74,7 +77,8 @@ install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_bindir},%{_libdir}/%{name}}
 # place for arch independent plugins
 install -d $RPM_BUILD_ROOT%{_datadir}/%{name}/{features,plugins}
 
-export JAVA_HOME=%{_libdir}/java
+unset JAVA_HOME || :
+export JAVA_HOME=%{java_home}
 ./build -os linux -ws gtk -arch %{_eclipse_arch} -target install -java5home %{_libdir}/java
 
 tar xfz result/linux-gtk-%{_eclipse_arch}-sdk.tar.gz -C $RPM_BUILD_ROOT%{_libdir}
