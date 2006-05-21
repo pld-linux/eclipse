@@ -28,10 +28,10 @@ URL:		http://www.eclipse.org/
 BuildRequires:	ant >= 1.6.1
 BuildRequires:	jdk >= 1.4
 BuildRequires:	pkgconfig
+BuildRequires:	rpm-javaprov
 BuildRequires:	rpmbuild(macros) >= 1.213
 BuildRequires:	unzip
 BuildRequires:	zip
-BuildRequires:	jpackage-utils
 Requires:	ant
 Requires:	jdk >= 1.4
 Obsoletes:	eclipse-SDK
