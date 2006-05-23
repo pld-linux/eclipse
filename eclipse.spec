@@ -1,5 +1,3 @@
-%include /usr/lib/rpm/macros.java
-#
 # TODO:
 #			- separate SWT (there are separate tarballs at http://www.eclipse.org/swt/)
 #			  and add proper provides, obsoletes, conflicts etc. where needed.
@@ -28,8 +26,7 @@ URL:		http://www.eclipse.org/
 BuildRequires:	ant >= 1.6.1
 BuildRequires:	jdk >= 1.4
 BuildRequires:	pkgconfig
-BuildRequires:	rpm-javaprov
-BuildRequires:	rpmbuild(macros) >= 1.213
+BuildRequires:	rpmbuild(macros) >= 1.300
 BuildRequires:	unzip
 BuildRequires:	zip
 Requires:	ant
