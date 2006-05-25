@@ -6,8 +6,8 @@
 #
 %define		_ver_major	3.2
 %define		_ver_minor	1
-%define		_ver_rc		RC4
-%define		_buildid	200605121600
+%define		_ver_rc		RC5
+%define		_buildid	200605191206
 #
 Summary:	Eclipse - an open extensible IDE
 Summary(pl):	Eclipse - otwarte, rozszerzalne ¶rodowisko programistyczne
@@ -18,7 +18,7 @@ Release:	0.%{_ver_rc}_%{_buildid}.1
 License:	EPL v1.0
 Group:		Development/Tools
 Source0:	http://download.eclipse.org/eclipse/downloads/drops/S-%{_ver_major}%{_ver_rc}-%{_buildid}/%{name}-sourceBuild-srcIncluded-%{_ver_major}%{_ver_rc}.zip
-# Source0-md5:	c0a82a20347c0de3f956fdb6826e1d04
+# Source0-md5:	3ac98928d84d52c04f95e3cb45af66ff
 Source1:	%{name}.desktop
 Patch0:		%{name}-core_resources-makefile.patch
 Patch1:		%{name}-build.patch
