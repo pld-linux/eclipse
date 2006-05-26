@@ -1,4 +1,3 @@
-%include /usr/lib/rpm/macros.java
 #
 # TODO:
 #			- separate SWT (there are separate tarballs at http://www.eclipse.org/swt/)
@@ -28,7 +27,7 @@ BuildRequires:	ant >= 1.6.1
 BuildRequires:	jdk >= 1.4
 BuildRequires:	jpackage-utils
 BuildRequires:	pkgconfig
-BuildRequires:	rpmbuild(macros) >= 1.213
+BuildRequires:	rpmbuild(macros) >= 1.300
 BuildRequires:	unzip
 BuildRequires:	zip
 Requires:	ant
@@ -55,7 +54,7 @@ wszystkiego i niczego w szczególno¶ci.
 %patch1 -p1
 
 %build
-unset JAVA_HOME || :
+unset CLASSPATH || :
 export JAVA_HOME="%{java_home}" 
 
 ./build -os linux -ws gtk -arch %{_eclipse_arch} -target compile
