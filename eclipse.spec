@@ -53,7 +53,7 @@ wszystkiego i niczego w szczególno¶ci.
 %patch1 -p0
 
 %build
-unset JAVA_HOME || :
+unset CLASSPATH || :
 export JAVA_HOME=%{java_home}
 
 ./build -os linux -ws gtk -arch %{_eclipse_arch} -target compile -java5home %{_libdir}/java
