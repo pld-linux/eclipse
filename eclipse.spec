@@ -98,6 +98,7 @@ EOF
 if [ ! -f "$RPM_BUILD_ROOT%{_libdir}/%{name}/icon.xpm" ]; then
 	install features/org.eclipse.platform.launchers/bin/gtk/linux/x86/icon.xpm $RPM_BUILD_ROOT%{_libdir}/%{name}/icon.xpm
 fi
+install -D features/org.eclipse.platform.launchers/bin/gtk/linux/x86/icon.xpm $RPM_BUILD_ROOT%{_pixmapsdir}/eclipse-icon.xpm
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -108,6 +109,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/%{name}/eclipse
 %attr(755,root,root) %{_libdir}/%{name}/lib*.so
 %{_desktopdir}/eclipse.desktop
+%{_pixmapsdir}/eclipse-icon.xpm
 %dir %{_libdir}/%{name}
 %{_libdir}/%{name}/.eclipseproduct
 %{_libdir}/%{name}/configuration
