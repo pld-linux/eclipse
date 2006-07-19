@@ -88,8 +88,8 @@ cp -a baseLocation/plugins/* $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins
 #wrapper
 install -d $RPM_BUILD_ROOT%{_bindir}
 cat > $RPM_BUILD_ROOT%{_bindir}/eclipse << 'EOF'
-#!/bin/bash
-exec %{_libdir}/%{name}/eclipse $*
+#!/bin/sh
+exec %{_libdir}/%{name}/eclipse ${1:+"$@"}
 EOF
 
 :> $RPM_BUILD_ROOT%{_datadir}/%{name}/.eclipseextension
