@@ -1,0 +1,513 @@
+diff -uNr assemble.org.eclipse.sdk.linux.gtk.ia64.xml assemble.org.eclipse.sdk.linux.gtk.ia64.xml
+--- assemble.org.eclipse.sdk.linux.gtk.ia64.xml	2006-07-04 13:40:47.000000000 -0400
++++ assemble.org.eclipse.sdk.linux.gtk.ia64.xml	2006-07-04 13:33:17.000000000 -0400
+@@ -106,9 +106,6 @@
+ 		<ant antfile="build.xml" dir="plugins/org.eclipse.jdt.ui" target="gather.bin.parts">
+ 			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+ 		</ant>
+-		<ant antfile="build.xml" dir="plugins/org.eclipse.jdt.junit4.runtime" target="gather.bin.parts">
+-			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+-		</ant>
+ 		<ant antfile="build.xml" dir="plugins/org.eclipse.osgi" target="gather.bin.parts">
+ 			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+ 		</ant>
+@@ -130,9 +127,6 @@
+ 		<ant antfile="build.xml" dir="plugins/org.eclipse.jdt.source" target="gather.bin.parts">
+ 			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+ 		</ant>
+-		<ant antfile="build.xml" dir="plugins/org.eclipse.jdt.apt.ui" target="gather.bin.parts">
+-			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+-		</ant>
+ 		<ant antfile="build.xml" dir="plugins/org.eclipse.platform.doc.user" target="gather.bin.parts">
+ 			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+ 		</ant>
+@@ -295,9 +289,6 @@
+ 		<ant antfile="build.xml" dir="plugins/org.eclipse.jdt.junit.runtime" target="gather.bin.parts">
+ 			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+ 		</ant>
+-		<ant antfile="build.xml" dir="plugins/org.eclipse.jdt.apt.core" target="gather.bin.parts">
+-			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+-		</ant>
+ 		<ant antfile="build.xml" dir="plugins/org.eclipse.jface.text" target="gather.bin.parts">
+ 			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+ 		</ant>
+@@ -325,9 +316,6 @@
+ 		<ant antfile="build.xml" dir="plugins/org.apache.lucene" target="gather.bin.parts">
+ 			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+ 		</ant>
+-		<ant antfile="build.xml" dir="plugins/org.junit4" target="gather.bin.parts">
+-			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+-		</ant>
+ 		<ant antfile="build.xml" dir="plugins/org.eclipse.pde.source" target="gather.bin.parts">
+ 			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+ 		</ant>
+@@ -471,10 +459,6 @@
+ 		</antcall>
+ 		<antcall target="jarUp">
+ 			<param name="source" value="${eclipse.plugins}"/>
+-			<param name="elementName" value="org.eclipse.jdt.junit4.runtime_1.0.0.v20060605-1400"/>
+-		</antcall>
+-		<antcall target="jarUp">
+-			<param name="source" value="${eclipse.plugins}"/>
+ 			<param name="elementName" value="org.eclipse.osgi_3.2.0.v20060601"/>
+ 		</antcall>
+ 		<antcall target="jarUp">
+@@ -495,10 +479,6 @@
+ 		</antcall>
+ 		<antcall target="jarUp">
+ 			<param name="source" value="${eclipse.plugins}"/>
+-			<param name="elementName" value="org.eclipse.jdt.apt.ui_3.2.0.v20060602-1740"/>
+-		</antcall>
+-		<antcall target="jarUp">
+-			<param name="source" value="${eclipse.plugins}"/>
+ 			<param name="elementName" value="org.eclipse.platform.doc.user_3.2.0.v20060605"/>
+ 		</antcall>
+ 		<antcall target="jarUp">
+@@ -675,10 +655,6 @@
+ 		</antcall>
+ 		<antcall target="jarUp">
+ 			<param name="source" value="${eclipse.plugins}"/>
+-			<param name="elementName" value="org.eclipse.jdt.apt.core_3.2.0.v20060602-1740"/>
+-		</antcall>
+-		<antcall target="jarUp">
+-			<param name="source" value="${eclipse.plugins}"/>
+ 			<param name="elementName" value="org.eclipse.jface.text_3.2.0.v20060605-1400"/>
+ 		</antcall>
+ 		<antcall target="jarUp">
+diff -uNr assemble.org.eclipse.sdk.linux.gtk.ppc64.xml assemble.org.eclipse.sdk.linux.gtk.ppc64.xml
+--- assemble.org.eclipse.sdk.linux.gtk.ppc64.xml	2006-07-04 13:40:47.000000000 -0400
++++ assemble.org.eclipse.sdk.linux.gtk.ppc64.xml	2006-07-04 13:33:54.000000000 -0400
+@@ -106,9 +106,6 @@
+ 		<ant antfile="build.xml" dir="plugins/org.eclipse.jdt.ui" target="gather.bin.parts">
+ 			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+ 		</ant>
+-		<ant antfile="build.xml" dir="plugins/org.eclipse.jdt.junit4.runtime" target="gather.bin.parts">
+-			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+-		</ant>
+ 		<ant antfile="build.xml" dir="plugins/org.eclipse.osgi" target="gather.bin.parts">
+ 			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+ 		</ant>
+@@ -130,9 +127,6 @@
+ 		<ant antfile="build.xml" dir="plugins/org.eclipse.jdt.source" target="gather.bin.parts">
+ 			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+ 		</ant>
+-		<ant antfile="build.xml" dir="plugins/org.eclipse.jdt.apt.ui" target="gather.bin.parts">
+-			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+-		</ant>
+ 		<ant antfile="build.xml" dir="plugins/org.eclipse.platform.doc.user" target="gather.bin.parts">
+ 			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+ 		</ant>
+@@ -292,9 +286,6 @@
+ 		<ant antfile="build.xml" dir="plugins/org.eclipse.jdt.junit.runtime" target="gather.bin.parts">
+ 			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+ 		</ant>
+-		<ant antfile="build.xml" dir="plugins/org.eclipse.jdt.apt.core" target="gather.bin.parts">
+-			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+-		</ant>
+ 		<ant antfile="build.xml" dir="plugins/org.eclipse.jface.text" target="gather.bin.parts">
+ 			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+ 		</ant>
+@@ -322,9 +313,6 @@
+ 		<ant antfile="build.xml" dir="plugins/org.apache.lucene" target="gather.bin.parts">
+ 			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+ 		</ant>
+-		<ant antfile="build.xml" dir="plugins/org.junit4" target="gather.bin.parts">
+-			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+-		</ant>
+ 		<ant antfile="build.xml" dir="plugins/org.eclipse.pde.source" target="gather.bin.parts">
+ 			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+ 		</ant>
+@@ -462,10 +450,6 @@
+ 		</antcall>
+ 		<antcall target="jarUp">
+ 			<param name="source" value="${eclipse.plugins}"/>
+-			<param name="elementName" value="org.eclipse.jdt.junit4.runtime_1.0.0.v20060605-1400"/>
+-		</antcall>
+-		<antcall target="jarUp">
+-			<param name="source" value="${eclipse.plugins}"/>
+ 			<param name="elementName" value="org.eclipse.osgi_3.2.0.v20060601"/>
+ 		</antcall>
+ 		<antcall target="jarUp">
+@@ -486,10 +470,6 @@
+ 		</antcall>
+ 		<antcall target="jarUp">
+ 			<param name="source" value="${eclipse.plugins}"/>
+-			<param name="elementName" value="org.eclipse.jdt.apt.ui_3.2.0.v20060602-1740"/>
+-		</antcall>
+-		<antcall target="jarUp">
+-			<param name="source" value="${eclipse.plugins}"/>
+ 			<param name="elementName" value="org.eclipse.platform.doc.user_3.2.0.v20060605"/>
+ 		</antcall>
+ 		<antcall target="jarUp">
+@@ -662,10 +642,6 @@
+ 		</antcall>
+ 		<antcall target="jarUp">
+ 			<param name="source" value="${eclipse.plugins}"/>
+-			<param name="elementName" value="org.eclipse.jdt.apt.core_3.2.0.v20060602-1740"/>
+-		</antcall>
+-		<antcall target="jarUp">
+-			<param name="source" value="${eclipse.plugins}"/>
+ 			<param name="elementName" value="org.eclipse.jface.text_3.2.0.v20060605-1400"/>
+ 		</antcall>
+ 		<antcall target="jarUp">
+diff -uNr assemble.org.eclipse.sdk.linux.gtk.ppc.xml assemble.org.eclipse.sdk.linux.gtk.ppc.xml
+--- assemble.org.eclipse.sdk.linux.gtk.ppc.xml	2006-07-04 13:40:47.000000000 -0400
++++ assemble.org.eclipse.sdk.linux.gtk.ppc.xml	2006-07-04 13:34:22.000000000 -0400
+@@ -109,9 +109,6 @@
+ 		<ant antfile="build.xml" dir="plugins/org.eclipse.jdt.ui" target="gather.bin.parts">
+ 			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+ 		</ant>
+-		<ant antfile="build.xml" dir="plugins/org.eclipse.jdt.junit4.runtime" target="gather.bin.parts">
+-			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+-		</ant>
+ 		<ant antfile="build.xml" dir="plugins/org.eclipse.osgi" target="gather.bin.parts">
+ 			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+ 		</ant>
+@@ -133,9 +130,6 @@
+ 		<ant antfile="build.xml" dir="plugins/org.eclipse.jdt.source" target="gather.bin.parts">
+ 			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+ 		</ant>
+-		<ant antfile="build.xml" dir="plugins/org.eclipse.jdt.apt.ui" target="gather.bin.parts">
+-			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+-		</ant>
+ 		<ant antfile="build.xml" dir="plugins/org.eclipse.platform.doc.user" target="gather.bin.parts">
+ 			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+ 		</ant>
+@@ -298,9 +292,6 @@
+ 		<ant antfile="build.xml" dir="plugins/org.eclipse.jdt.junit.runtime" target="gather.bin.parts">
+ 			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+ 		</ant>
+-		<ant antfile="build.xml" dir="plugins/org.eclipse.jdt.apt.core" target="gather.bin.parts">
+-			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+-		</ant>
+ 		<ant antfile="build.xml" dir="plugins/org.eclipse.jface.text" target="gather.bin.parts">
+ 			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+ 		</ant>
+@@ -328,9 +319,6 @@
+ 		<ant antfile="build.xml" dir="plugins/org.apache.lucene" target="gather.bin.parts">
+ 			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+ 		</ant>
+-		<ant antfile="build.xml" dir="plugins/org.junit4" target="gather.bin.parts">
+-			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+-		</ant>
+ 		<ant antfile="build.xml" dir="plugins/org.eclipse.pde.source" target="gather.bin.parts">
+ 			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+ 		</ant>
+@@ -471,10 +459,6 @@
+ 		</antcall>
+ 		<antcall target="jarUp">
+ 			<param name="source" value="${eclipse.plugins}"/>
+-			<param name="elementName" value="org.eclipse.jdt.junit4.runtime_1.0.0.v20060605-1400"/>
+-		</antcall>
+-		<antcall target="jarUp">
+-			<param name="source" value="${eclipse.plugins}"/>
+ 			<param name="elementName" value="org.eclipse.osgi_3.2.0.v20060601"/>
+ 		</antcall>
+ 		<antcall target="jarUp">
+@@ -495,10 +479,6 @@
+ 		</antcall>
+ 		<antcall target="jarUp">
+ 			<param name="source" value="${eclipse.plugins}"/>
+-			<param name="elementName" value="org.eclipse.jdt.apt.ui_3.2.0.v20060602-1740"/>
+-		</antcall>
+-		<antcall target="jarUp">
+-			<param name="source" value="${eclipse.plugins}"/>
+ 			<param name="elementName" value="org.eclipse.platform.doc.user_3.2.0.v20060605"/>
+ 		</antcall>
+ 		<antcall target="jarUp">
+@@ -675,10 +655,6 @@
+ 		</antcall>
+ 		<antcall target="jarUp">
+ 			<param name="source" value="${eclipse.plugins}"/>
+-			<param name="elementName" value="org.eclipse.jdt.apt.core_3.2.0.v20060602-1740"/>
+-		</antcall>
+-		<antcall target="jarUp">
+-			<param name="source" value="${eclipse.plugins}"/>
+ 			<param name="elementName" value="org.eclipse.jface.text_3.2.0.v20060605-1400"/>
+ 		</antcall>
+ 		<antcall target="jarUp">
+diff -uNr assemble.org.eclipse.sdk.linux.gtk.x86_64.xml assemble.org.eclipse.sdk.linux.gtk.x86_64.xml
+--- assemble.org.eclipse.sdk.linux.gtk.x86_64.xml	2006-07-04 13:40:47.000000000 -0400
++++ assemble.org.eclipse.sdk.linux.gtk.x86_64.xml	2006-07-04 13:34:53.000000000 -0400
+@@ -106,9 +106,6 @@
+ 		<ant antfile="build.xml" dir="plugins/org.eclipse.jdt.ui" target="gather.bin.parts">
+ 			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+ 		</ant>
+-		<ant antfile="build.xml" dir="plugins/org.eclipse.jdt.junit4.runtime" target="gather.bin.parts">
+-			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+-		</ant>
+ 		<ant antfile="build.xml" dir="plugins/org.eclipse.osgi" target="gather.bin.parts">
+ 			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+ 		</ant>
+@@ -130,9 +127,6 @@
+ 		<ant antfile="build.xml" dir="plugins/org.eclipse.jdt.source" target="gather.bin.parts">
+ 			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+ 		</ant>
+-		<ant antfile="build.xml" dir="plugins/org.eclipse.jdt.apt.ui" target="gather.bin.parts">
+-			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+-		</ant>
+ 		<ant antfile="build.xml" dir="plugins/org.eclipse.platform.doc.user" target="gather.bin.parts">
+ 			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+ 		</ant>
+@@ -298,9 +292,6 @@
+ 		<ant antfile="build.xml" dir="plugins/org.eclipse.jdt.junit.runtime" target="gather.bin.parts">
+ 			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+ 		</ant>
+-		<ant antfile="build.xml" dir="plugins/org.eclipse.jdt.apt.core" target="gather.bin.parts">
+-			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+-		</ant>
+ 		<ant antfile="build.xml" dir="plugins/org.eclipse.jface.text" target="gather.bin.parts">
+ 			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+ 		</ant>
+@@ -331,9 +322,6 @@
+ 		<ant antfile="build.xml" dir="plugins/org.apache.lucene" target="gather.bin.parts">
+ 			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+ 		</ant>
+-		<ant antfile="build.xml" dir="plugins/org.junit4" target="gather.bin.parts">
+-			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+-		</ant>
+ 		<ant antfile="build.xml" dir="plugins/org.eclipse.pde.source" target="gather.bin.parts">
+ 			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+ 		</ant>
+@@ -474,10 +462,6 @@
+ 		</antcall>
+ 		<antcall target="jarUp">
+ 			<param name="source" value="${eclipse.plugins}"/>
+-			<param name="elementName" value="org.eclipse.jdt.junit4.runtime_1.0.0.v20060605-1400"/>
+-		</antcall>
+-		<antcall target="jarUp">
+-			<param name="source" value="${eclipse.plugins}"/>
+ 			<param name="elementName" value="org.eclipse.osgi_3.2.0.v20060601"/>
+ 		</antcall>
+ 		<antcall target="jarUp">
+@@ -498,10 +482,6 @@
+ 		</antcall>
+ 		<antcall target="jarUp">
+ 			<param name="source" value="${eclipse.plugins}"/>
+-			<param name="elementName" value="org.eclipse.jdt.apt.ui_3.2.0.v20060602-1740"/>
+-		</antcall>
+-		<antcall target="jarUp">
+-			<param name="source" value="${eclipse.plugins}"/>
+ 			<param name="elementName" value="org.eclipse.platform.doc.user_3.2.0.v20060605"/>
+ 		</antcall>
+ 		<antcall target="jarUp">
+@@ -678,10 +658,6 @@
+ 		</antcall>
+ 		<antcall target="jarUp">
+ 			<param name="source" value="${eclipse.plugins}"/>
+-			<param name="elementName" value="org.eclipse.jdt.apt.core_3.2.0.v20060602-1740"/>
+-		</antcall>
+-		<antcall target="jarUp">
+-			<param name="source" value="${eclipse.plugins}"/>
+ 			<param name="elementName" value="org.eclipse.jface.text_3.2.0.v20060605-1400"/>
+ 		</antcall>
+ 		<antcall target="jarUp">
+diff -uNr assemble.org.eclipse.sdk.linux.gtk.x86.xml assemble.org.eclipse.sdk.linux.gtk.x86.xml
+--- assemble.org.eclipse.sdk.linux.gtk.x86.xml	2006-07-04 13:40:47.000000000 -0400
++++ assemble.org.eclipse.sdk.linux.gtk.x86.xml	2006-07-04 13:35:31.000000000 -0400
+@@ -112,9 +112,6 @@
+ 		<ant antfile="build.xml" dir="plugins/org.eclipse.jdt.ui" target="gather.bin.parts">
+ 			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+ 		</ant>
+-		<ant antfile="build.xml" dir="plugins/org.eclipse.jdt.junit4.runtime" target="gather.bin.parts">
+-			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+-		</ant>
+ 		<ant antfile="build.xml" dir="plugins/org.eclipse.osgi" target="gather.bin.parts">
+ 			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+ 		</ant>
+@@ -136,9 +133,6 @@
+ 		<ant antfile="build.xml" dir="plugins/org.eclipse.jdt.source" target="gather.bin.parts">
+ 			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+ 		</ant>
+-		<ant antfile="build.xml" dir="plugins/org.eclipse.jdt.apt.ui" target="gather.bin.parts">
+-			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+-		</ant>
+ 		<ant antfile="build.xml" dir="plugins/org.eclipse.platform.doc.user" target="gather.bin.parts">
+ 			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+ 		</ant>
+@@ -298,9 +292,6 @@
+ 		<ant antfile="build.xml" dir="plugins/org.eclipse.jdt.junit.runtime" target="gather.bin.parts">
+ 			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+ 		</ant>
+-		<ant antfile="build.xml" dir="plugins/org.eclipse.jdt.apt.core" target="gather.bin.parts">
+-			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+-		</ant>
+ 		<ant antfile="build.xml" dir="plugins/org.eclipse.jface.text" target="gather.bin.parts">
+ 			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+ 		</ant>
+@@ -331,9 +322,6 @@
+ 		<ant antfile="build.xml" dir="plugins/org.apache.lucene" target="gather.bin.parts">
+ 			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+ 		</ant>
+-		<ant antfile="build.xml" dir="plugins/org.junit4" target="gather.bin.parts">
+-			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+-		</ant>
+ 		<ant antfile="build.xml" dir="plugins/org.eclipse.pde.source" target="gather.bin.parts">
+ 			<property name="destination.temp.folder" value="${eclipse.plugins}"/>
+ 		</ant>
+@@ -474,10 +462,6 @@
+ 		</antcall>
+ 		<antcall target="jarUp">
+ 			<param name="source" value="${eclipse.plugins}"/>
+-			<param name="elementName" value="org.eclipse.jdt.junit4.runtime_1.0.0.v20060605-1400"/>
+-		</antcall>
+-		<antcall target="jarUp">
+-			<param name="source" value="${eclipse.plugins}"/>
+ 			<param name="elementName" value="org.eclipse.osgi_3.2.0.v20060601"/>
+ 		</antcall>
+ 		<antcall target="jarUp">
+@@ -498,10 +482,6 @@
+ 		</antcall>
+ 		<antcall target="jarUp">
+ 			<param name="source" value="${eclipse.plugins}"/>
+-			<param name="elementName" value="org.eclipse.jdt.apt.ui_3.2.0.v20060602-1740"/>
+-		</antcall>
+-		<antcall target="jarUp">
+-			<param name="source" value="${eclipse.plugins}"/>
+ 			<param name="elementName" value="org.eclipse.platform.doc.user_3.2.0.v20060605"/>
+ 		</antcall>
+ 		<antcall target="jarUp">
+@@ -678,10 +658,6 @@
+ 		</antcall>
+ 		<antcall target="jarUp">
+ 			<param name="source" value="${eclipse.plugins}"/>
+-			<param name="elementName" value="org.eclipse.jdt.apt.core_3.2.0.v20060602-1740"/>
+-		</antcall>
+-		<antcall target="jarUp">
+-			<param name="source" value="${eclipse.plugins}"/>
+ 			<param name="elementName" value="org.eclipse.jface.text_3.2.0.v20060605-1400"/>
+ 		</antcall>
+ 		<antcall target="jarUp">
+diff -uNr features/org.eclipse.jdt/build.xml features/org.eclipse.jdt/build.xml
+--- features/org.eclipse.jdt/build.xml	2006-07-04 13:40:47.000000000 -0400
++++ features/org.eclipse.jdt/build.xml	2006-07-04 13:38:22.000000000 -0400
+@@ -12,11 +12,6 @@
+ 			<property name="os" value="win32"/>
+ 			<property name="ws" value="win32"/>
+ 		</ant>
+-		<ant antfile="build.xml" dir="../../plugins/org.junit4" target="${target}">
+-			<property name="arch" value="x86"/>
+-			<property name="os" value="win32"/>
+-			<property name="ws" value="win32"/>
+-		</ant>
+ 		<ant antfile="build.xml" dir="../../plugins/org.junit" target="${target}">
+ 			<property name="arch" value="x86"/>
+ 			<property name="os" value="win32"/>
+@@ -27,11 +22,6 @@
+ 			<property name="os" value="win32"/>
+ 			<property name="ws" value="win32"/>
+ 		</ant>
+-		<ant antfile="build.xml" dir="../../plugins/org.eclipse.jdt.junit4.runtime" target="${target}">
+-			<property name="arch" value="x86"/>
+-			<property name="os" value="win32"/>
+-			<property name="ws" value="win32"/>
+-		</ant>
+ 		<ant antfile="build.xml" dir="../../plugins/org.eclipse.jdt.core" target="${target}">
+ 			<property name="arch" value="x86"/>
+ 			<property name="os" value="win32"/>
+@@ -77,16 +67,6 @@
+ 			<property name="os" value="win32"/>
+ 			<property name="ws" value="win32"/>
+ 		</ant>
+-		<ant antfile="build.xml" dir="../../plugins/org.eclipse.jdt.apt.core" target="${target}">
+-			<property name="arch" value="x86"/>
+-			<property name="os" value="win32"/>
+-			<property name="ws" value="win32"/>
+-		</ant>
+-		<ant antfile="build.xml" dir="../../plugins/org.eclipse.jdt.apt.ui" target="${target}">
+-			<property name="arch" value="x86"/>
+-			<property name="os" value="win32"/>
+-			<property name="ws" value="win32"/>
+-		</ant>
+ 		<ant antfile="build.xml" dir="../../plugins/org.eclipse.ant.ui" target="${target}">
+ 			<property name="arch" value="x86"/>
+ 			<property name="os" value="win32"/>
+@@ -150,7 +130,7 @@
+ 		<copy todir="${feature.base}/features/org.eclipse.jdt_3.2.0.v20060609m-F7snq1fxia-Z4XP" failonerror="true" overwrite="false">
+ 			<fileset dir="${basedir}" includes="epl-v10.html,feature.xml,feature.properties,eclipse_update_120.jpg,license.html"			/>
+ 		</copy>
+-		<eclipse.idReplacer featureFilePath="${feature.base}/features/org.eclipse.jdt_3.2.0.v20060609m-F7snq1fxia-Z4XP/feature.xml"  selfVersion="3.2.0.v20060609m-F7snq1fxia-Z4XP" featureIds="" pluginIds="org.eclipse.jdt,3.2.0.v20060605-1400,org.eclipse.ant.ui,3.2.0.v20060531,org.eclipse.jdt.apt.core,3.2.0.v20060602-1740,org.eclipse.jdt.apt.ui,3.2.0.v20060602-1740,org.eclipse.jdt.core,3.2.0.v_671,org.eclipse.jdt.core.manipulation,1.0.0.v20060605-1400,org.eclipse.jdt.debug.ui,3.2.0.v20060605,org.eclipse.jdt.debug,3.2.0.v20060605,org.eclipse.jdt.junit,3.2.0.v20060605-1400,org.eclipse.jdt.junit.runtime,3.2.0.v20060605-1400,org.eclipse.jdt.junit4.runtime,1.0.0.v20060605-1400,org.eclipse.jdt.launching,3.2.0.v20060605,org.eclipse.jdt.ui,3.2.0.v20060605-1400,org.junit,3.8.1,org.junit4,4.1.0,org.eclipse.jdt.doc.user,3.2.0.v20060605-1400,org.eclipse.jdt.launching.macosx,3.1.100.v20060605,"/>
++		<eclipse.idReplacer featureFilePath="${feature.base}/features/org.eclipse.jdt_3.2.0.v20060609m-F7snq1fxia-Z4XP/feature.xml"  selfVersion="3.2.0.v20060609m-F7snq1fxia-Z4XP" featureIds="" pluginIds="org.eclipse.jdt,3.2.0.v20060605-1400,org.eclipse.ant.ui,3.2.0.v20060531,org.eclipse.jdt.core,3.2.0.v_671,org.eclipse.jdt.core.manipulation,1.0.0.v20060605-1400,org.eclipse.jdt.debug.ui,3.2.0.v20060605,org.eclipse.jdt.debug,3.2.0.v20060605,org.eclipse.jdt.junit,3.2.0.v20060605-1400,org.eclipse.jdt.junit.runtime,3.2.0.v20060605-1400,org.eclipse.jdt.launching,3.2.0.v20060605,org.eclipse.jdt.ui,3.2.0.v20060605-1400,org.junit,3.8.1,org.eclipse.jdt.doc.user,3.2.0.v20060605-1400,org.eclipse.jdt.launching.macosx,3.1.100.v20060605,"/>
+ 		<antcall target="rootFiles${os}_${ws}_${arch}"/>
+ 	</target>
+ 	<target name="rootFileswin32_win32_x86">
+diff -uNr features/org.eclipse.jdt/feature.xml features/org.eclipse.jdt/feature.xml
+--- features/org.eclipse.jdt/feature.xml	2006-07-04 13:40:47.000000000 -0400
++++ features/org.eclipse.jdt/feature.xml	2006-07-04 12:05:17.000000000 -0400
+@@ -38,20 +38,6 @@
+          unpack="false"/>
+ 
+    <plugin
+-         id="org.eclipse.jdt.apt.core"
+-         download-size="0"
+-         install-size="0"
+-         version="0.0.0"
+-         unpack="false"/>
+-
+-   <plugin
+-         id="org.eclipse.jdt.apt.ui"
+-         download-size="0"
+-         install-size="0"
+-         version="0.0.0"
+-         unpack="false"/>
+-
+-   <plugin
+          id="org.eclipse.jdt.core"
+          download-size="0"
+          install-size="0"
+@@ -91,13 +77,6 @@
+          version="0.0.0"/>
+ 
+    <plugin
+-         id="org.eclipse.jdt.junit4.runtime"
+-         download-size="0"
+-         install-size="0"
+-         version="0.0.0"
+-         unpack="false"/>
+-         
+-   <plugin
+          id="org.eclipse.jdt.launching"
+          download-size="0"
+          install-size="0"
+@@ -118,12 +97,6 @@
+          version="3.8.1"/>
+ 
+    <plugin
+-         id="org.junit4"
+-         download-size="0"
+-         install-size="0"
+-         version="0.0.0"/>
+-         
+-   <plugin
+          id="org.eclipse.jdt.doc.user"
+          download-size="0"
+          install-size="0"
+diff -uNr plugins/org.eclipse.jdt.doc.isv/buildDoc.xml plugins/org.eclipse.jdt.doc.isv/buildDoc.xml
+--- plugins/org.eclipse.jdt.doc.isv/buildDoc.xml	2006-07-04 13:40:47.000000000 -0400
++++ plugins/org.eclipse.jdt.doc.isv/buildDoc.xml	2006-07-04 13:30:48.000000000 -0400
+@@ -75,7 +75,7 @@
+ 		<exec dir="." executable="${javadoc}" output="doc.bin.log">
+ 			<arg line="@${basedir}/${optionsFile} -J-Xmx500M" />
+ 		</exec>
+-		<antcall target="generateJdtAptJavadoc" />
++	        <!-- <antcall target="generateJdtAptJavadoc" /> -->
+ 	</target>
+ 	
+ 	<target name="generateJdtAptJavadoc">
+diff -uNr plugins/org.eclipse.jdt.doc.isv/jdtOptions.txt plugins/org.eclipse.jdt.doc.isv/jdtOptions.txt
+--- plugins/org.eclipse.jdt.doc.isv/jdtOptions.txt	2006-07-04 13:40:47.000000000 -0400
++++ plugins/org.eclipse.jdt.doc.isv/jdtOptions.txt	2006-07-04 13:42:37.000000000 -0400
+@@ -22,12 +22,10 @@
+ ;../org.eclipse.jdt.ui/ui refactoring
+ ;../org.eclipse.jdt.ui/core extension
+ ;../org.eclipse.jdt.core.manipulation/refactoring
+-;../org.eclipse.jdt.core.manipulation/common
+-;../org.eclipse.jdt.apt.core/src"
++;../org.eclipse.jdt.core.manipulation/common"
+ -d reference/api
+ -classpath @rt@
+ ;../../baseLocation/plugins/com.ibm.icu_3.4.4.1.jar
+-;../org.eclipse.jdt.apt.core/mirrorapi.jar
+ ;../org.apache.ant/lib/ant.jar
+ ;../org.eclipse.compare/@dot
+ ;../org.eclipse.core.commands/@dot

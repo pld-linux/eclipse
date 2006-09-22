@@ -20,6 +20,7 @@ Source0:	http://download.eclipse.org/eclipse/downloads/drops/R-%{_ver_major}-%{_
 Source1:	%{name}.desktop
 Patch0:		%{name}-core_resources-makefile.patch
 Patch1:		%{name}-build.patch
+Patch2:		%{name}-disable-junit4-apt.patch
 URL:		http://www.eclipse.org/
 BuildRequires:	ant >= 1.6.1
 BuildRequires:	jdk >= 1.4
@@ -50,6 +51,7 @@ wszystkiego i niczego w szczególno¶ci.
 %setup -q -c
 %patch0 -p0
 %patch1 -p0
+%patch2 -p0
 
 %build
 unset CLASSPATH || :
@@ -167,8 +169,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}/plugins/org.eclipse.help.ui_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.help.webapp_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.jdt_*.*.*
-%{_libdir}/%{name}/plugins/org.eclipse.jdt.apt.core_*.*.*
-%{_libdir}/%{name}/plugins/org.eclipse.jdt.apt.ui_*.*.*
+#%{_libdir}/%{name}/plugins/org.eclipse.jdt.apt.core_*.*.*
+#%{_libdir}/%{name}/plugins/org.eclipse.jdt.apt.ui_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.jdt.core_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.jdt.core.manipulation*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.jdt.debug_*.*.*
@@ -177,7 +179,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}/plugins/org.eclipse.jdt.doc.user_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.jdt.junit_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.jdt.junit.runtime_*.*.*
-%{_libdir}/%{name}/plugins/org.eclipse.jdt.junit4.runtime_*.*.*
+#%{_libdir}/%{name}/plugins/org.eclipse.jdt.junit4.runtime_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.jdt.launching_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.jdt.source_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.jdt.ui_*.*.*
@@ -241,7 +243,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}/plugins/org.eclipse.update.scheduler_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.update.ui_*.*.*
 %{_libdir}/%{name}/plugins/org.junit_*.*.*
-%{_libdir}/%{name}/plugins/org.junit4_*.*.*
+#%{_libdir}/%{name}/plugins/org.junit4_*.*.*
 
 %dir %{_datadir}/%{name}
 %dir %{_datadir}/%{name}/features
