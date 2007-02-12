@@ -9,7 +9,7 @@
 %define		_buildid	200606291905
 #
 Summary:	Eclipse - an open extensible IDE
-Summary(pl):	Eclipse - otwarte, rozszerzalne ¶rodowisko programistyczne
+Summary(pl.UTF-8):   Eclipse - otwarte, rozszerzalne Å›rodowisko programistyczne
 Name:		eclipse
 Version:	%{_ver_major}
 Release:	2
@@ -42,10 +42,10 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Eclipse is a kind of universal tool platform - an open extensible IDE
 for anything and nothing in particular.
 
-%description -l pl
-Eclipse to rodzaj uniwersalnej platformy narzêdziowej - otwarte,
-rozszerzalne IDE (zintegrowane ¶rodowisko programistyczne) do
-wszystkiego i niczego w szczególno¶ci.
+%description -l pl.UTF-8
+Eclipse to rodzaj uniwersalnej platformy narzÄ™dziowej - otwarte,
+rozszerzalne IDE (zintegrowane Å›rodowisko programistyczne) do
+wszystkiego i niczego w szczegÃ³lnoÅ›ci.
 
 %prep
 %setup -q -c
