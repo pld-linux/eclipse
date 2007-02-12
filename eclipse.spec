@@ -9,7 +9,7 @@
 %define		_buildid	200606291905
 #
 Summary:	Eclipse - an open extensible IDE
-Summary(pl.UTF-8):   Eclipse - otwarte, rozszerzalne środowisko programistyczne
+Summary(pl.UTF-8):	Eclipse - otwarte, rozszerzalne środowisko programistyczne
 Name:		eclipse
 Version:	%{_ver_major}
 Release:	2
