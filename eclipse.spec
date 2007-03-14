@@ -4,23 +4,21 @@
 #			  This will make building such things like Azureus possible without having
 #			  whole Eclipse suite installed.
 #
-%define		_ver_major	3.2
-%define		_ver_minor	1
-%define		_buildid	200606291905
+%define		_ver_major	3.2.2
+%define		_buildid	200702121330
 #
 Summary:	Eclipse - an open extensible IDE
 Summary(pl.UTF-8):	Eclipse - otwarte, rozszerzalne środowisko programistyczne
 Name:		eclipse
 Version:	%{_ver_major}
-Release:	2
+Release:	1
 License:	EPL v1.0
 Group:		Development/Tools
 Source0:	http://download.eclipse.org/eclipse/downloads/drops/R-%{_ver_major}-%{_buildid}/%{name}-sourceBuild-srcIncluded-%{_ver_major}.zip
-# Source0-md5:	67b41802092d4b2f779fb756dcaec85c
+# Source0-md5:	5d1b9f6a146ffc59191e513083a6ec86
 Source1:	%{name}.desktop
 Patch0:		%{name}-core_resources-makefile.patch
 Patch1:		%{name}-build.patch
-Patch2:		%{name}-disable-junit4-apt.patch
 URL:		http://www.eclipse.org/
 BuildRequires:	ant >= 1.6.1
 BuildRequires:	jdk >= 1.4
@@ -51,7 +49,6 @@ wszystkiego i niczego w szczególności.
 %setup -q -c
 %patch0 -p0
 %patch1 -p0
-%patch2 -p0
 
 %build
 unset CLASSPATH || :
@@ -169,8 +166,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}/plugins/org.eclipse.help.ui_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.help.webapp_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.jdt_*.*.*
-#%{_libdir}/%{name}/plugins/org.eclipse.jdt.apt.core_*.*.*
-#%{_libdir}/%{name}/plugins/org.eclipse.jdt.apt.ui_*.*.*
+%{_libdir}/%{name}/plugins/org.eclipse.jdt.apt.*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.jdt.core_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.jdt.core.manipulation*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.jdt.debug_*.*.*
@@ -179,7 +175,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}/plugins/org.eclipse.jdt.doc.user_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.jdt.junit_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.jdt.junit.runtime_*.*.*
-#%{_libdir}/%{name}/plugins/org.eclipse.jdt.junit4.runtime_*.*.*
+%{_libdir}/%{name}/plugins/org.eclipse.jdt.junit4.runtime_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.jdt.launching_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.jdt.source_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.jdt.ui_*.*.*
@@ -243,7 +239,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}/plugins/org.eclipse.update.scheduler_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.update.ui_*.*.*
 %{_libdir}/%{name}/plugins/org.junit_*.*.*
-#%{_libdir}/%{name}/plugins/org.junit4_*.*.*
+%{_libdir}/%{name}/plugins/org.junit4_*.*.*
 
 %dir %{_datadir}/%{name}
 %dir %{_datadir}/%{name}/features
