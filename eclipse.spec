@@ -4,9 +4,8 @@
 #			  This will make building such things like Azureus possible without having
 #			  whole Eclipse suite installed.
 #
-%define		_ver_major	3.2
-%define		_ver_minor	1
-%define		_buildid	200606291905
+%define		_ver_major	3.2.2
+%define		_buildid	200702121330
 #
 Summary:	Eclipse - an open extensible IDE
 Summary(pl):	Eclipse - otwarte, rozszerzalne ¶rodowisko programistyczne
@@ -16,7 +15,7 @@ Release:	1
 License:	EPL v1.0
 Group:		Development/Tools
 Source0:	http://download.eclipse.org/eclipse/downloads/drops/R-%{_ver_major}-%{_buildid}/%{name}-sourceBuild-srcIncluded-%{_ver_major}.zip
-# Source0-md5:	67b41802092d4b2f779fb756dcaec85c
+# Source0-md5:	5d1b9f6a146ffc59191e513083a6ec86
 Source1:	%{name}.desktop
 Patch0:		%{name}-core_resources-makefile.patch
 Patch1:		%{name}-build.patch
@@ -31,7 +30,7 @@ BuildRequires:	zip
 Requires:	ant
 Requires:	jdk >= 1.4
 Obsoletes:	eclipse-SDK
-ExclusiveArch:	i586 i686 pentium3 pentium4 athlon %{x8664} noarch
+ExclusiveArch:	i586 i686 pentium3 pentium4 athlon %{x8664}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_eclipse_arch	%(echo %{_target_cpu} | sed 's/i.86\\|athlon\\|pentium/x86/;s/amd64/x86_64/')
@@ -89,7 +88,7 @@ cp -a baseLocation/plugins/* $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins
 install -d $RPM_BUILD_ROOT%{_bindir}
 cat > $RPM_BUILD_ROOT%{_bindir}/eclipse << 'EOF'
 #!/bin/sh
-exec %{_libdir}/%{name}/eclipse $*
+exec %{_libdir}/%{name}/eclipse ${1:+"$@"}
 EOF
 
 :> $RPM_BUILD_ROOT%{_datadir}/%{name}/.eclipseextension
@@ -167,8 +166,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}/plugins/org.eclipse.help.ui_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.help.webapp_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.jdt_*.*.*
-%{_libdir}/%{name}/plugins/org.eclipse.jdt.apt.core_*.*.*
-%{_libdir}/%{name}/plugins/org.eclipse.jdt.apt.ui_*.*.*
+%{_libdir}/%{name}/plugins/org.eclipse.jdt.apt.*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.jdt.core_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.jdt.core.manipulation*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.jdt.debug_*.*.*
