@@ -37,11 +37,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		no_install_post_chrpath		1
 
 # list of script capabilities (regexps) not to be used in Provides
-%ifarch %{x8664}
-%define		_noautoprov			libcairo.so.2()(64bit)
-%else
 %define		_noautoprov			libcairo.so.2
-%endif
 
 %description
 Eclipse is a kind of universal tool platform - an open extensible IDE
