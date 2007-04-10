@@ -11,7 +11,7 @@ Summary:	Eclipse - an open extensible IDE
 Summary(pl):	Eclipse - otwarte, rozszerzalne ¶rodowisko programistyczne
 Name:		eclipse
 Version:	%{_ver_major}
-Release:	1
+Release:	2
 License:	EPL v1.0
 Group:		Development/Tools
 Source0:	http://download.eclipse.org/eclipse/downloads/drops/R-%{_ver_major}-%{_buildid}/%{name}-sourceBuild-srcIncluded-%{_ver_major}.zip
@@ -35,6 +35,13 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_eclipse_arch	%(echo %{_target_cpu} | sed 's/i.86\\|athlon\\|pentium/x86/;s/amd64/x86_64/')
 %define		no_install_post_chrpath		1
+
+# list of script capabilities (regexps) not to be used in Provides
+%ifarch %{x8664}
+%define		_noautoprov			libcairo.so.2()(64bit)
+%else
+%define		_noautoprov			libcairo.so.2
+%endif
 
 %description
 Eclipse is a kind of universal tool platform - an open extensible IDE
