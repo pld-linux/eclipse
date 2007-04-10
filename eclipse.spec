@@ -36,6 +36,9 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		_eclipse_arch	%(echo %{_target_cpu} | sed 's/i.86\\|athlon\\|pentium/x86/;s/amd64/x86_64/')
 %define		no_install_post_chrpath		1
 
+# list of script capabilities (regexps) not to be used in Provides
+%define		_noautoprov			libcairo.so.2
+
 %description
 Eclipse is a kind of universal tool platform - an open extensible IDE
 for anything and nothing in particular.
