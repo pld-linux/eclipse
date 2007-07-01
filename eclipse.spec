@@ -4,24 +4,22 @@
 #			  This will make building such things like Azureus possible without having
 #			  whole Eclipse suite installed.
 #
-%define		_ver_major	3.2.2
-%define		_buildid	200702121330
+%define		_ver_major	3.3
+%define		_buildid	200706251500
 #
 Summary:	Eclipse - an open extensible IDE
 Summary(pl.UTF-8):	Eclipse - otwarte, rozszerzalne środowisko programistyczne
 Name:		eclipse
 Version:	%{_ver_major}
-Release:	1
+Release:	0.1
 License:	EPL v1.0
 Group:		Development/Tools
 Source0:	http://download.eclipse.org/eclipse/downloads/drops/R-%{_ver_major}-%{_buildid}/%{name}-sourceBuild-srcIncluded-%{_ver_major}.zip
-# Source0-md5:	5d1b9f6a146ffc59191e513083a6ec86
+# Source0-md5:	91c688221479986dbdd7d1a0771f04cc
 Source1:	%{name}.desktop
-Patch0:		%{name}-core_resources-makefile.patch
-Patch1:		%{name}-build.patch
 URL:		http://www.eclipse.org/
 BuildRequires:	ant >= 1.6.1
-BuildRequires:	jdk >= 1.4
+BuildRequires:	jdk >= 1.6
 BuildRequires:	pkgconfig
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.300
@@ -50,18 +48,17 @@ wszystkiego i niczego w szczególności.
 
 %prep
 %setup -q -c
-%patch0 -p0
-%patch1 -p0
 
 %build
 unset CLASSPATH || :
 export JAVA_HOME=%{java_home}
 
-./build -os linux -ws gtk -arch %{_eclipse_arch} -target compile -java5home %{_libdir}/java
+./build -os linux -ws gtk -arch %{_eclipse_arch} -target compile
 
 export JAVA_INC="-I$JAVA_HOME/include -I$JAVA_HOME/include/linux"
 
 %{__make} -C plugins/org.eclipse.core.filesystem/natives/unix/linux/ \
+    OPT_FLAGS="%{rpmcflags} $JAVA_INC" \
     CFLAGS="%{rpmcflags} $JAVA_INC" \
     LDFLAGS="%{rpmldflags}"
 
@@ -77,7 +74,7 @@ install -d $RPM_BUILD_ROOT%{_datadir}/%{name}/{features,plugins}
 
 unset JAVA_HOME || :
 export JAVA_HOME=%{java_home}
-./build -os linux -ws gtk -arch %{_eclipse_arch} -target install -java5home %{_libdir}/java
+./build -os linux -ws gtk -arch %{_eclipse_arch} -target install
 
 tar xfz result/linux-gtk-%{_eclipse_arch}-sdk.tar.gz -C $RPM_BUILD_ROOT%{_libdir}
 install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
