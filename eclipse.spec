@@ -19,6 +19,7 @@ Source0:	http://download.eclipse.org/eclipse/downloads/drops/R-%{_ver_major}-%{_
 Source1:	%{name}.desktop
 URL:		http://www.eclipse.org/
 BuildRequires:	ant >= 1.6.1
+BuildRequires:	ant-apache-regexp
 BuildRequires:	jdk >= 1.6
 BuildRequires:	pkgconfig
 BuildRequires:	rpm-pythonprov
@@ -82,7 +83,7 @@ install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
 install plugins/org.eclipse.core.filesystem/natives/unix/linux/lib*.so $RPM_BUILD_ROOT%{_libdir}/%{name}
 install plugins/org.eclipse.update.core.linux/src/lib*.so $RPM_BUILD_ROOT%{_libdir}/%{name}
 
-cp -a baseLocation/plugins/* $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins
+#cp -a baseLocation/plugins/* $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins
 
 #wrapper
 install -d $RPM_BUILD_ROOT%{_bindir}
@@ -94,9 +95,9 @@ EOF
 :> $RPM_BUILD_ROOT%{_datadir}/%{name}/.eclipseextension
 
 if [ ! -f "$RPM_BUILD_ROOT%{_libdir}/%{name}/icon.xpm" ]; then
-	install features/org.eclipse.platform.launchers/bin/gtk/linux/x86/icon.xpm $RPM_BUILD_ROOT%{_libdir}/%{name}/icon.xpm
+	install features/org.eclipse.equinox.executable/bin/gtk/linux/x86/icon.xpm $RPM_BUILD_ROOT%{_libdir}/%{name}/icon.xpm
 fi
-install -D features/org.eclipse.platform.launchers/bin/gtk/linux/x86/icon.xpm $RPM_BUILD_ROOT%{_pixmapsdir}/eclipse-icon.xpm
+install -D features/org.eclipse.equinox.executable/bin/gtk/linux/x86/icon.xpm $RPM_BUILD_ROOT%{_pixmapsdir}/eclipse-icon.xpm
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -116,7 +117,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}/icon.xpm
 %{_libdir}/%{name}/notice.html
 %{_libdir}/%{name}/readme
-%{_libdir}/%{name}/startup.jar
+#%{_libdir}/%{name}/startup.jar
 %{_libdir}/%{name}/about.html
 #%{_libdir}/%{name}/about_files
 %dir %{_libdir}/%{name}/features
@@ -131,9 +132,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}/features/org.eclipse.sdk_*.*.*
 %dir %{_libdir}/%{name}/plugins
 %{_libdir}/%{name}/plugins/com.ibm.icu_*.*.*
-%{_libdir}/%{name}/plugins/com.ibm.icu.source_*.*.*
-%{_libdir}/%{name}/plugins/com.ibm.icu.base_*.*.*
-%{_libdir}/%{name}/plugins/com.ibm.icu.base.source_*.*.*
+#%{_libdir}/%{name}/plugins/com.ibm.icu.source_*.*.*
+#%{_libdir}/%{name}/plugins/com.ibm.icu.base_*.*.*
+#%{_libdir}/%{name}/plugins/com.ibm.icu.base.source_*.*.*
 %{_libdir}/%{name}/plugins/com.jcraft.jsch_*.*.*
 %{_libdir}/%{name}/plugins/org.apache.ant_*.*.*
 %{_libdir}/%{name}/plugins/org.apache.lucene_*.*.*
