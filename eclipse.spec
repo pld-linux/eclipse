@@ -158,7 +158,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}/plugins/org.eclipse.core.variables_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.debug.core_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.debug.ui_*.*.*
+%{_libdir}/%{name}/plugins/org.eclipse.equinox.app_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.equinox.common_*.*.*
+%{_libdir}/%{name}/plugins/org.eclipse.equinox.launcher_*.*.*
+%{_libdir}/%{name}/plugins/org.eclipse.equinox.launcher.gtk.linux.%{_eclipse_arch}_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.equinox.preferences_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.equinox.registry_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.help_*.*.*
