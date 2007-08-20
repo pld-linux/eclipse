@@ -52,9 +52,9 @@ wszystkiego i niczego w szczególności.
 %prep
 %setup -q -c
 
-# Build Id - it's visible on start banner
-%{__sed} -i -e 's/eclipse.buildId=@build@/eclipse.buildId=PLD %{name}-%{version}-%{release}/' \
-    features/org.eclipse.sdk/gtk/configuration/config.ini
+# Build Id - it's visible in couple places in gui
+find . '(' -name 'config.ini' -o -name 'about.mappings' ')' -type f -print \
+    | xargs %{__sed} -i -e 's/=@build@/=PLD %{name}-%{version}-%{release}/'
 
 %build
 unset CLASSPATH || :
