@@ -5,8 +5,8 @@
 #   whole Eclipse suite installed.
 # - there unpackaged sources files, -devel?
 #
-%define		_ver_major	3.3
-%define		_buildid	200706251500
+%define		_ver_major	3.3.1
+%define		_buildid	200709211145
 #
 Summary:	Eclipse - an open extensible IDE
 Summary(pl.UTF-8):	Eclipse - otwarte, rozszerzalne środowisko programistyczne
@@ -16,7 +16,7 @@ Release:	0.1
 License:	EPL v1.0
 Group:		Development/Tools
 Source0:	http://download.eclipse.org/eclipse/downloads/drops/R-%{_ver_major}-%{_buildid}/%{name}-sourceBuild-srcIncluded-%{_ver_major}.zip
-# Source0-md5:	91c688221479986dbdd7d1a0771f04cc
+# Source0-md5:	764b585d9a05cd518650e31c32899a29
 Source1:	%{name}.desktop
 URL:		http://www.eclipse.org/
 BuildRequires:	ant >= 1.6.1
@@ -122,8 +122,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}/notice.html
 %{_libdir}/%{name}/readme
 %{_libdir}/%{name}/about.html
-%dir %{_libdir}/%{name}/about_files
-%{_libdir}/%{name}/about_files/mpl-v11.txt
+#%dir %{_libdir}/%{name}/about_files
+#%{_libdir}/%{name}/about_files/mpl-v11.txt
 %dir %{_libdir}/%{name}/features
 %{_libdir}/%{name}/features/org.eclipse.cvs_*.*.*
 %{_libdir}/%{name}/features/org.eclipse.jdt_*.*.*
