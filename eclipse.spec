@@ -1,9 +1,9 @@
 # TODO:
-# - separate SWT (there are separate tarballs at http://www.eclipse.org/swt/)
+# - make use of eclipse-swt package
 #   and add proper provides, obsoletes, conflicts etc. where needed.
 #   This will make building such things like Azureus possible without having
 #   whole Eclipse suite installed.
-# - there unpackaged sources files, -devel?
+# - there are unpackaged source files, -devel?
 #
 %define		_ver_major	3.3.1.1
 %define		_buildid	200710231652
@@ -53,6 +53,7 @@ wszystkiego i niczego w szczególności.
 %setup -q -c
 
 # Build Id - it's visible in couple places in gui
+# TODO: just patch build.xml not every single file
 find . '(' -name 'config.ini' -o -name 'about.mappings' ')' -type f -print \
     | xargs %{__sed} -i -e 's/=@build@/=PLD %{name}-%{version}-%{release}/'
 
