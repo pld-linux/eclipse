@@ -73,58 +73,67 @@ cd plugins/org.eclipse.update.core.linux/src
 cd -
 
 %install
-rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_bindir},%{_libdir}/%{name}}
-# place for arch independent plugins
-install -d $RPM_BUILD_ROOT%{_datadir}/%{name}/{features,plugins}
+if [ ! -f makeinstall.stamp -o ! -d $RPM_BUILD_ROOT ]; then
+	rm -rf makeinstall.stamp installed.stamp $RPM_BUILD_ROOT
 
-unset JAVA_HOME || :
-export JAVA_HOME=%{java_home}
-./build -os linux -ws gtk -arch %{eclipse_arch} -target install
+	install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_bindir},%{_libdir}/%{name}}
+	# place for arch independent plugins
+	install -d $RPM_BUILD_ROOT%{_datadir}/%{name}/{features,plugins}
 
-tar xfz result/linux-gtk-%{eclipse_arch}-sdk.tar.gz -C $RPM_BUILD_ROOT%{_libdir}
-install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
+	unset JAVA_HOME || :
+	export JAVA_HOME=%{java_home}
+	./build -os linux -ws gtk -arch %{eclipse_arch} -target install
 
-install plugins/org.eclipse.core.filesystem/natives/unix/linux/lib*.so $RPM_BUILD_ROOT%{_libdir}/%{name}
-install plugins/org.eclipse.update.core.linux/src/lib*.so $RPM_BUILD_ROOT%{_libdir}/%{name}
-
-# wrapper
-install -d $RPM_BUILD_ROOT%{_bindir}
-cat > $RPM_BUILD_ROOT%{_bindir}/eclipse << 'EOF'
-#!/bin/sh
-exec %{_libdir}/%{name}/eclipse ${1:+"$@"}
-EOF
-
-:> $RPM_BUILD_ROOT%{_datadir}/%{name}/.eclipseextension
-
-if [ ! -f "$RPM_BUILD_ROOT%{_libdir}/%{name}/icon.xpm" ]; then
-	install features/org.eclipse.equinox.executable/bin/gtk/linux/x86/icon.xpm $RPM_BUILD_ROOT%{_libdir}/%{name}/icon.xpm
+	tar xfz result/linux-gtk-%{eclipse_arch}-sdk.tar.gz -C $RPM_BUILD_ROOT%{_libdir}
+	touch makeinstall.stamp
 fi
-install -D features/org.eclipse.equinox.executable/bin/gtk/linux/x86/icon.xpm $RPM_BUILD_ROOT%{_pixmapsdir}/eclipse-icon.xpm
 
-# not packaged -- remove
-rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/features/org.eclipse.cvs.source_*
-rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/features/org.eclipse.jdt.source_*
-rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/features/org.eclipse.pde.source_*
-rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/features/org.eclipse.platform.source_*
-rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/features/org.eclipse.rcp.source_*
-rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/javax.servlet.jsp.source_*
-rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/javax.servlet.source_*
-rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.apache.ant.source_*
-rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.apache.commons.el.source_*
-rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.apache.commons.logging.source_*
-rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.apache.jasper.source_*
-rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.apache.lucene.analysis.source_*
-rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.apache.lucene.source_*
-rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.eclipse.cvs.source_*
-rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.eclipse.jdt.source_*
-rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.eclipse.pde.source_*
-rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.eclipse.platform.source.linux.gtk.*
-rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.eclipse.platform.source_*
-rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.eclipse.rcp.source.linux.gtk.*
-rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.eclipse.rcp.source_*
-rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.junit.source_*
-rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.mortbay.jetty.source_*
+if [ ! -f installed.stamp ]; then
+	install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
+
+	install plugins/org.eclipse.core.filesystem/natives/unix/linux/lib*.so $RPM_BUILD_ROOT%{_libdir}/%{name}
+	install plugins/org.eclipse.update.core.linux/src/lib*.so $RPM_BUILD_ROOT%{_libdir}/%{name}
+
+	# wrapper
+	install -d $RPM_BUILD_ROOT%{_bindir}
+	cat > $RPM_BUILD_ROOT%{_bindir}/eclipse <<-'EOF'
+	#!/bin/sh
+	exec %{_libdir}/%{name}/eclipse ${1:+"$@"}
+	EOF
+
+	:> $RPM_BUILD_ROOT%{_datadir}/%{name}/.eclipseextension
+
+	if [ ! -f "$RPM_BUILD_ROOT%{_libdir}/%{name}/icon.xpm" ]; then
+		install features/org.eclipse.equinox.executable/bin/gtk/linux/x86/icon.xpm $RPM_BUILD_ROOT%{_libdir}/%{name}/icon.xpm
+	fi
+	install -D features/org.eclipse.equinox.executable/bin/gtk/linux/x86/icon.xpm $RPM_BUILD_ROOT%{_pixmapsdir}/eclipse-icon.xpm
+
+	# not packaged -- remove
+	rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/features/org.eclipse.cvs.source_*
+	rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/features/org.eclipse.jdt.source_*
+	rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/features/org.eclipse.pde.source_*
+	rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/features/org.eclipse.platform.source_*
+	rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/features/org.eclipse.rcp.source_*
+	rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/javax.servlet.jsp.source_*
+	rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/javax.servlet.source_*
+	rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.apache.ant.source_*
+	rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.apache.commons.el.source_*
+	rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.apache.commons.logging.source_*
+	rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.apache.jasper.source_*
+	rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.apache.lucene.analysis.source_*
+	rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.apache.lucene.source_*
+	rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.eclipse.cvs.source_*
+	rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.eclipse.jdt.source_*
+	rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.eclipse.pde.source_*
+	rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.eclipse.platform.source.linux.gtk.*
+	rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.eclipse.platform.source_*
+	rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.eclipse.rcp.source.linux.gtk.*
+	rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.eclipse.rcp.source_*
+	rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.junit.source_*
+	rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.mortbay.jetty.source_*
+
+	touch installed.stamp
+fi
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -155,6 +164,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}/features/org.eclipse.rcp_*.*.*
 %{_libdir}/%{name}/features/org.eclipse.sdk_*.*.*
 %dir %{_libdir}/%{name}/plugins
+%{_libdir}/%{name}/plugins/org.eclipse.swt.gtk.linux.%{eclipse_arch}_*.*.*
+%{_libdir}/%{name}/plugins/org.eclipse.equinox.launcher.gtk.linux.%{eclipse_arch}_*.*.*
 %{_libdir}/%{name}/plugins/javax.servlet.jsp_*.*.*
 %{_libdir}/%{name}/plugins/javax.servlet_*.*.*
 %{_libdir}/%{name}/plugins/com.ibm.icu_*.*.*
@@ -197,7 +208,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}/plugins/org.eclipse.equinox.jsp.jasper.registry_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.equinox.jsp.jasper_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.equinox.launcher_*.*.*
-%{_libdir}/%{name}/plugins/org.eclipse.equinox.launcher.gtk.linux.%{eclipse_arch}_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.equinox.preferences_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.equinox.registry_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.help_*.*.*
@@ -244,7 +254,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}/plugins/org.eclipse.rcp_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.sdk_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.swt_*.*.*
-%{_libdir}/%{name}/plugins/org.eclipse.swt.gtk.linux.%{eclipse_arch}_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.search_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.team.core_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.team.cvs.core_*.*.*
