@@ -5,17 +5,17 @@
 #   whole Eclipse suite installed.
 # - there are unpackaged source files, -devel?
 #
-%define		_ver_major	3.3.1.1
-%define		_buildid	200710231652
+%define		ver_major	3.3.1.1
+%define		buildid	200710231652
 #
 Summary:	Eclipse - an open extensible IDE
 Summary(pl.UTF-8):	Eclipse - otwarte, rozszerzalne środowisko programistyczne
 Name:		eclipse
-Version:	%{_ver_major}
-Release:	0.1
+Version:	%{ver_major}
+Release:	1
 License:	EPL v1.0
 Group:		Development/Tools
-Source0:	http://download.eclipse.org/eclipse/downloads/drops/R-%{_ver_major}-%{_buildid}/%{name}-sourceBuild-srcIncluded-%{_ver_major}.zip
+Source0:	http://download.eclipse.org/eclipse/downloads/drops/R-%{ver_major}-%{buildid}/%{name}-sourceBuild-srcIncluded-%{ver_major}.zip
 # Source0-md5:	593b56fce7d1f1f799e87365cafefbef
 Source1:	%{name}.desktop
 URL:		http://www.eclipse.org/
@@ -34,7 +34,7 @@ Obsoletes:	eclipse-SDK
 ExclusiveArch:	i586 i686 pentium3 pentium4 athlon %{x8664}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_eclipse_arch	%(echo %{_target_cpu} | sed 's/i.86\\|athlon\\|pentium/x86/;s/amd64/x86_64/')
+%define		eclipse_arch	%(echo %{_target_cpu} | sed 's/i.86\\|athlon\\|pentium/x86/;s/amd64/x86_64/')
 %define		no_install_post_chrpath		1
 
 # list of script capabilities (regexps) not to be used in Provides
@@ -61,7 +61,7 @@ find . '(' -name 'config.ini' -o -name 'about.mappings' ')' -type f -print \
 unset CLASSPATH || :
 export JAVA_HOME=%{java_home}
 
-./build -os linux -ws gtk -arch %{_eclipse_arch} -target compile
+./build -os linux -ws gtk -arch %{eclipse_arch} -target compile
 
 export JAVA_INC="-I$JAVA_HOME/include -I$JAVA_HOME/include/linux"
 
@@ -82,9 +82,9 @@ install -d $RPM_BUILD_ROOT%{_datadir}/%{name}/{features,plugins}
 
 unset JAVA_HOME || :
 export JAVA_HOME=%{java_home}
-./build -os linux -ws gtk -arch %{_eclipse_arch} -target install
+./build -os linux -ws gtk -arch %{eclipse_arch} -target install
 
-tar xfz result/linux-gtk-%{_eclipse_arch}-sdk.tar.gz -C $RPM_BUILD_ROOT%{_libdir}
+tar xfz result/linux-gtk-%{eclipse_arch}-sdk.tar.gz -C $RPM_BUILD_ROOT%{_libdir}
 install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
 
 install plugins/org.eclipse.core.filesystem/natives/unix/linux/lib*.so $RPM_BUILD_ROOT%{_libdir}/%{name}
@@ -175,7 +175,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}/plugins/org.eclipse.equinox.jsp.jasper.registry_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.equinox.jsp.jasper_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.equinox.launcher_*.*.*
-%{_libdir}/%{name}/plugins/org.eclipse.equinox.launcher.gtk.linux.%{_eclipse_arch}_*.*.*
+%{_libdir}/%{name}/plugins/org.eclipse.equinox.launcher.gtk.linux.%{eclipse_arch}_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.equinox.preferences_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.equinox.registry_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.help_*.*.*
@@ -222,7 +222,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}/plugins/org.eclipse.rcp_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.sdk_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.swt_*.*.*
-%{_libdir}/%{name}/plugins/org.eclipse.swt.gtk.linux.%{_eclipse_arch}_*.*.*
+%{_libdir}/%{name}/plugins/org.eclipse.swt.gtk.linux.%{eclipse_arch}_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.search_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.team.core_*.*.*
 %{_libdir}/%{name}/plugins/org.eclipse.team.cvs.core_*.*.*
