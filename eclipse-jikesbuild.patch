@@ -1,0 +1,121 @@
+--- eclipse-3.1/plugins/org.eclipse.core.runtime/src/org/eclipse/core/internal/registry/ExtensionRegistry.java.orig	2005-04-09 10:45:14.000000000 +0000
++++ eclipse-3.1/plugins/org.eclipse.core.runtime/src/org/eclipse/core/internal/registry/ExtensionRegistry.java	2005-04-09 10:45:50.000000000 +0000
+@@ -57,7 +57,7 @@
+ 		public IStatus run(IProgressMonitor monitor) {
+ 			MultiStatus result = new MultiStatus(Platform.PI_RUNTIME, IStatus.OK, Policy.bind("plugin.eventListenerError"), null); //$NON-NLS-1$			
+ 			for (int i = 0; i < listenerInfos.length; i++) {
+-				ListenerInfo listenerInfo = (ListenerInfo) listenerInfos[i];
++				ExtensionRegistry.ListenerInfo listenerInfo = (ExtensionRegistry.ListenerInfo) listenerInfos[i];
+ 				if (listenerInfo.filter != null && !deltas.containsKey(listenerInfo.filter))
+ 					continue;
+ 				try {
+--- eclipse-3.1/plugins/org.eclipse.help.webapp/build.xml.orig	2005-04-09 10:59:29.000000000 +0000
++++ eclipse-3.1/plugins/org.eclipse.help.webapp/build.xml	2005-04-09 10:59:35.000000000 +0000
+@@ -206,9 +206,6 @@
+ 				<pathelement path="../org.eclipse.tomcat/jasper-runtime.jar"/>
+ 			</classpath>
+ 			<src path="${temp.folder}/jsp.jar.src/"			/>
+-<!-- custom begin -->
+-			<compilerarg value="-warn:-serial" />
+-<!-- custom end -->	
+ 			</javac>
+ 		<!-- Copy necessary resources -->
+ 		<copy todir="${temp.folder}/WEB-INF/lib/jsp.jar.bin" failonerror="true">
+--- eclipse-3.1/plugins/org.eclipse.team.core/src/org/eclipse/team/internal/core/subscribers/BatchingLock.java.orig	2005-04-09 13:21:52.000000000 +0000
++++ eclipse-3.1/plugins/org.eclipse.team.core/src/org/eclipse/team/internal/core/subscribers/BatchingLock.java	2005-04-09 13:22:21.000000000 +0000
+@@ -230,7 +230,7 @@
+ 	}
+ 	
+ 	public interface IFlushOperation {
+-		public void flush(ThreadInfo info, IProgressMonitor monitor) throws TeamException;
++		public void flush(BatchingLock.ThreadInfo info, IProgressMonitor monitor) throws TeamException;
+ 	}
+ 	
+ 	private Map infos = new HashMap();
+--- eclipse-3.1/plugins/org.eclipse.ui.workbench.texteditor/src/org/eclipse/ui/internal/texteditor/AnnotationExpansionControl.java.orig	2005-04-09 13:33:28.000000000 +0000
++++ eclipse-3.1/plugins/org.eclipse.ui.workbench.texteditor/src/org/eclipse/ui/internal/texteditor/AnnotationExpansionControl.java	2005-04-09 13:33:50.000000000 +0000
+@@ -170,7 +170,7 @@
+ 		 * @see org.eclipse.swt.events.DisposeListener#widgetDisposed(org.eclipse.swt.events.DisposeEvent)
+ 		 */
+ 		public void widgetDisposed(DisposeEvent e) {
+-			Item item= (Item) ((Widget) e.getSource()).getData();
++			AnnotationExpansionControl.Item item= (AnnotationExpansionControl.Item) ((Widget) e.getSource()).getData();
+ 			item.deselect();
+ 			item.canvas= null;
+ 			item.fAnnotation= null;
+--- eclipse-3.1/plugins/org.eclipse.jdt.core/search/org/eclipse/jdt/internal/core/search/matching/SuperTypeNamesCollector.java.orig	2005-04-09 13:53:03.000000000 +0000
++++ eclipse-3.1/plugins/org.eclipse.jdt.core/search/org/eclipse/jdt/internal/core/search/matching/SuperTypeNamesCollector.java	2005-04-09 13:53:05.000000000 +0000
+@@ -63,7 +63,7 @@
+ 		public boolean visit(FieldDeclaration fieldDeclaration, MethodScope scope) {
+ 			return false; // don't visit field declarations
+ 		}
+-		public boolean visit(Initializer initializer, MethodScope scope) {
++		public boolean visit(org.eclipse.jdt.internal.compiler.ast.Initializer initializer, MethodScope scope) {
+ 			return false; // don't visit initializers
+ 		}
+ 		public boolean visit(ConstructorDeclaration constructorDeclaration, ClassScope scope) {
+--- eclipse-3.1/plugins/org.eclipse.jdt.core/model/org/eclipse/jdt/internal/compiler/parser/SourceTypeConverter.java.orig	2005-04-09 13:57:05.000000000 +0000
++++ eclipse-3.1/plugins/org.eclipse.jdt.core/model/org/eclipse/jdt/internal/compiler/parser/SourceTypeConverter.java	2005-04-09 13:57:49.000000000 +0000
+@@ -166,10 +166,10 @@
+ 	/*
+ 	 * Convert an initializerinfo into a parsed initializer declaration
+ 	 */
+-	private Initializer convert(InitializerElementInfo initializerInfo, CompilationResult compilationResult) throws JavaModelException {
++	private org.eclipse.jdt.internal.compiler.ast.Initializer convert(InitializerElementInfo initializerInfo, CompilationResult compilationResult) throws JavaModelException {
+ 
+ 		Block block = new Block(0);
+-		Initializer initializer = new Initializer(block, IConstants.AccDefault);
++		org.eclipse.jdt.internal.compiler.ast.Initializer initializer = new org.eclipse.jdt.internal.compiler.ast.Initializer(block, IConstants.AccDefault);
+ 
+ 		int start = initializerInfo.getDeclarationSourceStart();
+ 		int end = initializerInfo.getDeclarationSourceEnd();
+--- eclipse-3.1/plugins/org.eclipse.jdt.ui/ui/org/eclipse/jdt/internal/ui/preferences/formatter/ModifyDialogTabPage.java.orig	2005-04-09 14:03:07.000000000 +0000
++++ eclipse-3.1/plugins/org.eclipse.jdt.ui/ui/org/eclipse/jdt/internal/ui/preferences/formatter/ModifyDialogTabPage.java	2005-04-09 14:03:27.000000000 +0000
+@@ -460,7 +460,7 @@
+ 			fItemMap.put(control, new Integer(fIndex++));
+ 		}
+ 		
+-		public void add(Preference preference) {
++		public void add(ModifyDialogTabPage.Preference preference) {
+ 			final Control control= preference.getControl();
+ 			if (control != null) 
+ 				add(control);
+--- eclipse-3.1/plugins/org.eclipse.jdt.ui/ui/org/eclipse/jdt/internal/ui/preferences/formatter/CommentsTabPage.java.orig	2005-04-09 14:03:58.000000000 +0000
++++ eclipse-3.1/plugins/org.eclipse.jdt.ui/ui/org/eclipse/jdt/internal/ui/preferences/formatter/CommentsTabPage.java	2005-04-09 14:05:50.000000000 +0000
+@@ -39,7 +39,7 @@
+ 			fMasters= masters;
+ 			fSlaves= slaves;
+ 			for (final Iterator iter= fMasters.iterator(); iter.hasNext();) {
+-			    ((CheckboxPreference)iter.next()).addObserver(this);
++			    ((ModifyDialogTabPage.CheckboxPreference)iter.next()).addObserver(this);
+ 			}
+ 			update(null, null);
+ 		}
+@@ -48,13 +48,13 @@
+ 		    boolean enabled= true; 
+ 
+ 		    for (final Iterator iter= fMasters.iterator(); iter.hasNext();) {
+-		        enabled &= ((CheckboxPreference)iter.next()).getChecked();
++		        enabled &= ((ModifyDialogTabPage.CheckboxPreference)iter.next()).getChecked();
+ 		    }
+ 
+ 			for (final Iterator iter = fSlaves.iterator(); iter.hasNext();) {
+ 			    final Object obj= iter.next();
+-			    if (obj instanceof Preference) {
+-			        ((Preference)obj).setEnabled(enabled);
++			    if (obj instanceof ModifyDialogTabPage.Preference) {
++			        ((ModifyDialogTabPage.Preference)obj).setEnabled(enabled);
+ 			    } else if (obj instanceof Control) {
+ 			        ((Group)obj).setEnabled(enabled);
+ 			    }
+--- eclipse-3.1/plugins/org.eclipse.jface.text/src/org/eclipse/jface/text/link/LinkedModeUI.java.orig	2005-06-27 20:54:39.000000000 +0200
++++ eclipse-3.1/plugins/org.eclipse.jface.text/src/org/eclipse/jface/text/link/LinkedModeUI.java	2005-06-30 18:06:27.000000000 +0200
+@@ -164,7 +164,7 @@
+ 		Shell fShell;
+ 
+ 		/** The registered listener, or <code>null</code>. */
+-		KeyListener fKeyListener;
++		LinkedModeUI.KeyListener fKeyListener;
+ 
+ 		/** The cached custom annotation model. */
+ 		LinkedPositionAnnotations fAnnotationModel;
