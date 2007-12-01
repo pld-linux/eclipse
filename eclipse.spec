@@ -90,7 +90,7 @@ install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
 install plugins/org.eclipse.core.filesystem/natives/unix/linux/lib*.so $RPM_BUILD_ROOT%{_libdir}/%{name}
 install plugins/org.eclipse.update.core.linux/src/lib*.so $RPM_BUILD_ROOT%{_libdir}/%{name}
 
-#wrapper
+# wrapper
 install -d $RPM_BUILD_ROOT%{_bindir}
 cat > $RPM_BUILD_ROOT%{_bindir}/eclipse << 'EOF'
 #!/bin/sh
@@ -103,6 +103,30 @@ if [ ! -f "$RPM_BUILD_ROOT%{_libdir}/%{name}/icon.xpm" ]; then
 	install features/org.eclipse.equinox.executable/bin/gtk/linux/x86/icon.xpm $RPM_BUILD_ROOT%{_libdir}/%{name}/icon.xpm
 fi
 install -D features/org.eclipse.equinox.executable/bin/gtk/linux/x86/icon.xpm $RPM_BUILD_ROOT%{_pixmapsdir}/eclipse-icon.xpm
+
+# not packaged -- remove
+rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/features/org.eclipse.cvs.source_1.0.1.R33x_r20070802-7C79_9_KKG-mDM9e3H5D
+rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/features/org.eclipse.jdt.source_3.3.1.r331_v20070629-7o7jE72EDlXAbqAcnbmyg1rf8RIL
+rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/features/org.eclipse.pde.source_3.3.2.R33x_r20071022-7N7M4CYWLBCz-yHkMIuHN
+rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/features/org.eclipse.platform.source_3.3.2.R33x_v20071022-_19UEksF-G8Yc6bUv3Dz
+rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/features/org.eclipse.rcp.source_3.3.2.R33x_r20071022-8y8eE9CEV3FspP8HJrY1M2dS
+rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/javax.servlet.jsp.source_2.0.0.v200706191603
+rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/javax.servlet.source_2.4.0.v200706111738
+rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.apache.ant.source_1.7.0.v200706080842
+rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.apache.commons.el.source_1.0.0.v200706111724
+rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.apache.commons.logging.source_1.0.4.v200706111724
+rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.apache.jasper.source_5.5.17.v200706111724
+rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.apache.lucene.analysis.source_1.9.1.v200706181610
+rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.apache.lucene.source_1.9.1.v200706111724
+rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.eclipse.cvs.source_1.0.1.R33x_r20070802-7C79_9_KKG-mDM9e3H5D
+rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.eclipse.jdt.source_3.3.1.r331_v20070629-7o7jE72EDlXAbqAcnbmyg1rf8RIL
+rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.eclipse.pde.source_3.3.2.R33x_r20071022-7N7M4CYWLBCz-yHkMIuHN
+rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.eclipse.platform.source.linux.gtk.x86_3.3.2.R33x_v20071022-_19UEksF-G8Yc6bUv3Dz
+rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.eclipse.platform.source_3.3.2.R33x_v20071022-_19UEksF-G8Yc6bUv3Dz
+rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.eclipse.rcp.source.linux.gtk.x86_3.3.2.R33x_r20071022-8y8eE9CEV3FspP8HJrY1M2dS
+rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.eclipse.rcp.source_3.3.2.R33x_r20071022-8y8eE9CEV3FspP8HJrY1M2dS
+rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.junit.source_3.8.2.v200706111738
+rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.mortbay.jetty.source_5.1.11.v200706111724
 
 %clean
 rm -rf $RPM_BUILD_ROOT
