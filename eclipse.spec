@@ -4,20 +4,22 @@
 #   This will make building such things like Azureus possible without having
 #   whole Eclipse suite installed.
 # - there are unpackaged source files, -devel?
-#
+
 %define		ver_major	3.3.1.1
 %define		buildid	200710231652
-#
+
 Summary:	Eclipse - an open extensible IDE
 Summary(pl.UTF-8):	Eclipse - otwarte, rozszerzalne środowisko programistyczne
 Name:		eclipse
 Version:	%{ver_major}
-Release:	1
+Release:	1.2
 License:	EPL v1.0
 Group:		Development/Tools
-Source0:	http://download.eclipse.org/eclipse/downloads/drops/R-%{ver_major}-%{buildid}/%{name}-sourceBuild-srcIncluded-%{ver_major}.zip
+Source0:	http://download.eclipse.org/eclipse/downloads/drops/R-%{ver_major}-%{buildid}/%{name}-sourceBuild-srcIncluded-%{version}.zip
 # Source0-md5:	593b56fce7d1f1f799e87365cafefbef
 Source1:	%{name}.desktop
+Patch0:		%{name}-launcher-set-install-dir-and-shared-config.patch
+Patch1:		%{name}-launcher-double-free-bug.patch
 URL:		http://www.eclipse.org/
 BuildRequires:	ant >= 1.6.1
 BuildRequires:	ant-apache-regexp
@@ -53,13 +55,27 @@ wszystkiego i niczego w szczególności.
 %setup -q -c
 
 # Build Id - it's visible in couple places in GUI
-%{__sed} -e 's,buildId=.*,& (PLD Linux %{name}-%{version}-%{release}),' label.properties
+%{__sed} -i -e 's,buildId=.*,& (PLD Linux %{name}-%{version}-%{release}),' label.properties
+
+# launcher patches
+rm plugins/org.eclipse.platform/launchersrc.zip
+cd features/org.eclipse.equinox.executable
+%patch0 -p0
+%patch1 -p0
+# put the configuration directory in an arch-specific location
+sed -i -e 's:/usr/lib/eclipse/configuration:%{_libdir}/%{name}/configuration:' library/eclipse.c
+# make the eclipse binary relocatable
+sed -i -e 's:/usr/share/eclipse:%{_datadir}/%{name}:' library/eclipse.c
+zip -q -9 -r ../../plugins/org.eclipse.platform/launchersrc.zip library
+cd -
 
 %build
 unset CLASSPATH || :
 export JAVA_HOME=%{java_home}
 
 ./build -os linux -ws gtk -arch %{eclipse_arch} -target compile
+
+%ant insertBuildId
 
 export JAVA_INC="-I$JAVA_HOME/include -I$JAVA_HOME/include/linux"
 
