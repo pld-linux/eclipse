@@ -21,8 +21,25 @@ Source1:	%{name}.desktop
 Patch0:		%{name}-launcher-set-install-dir-and-shared-config.patch
 Patch1:		%{name}-launcher-double-free-bug.patch
 URL:		http://www.eclipse.org/
-BuildRequires:	ant >= 1.6.1
+BuildRequires:	ant >= 1.7.0
+BuildRequires:	ant-antlr
+BuildRequires:	ant-apache-bcel
+BuildRequires:	ant-apache-bsf
+BuildRequires:	ant-apache-log4j
+BuildRequires:	ant-apache-oro
 BuildRequires:	ant-apache-regexp
+BuildRequires:	ant-apache-resolver
+BuildRequires:	ant-commons-logging
+BuildRequires:	ant-commons-net
+BuildRequires:	ant-javamail
+BuildRequires:	ant-jdepend
+BuildRequires:	ant-jmf
+BuildRequires:	ant-jsch
+BuildRequires:	ant-junit
+BuildRequires:	ant-netrexx
+BuildRequires:	ant-nodeps
+BuildRequires:	ant-swing
+BuildRequires:	ant-trax
 BuildRequires:	jdk >= 1.6
 BuildRequires:	pkgconfig
 BuildRequires:	rpm-pythonprov
@@ -68,6 +85,137 @@ sed -i -e 's:/usr/lib/eclipse/configuration:%{_libdir}/%{name}/configuration:' l
 sed -i -e 's:/usr/share/eclipse:%{_datadir}/%{name}:' library/eclipse.c
 zip -q -9 -r ../../plugins/org.eclipse.platform/launchersrc.zip library
 cd -
+
+# Symlinks
+
+## BEGIN ANT ##
+rm plugins/org.apache.ant_1.7.0.v200706080842/lib/ant-antlr.jar
+rm plugins/org.apache.ant_1.7.0.v200706080842/lib/ant-apache-bcel.jar
+rm plugins/org.apache.ant_1.7.0.v200706080842/lib/ant-apache-bsf.jar
+rm plugins/org.apache.ant_1.7.0.v200706080842/lib/ant-apache-log4j.jar
+rm plugins/org.apache.ant_1.7.0.v200706080842/lib/ant-apache-oro.jar
+rm plugins/org.apache.ant_1.7.0.v200706080842/lib/ant-apache-regexp.jar
+rm plugins/org.apache.ant_1.7.0.v200706080842/lib/ant-apache-resolver.jar
+rm plugins/org.apache.ant_1.7.0.v200706080842/lib/ant-commons-logging.jar
+rm plugins/org.apache.ant_1.7.0.v200706080842/lib/ant-commons-net.jar
+rm plugins/org.apache.ant_1.7.0.v200706080842/lib/ant-jai.jar
+rm plugins/org.apache.ant_1.7.0.v200706080842/lib/ant.jar
+rm plugins/org.apache.ant_1.7.0.v200706080842/lib/ant-javamail.jar
+rm plugins/org.apache.ant_1.7.0.v200706080842/lib/ant-jdepend.jar
+rm plugins/org.apache.ant_1.7.0.v200706080842/lib/ant-jmf.jar
+rm plugins/org.apache.ant_1.7.0.v200706080842/lib/ant-jsch.jar
+rm plugins/org.apache.ant_1.7.0.v200706080842/lib/ant-junit.jar
+rm plugins/org.apache.ant_1.7.0.v200706080842/lib/ant-launcher.jar
+rm plugins/org.apache.ant_1.7.0.v200706080842/lib/ant-netrexx.jar
+rm plugins/org.apache.ant_1.7.0.v200706080842/lib/ant-nodeps.jar
+rm plugins/org.apache.ant_1.7.0.v200706080842/lib/ant-starteam.jar
+rm plugins/org.apache.ant_1.7.0.v200706080842/lib/ant-stylebook.jar
+rm plugins/org.apache.ant_1.7.0.v200706080842/lib/ant-swing.jar
+rm plugins/org.apache.ant_1.7.0.v200706080842/lib/ant-trax.jar
+rm plugins/org.apache.ant_1.7.0.v200706080842/lib/ant-weblogic.jar
+# FIXME:  use build-jar-repository
+ln -s %{_javadir}/ant.jar plugins/org.apache.ant_1.7.0.v200706080842/lib/ant.jar
+ln -s %{_javadir}/ant/ant-antlr.jar plugins/org.apache.ant_1.7.0.v200706080842/lib/ant-antlr.jar
+ln -s %{_javadir}/ant/ant-apache-bcel.jar plugins/org.apache.ant_1.7.0.v200706080842/lib/ant-apache-bcel.jar
+ln -s %{_javadir}/ant/ant-apache-bsf.jar plugins/org.apache.ant_1.7.0.v200706080842/lib/ant-apache-bsf.jar
+ln -s %{_javadir}/ant/ant-apache-log4j.jar plugins/org.apache.ant_1.7.0.v200706080842/lib/ant-apache-log4j.jar
+ln -s %{_javadir}/ant/ant-apache-oro.jar plugins/org.apache.ant_1.7.0.v200706080842/lib/ant-apache-oro.jar
+ln -s %{_javadir}/ant/ant-apache-regexp.jar plugins/org.apache.ant_1.7.0.v200706080842/lib/ant-apache-regexp.jar
+ln -s %{_javadir}/ant/ant-apache-resolver.jar plugins/org.apache.ant_1.7.0.v200706080842/lib/ant-apache-resolver.jar
+ln -s %{_javadir}/ant/ant-commons-logging.jar plugins/org.apache.ant_1.7.0.v200706080842/lib/ant-commons-logging.jar
+ln -s %{_javadir}/ant/ant-commons-net.jar plugins/org.apache.ant_1.7.0.v200706080842/lib/ant-commons-net.jar
+# the symlinks that are commented-out are not currently shipped on PLD
+#ln -s %{_javadir}/ant/ant-jai.jar plugins/org.apache.ant_1.7.0.v200706080842/lib/ant-jai.jar
+ln -s %{_javadir}/ant/ant-javamail.jar plugins/org.apache.ant_1.7.0.v200706080842/lib/ant-javamail.jar
+ln -s %{_javadir}/ant/ant-jdepend.jar plugins/org.apache.ant_1.7.0.v200706080842/lib/ant-jdepend.jar
+ln -s %{_javadir}/ant/ant-jmf.jar plugins/org.apache.ant_1.7.0.v200706080842/lib/ant-jmf.jar
+ln -s %{_javadir}/ant/ant-jsch.jar plugins/org.apache.ant_1.7.0.v200706080842/lib/ant-jsch.jar
+ln -s %{_javadir}/ant/ant-junit.jar plugins/org.apache.ant_1.7.0.v200706080842/lib/ant-junit.jar
+ln -s %{_javadir}/ant-launcher.jar plugins/org.apache.ant_1.7.0.v200706080842/lib/ant-launcher.jar
+ln -s %{_javadir}/ant/ant-netrexx.jar plugins/org.apache.ant_1.7.0.v200706080842/lib/ant-netrexx.jar
+ln -s %{_javadir}/ant/ant-nodeps.jar plugins/org.apache.ant_1.7.0.v200706080842/lib/ant-nodeps.jar
+#ln -s %{_javadir}/ant/ant-starteam.jar plugins/org.apache.ant_1.7.0.v200706080842/lib/ant-starteam.jar
+#ln -s %{_javadir}/ant/ant-stylebook.jar plugins/org.apache.ant_1.7.0.v200706080842/lib/ant-stylebook.jar
+ln -s %{_javadir}/ant/ant-swing.jar plugins/org.apache.ant_1.7.0.v200706080842/lib/ant-swing.jar
+ln -s %{_javadir}/ant/ant-trax.jar plugins/org.apache.ant_1.7.0.v200706080842/lib/ant-trax.jar
+#ln -s %{_javadir}/ant/ant-weblogic.jar plugins/org.apache.ant_1.7.0.v200706080842/lib/ant-weblogic.jar
+## END ANT ##
+
+## BEGIN TOMCAT ##
+rm plugins/org.eclipse.tomcat/commons-beanutils.jar
+rm plugins/org.eclipse.tomcat/commons-collections.jar
+rm plugins/org.eclipse.tomcat/commons-digester.jar
+rm plugins/org.eclipse.tomcat/commons-logging-api.jar
+rm plugins/org.eclipse.tomcat/commons-modeler.jar
+rm plugins/org.eclipse.tomcat/jakarta-regexp-1.3.jar
+rm plugins/org.eclipse.tomcat/servlet.jar
+rm plugins/org.eclipse.tomcat/servlets-manager.jar
+rm plugins/org.eclipse.tomcat/naming-common.jar
+rm plugins/org.eclipse.tomcat/servlets-common.jar
+rm plugins/org.eclipse.tomcat/tomcat-http11.jar
+rm plugins/org.eclipse.tomcat/bootstrap.jar
+rm plugins/org.eclipse.tomcat/catalina.jar
+rm plugins/org.eclipse.tomcat/jasper-compiler.jar
+rm plugins/org.eclipse.tomcat/jasper-runtime.jar
+rm plugins/org.eclipse.tomcat/mx4j-jmx.jar
+rm plugins/org.eclipse.tomcat/naming-resources.jar
+rm plugins/org.eclipse.tomcat/naming-factory.jar
+rm plugins/org.eclipse.tomcat/servlets-default.jar
+rm plugins/org.eclipse.tomcat/servlets-invoker.jar
+rm plugins/org.eclipse.tomcat/tomcat-coyote.jar
+rm plugins/org.eclipse.tomcat/tomcat-util.jar
+ln -s %{tomcatsharedir}/bin/bootstrap.jar plugins/org.eclipse.tomcat/bootstrap.jar
+ln -s %{_javadir}/tomcat5/catalina.jar plugins/org.eclipse.tomcat/catalina.jar
+ln -s %{_javadir}/tomcat5/catalina-optional.jar plugins/org.eclipse.tomcat/catalina-optional.jar
+ln -s %{_javadir}/mx4j/mx4j.jar plugins/org.eclipse.tomcat/mx4j.jar
+ln -s %{_javadir}/mx4j/mx4j-impl.jar plugins/org.eclipse.tomcat/mx4j-impl.jar
+ln -s %{_javadir}/mx4j/mx4j-jmx.jar plugins/org.eclipse.tomcat/mx4j-jmx.jar
+ln -s %{_javadir}/tomcat5/naming-factory.jar plugins/org.eclipse.tomcat/naming-factory.jar
+ln -s %{_javadir}/tomcat5/naming-resources.jar plugins/org.eclipse.tomcat/naming-resources.jar
+ln -s %{_javadir}/tomcat5/servlets-default.jar plugins/org.eclipse.tomcat/servlets-default.jar
+ln -s %{_javadir}/tomcat5/servlets-invoker.jar plugins/org.eclipse.tomcat/servlets-invoker.jar
+ln -s %{_javadir}/tomcat5/tomcat-coyote.jar plugins/org.eclipse.tomcat/tomcat-coyote.jar
+ln -s %{_javadir}/tomcat5/tomcat-http.jar plugins/org.eclipse.tomcat/tomcat-http.jar
+ln -s %{_javadir}/tomcat5/tomcat-util.jar plugins/org.eclipse.tomcat/tomcat-util.jar
+build-jar-repository -s -p plugins/org.eclipse.tomcat commons-beanutils
+build-jar-repository -s -p plugins/org.eclipse.tomcat commons-collections
+build-jar-repository -s -p plugins/org.eclipse.tomcat commons-dbcp
+build-jar-repository -s -p plugins/org.eclipse.tomcat commons-digester
+build-jar-repository -s -p plugins/org.eclipse.tomcat commons-digester-rss
+build-jar-repository -s -p plugins/org.eclipse.tomcat commons-el
+build-jar-repository -s -p plugins/org.eclipse.tomcat commons-fileupload
+build-jar-repository -s -p plugins/org.eclipse.tomcat commons-launcher
+build-jar-repository -s -p plugins/org.eclipse.tomcat commons-logging-api
+build-jar-repository -s -p plugins/org.eclipse.tomcat commons-modeler
+build-jar-repository -s -p plugins/org.eclipse.tomcat commons-pool
+build-jar-repository -s -p plugins/org.eclipse.tomcat jasper5-compiler
+build-jar-repository -s -p plugins/org.eclipse.tomcat jasper5-runtime
+build-jar-repository -s -p plugins/org.eclipse.tomcat jspapi
+build-jar-repository -s -p plugins/org.eclipse.tomcat regexp
+build-jar-repository -s -p plugins/org.eclipse.tomcat servletapi5
+## END TOMCAT ##
+
+# delete included jars
+# https://bugs.eclipse.org/bugs/show_bug.cgi?id=170662
+rm plugins/org.eclipse.swt.win32.win32.x86/swt.jar \
+   plugins/org.eclipse.swt/extra_jars/exceptions.jar \
+   plugins/org.eclipse.swt.tools/swttools.jar \
+   plugins/org.eclipse.osgi/osgi/osgi.cmpn.jar \
+   plugins/org.eclipse.osgi/osgi/osgi.core.jar \
+   plugins/org.eclipse.osgi/supplement/osgi/osgi.jar
+
+# make sure there are no jars left
+JARS=''
+for j in $(find -name '*.jar'); do
+	if [ ! -L $j ]; then
+		JARS="$JARS $j"
+	fi
+done
+if [ ! -z "$JARS" ]; then
+	echo "These jars should be deleted and symlinked to system jars:"
+	echo $JARS | tr ' ' '\n'
+	exit 1
+fi
 
 %build
 unset CLASSPATH || :
