@@ -5,18 +5,18 @@
 #   whole Eclipse suite installed.
 # - there are unpackaged source files, -devel?
 
-%define		ver_major	3.3.1.1
-%define		buildid	200710231652
+%define		ver_major	3.4
+%define		buildid	200806172000
 
 Summary:	Eclipse - an open extensible IDE
 Summary(pl.UTF-8):	Eclipse - otwarte, rozszerzalne środowisko programistyczne
 Name:		eclipse
 Version:	%{ver_major}
-Release:	2
+Release:	1
 License:	EPL v1.0
 Group:		Development/Tools
 Source0:	http://download.eclipse.org/eclipse/downloads/drops/R-%{ver_major}-%{buildid}/%{name}-sourceBuild-srcIncluded-%{version}.zip
-# Source0-md5:	593b56fce7d1f1f799e87365cafefbef
+# Source0-md5:	555c99aee06fc52d2ec03995b5ac0710
 Source1:	%{name}.desktop
 Patch0:		%{name}-launcher-set-install-dir-and-shared-config.patch
 Patch1:		%{name}-launcher-double-free-bug.patch
