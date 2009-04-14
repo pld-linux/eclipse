@@ -117,7 +117,10 @@ if [ ! -f installed.stamp ]; then
 	exec %{_libdir}/%{name}/eclipse ${1:+"$@"}
 	EOF
 
-	:> $RPM_BUILD_ROOT%{_datadir}/%{name}/.eclipseextension
+	cat <<-'EOF'> $RPM_BUILD_ROOT%{_datadir}/%{name}/.eclipseextension
+	id=org.eclipse.platform name=Eclipse Platform
+	version=%{version}
+	EOF
 
 	if [ ! -f "$RPM_BUILD_ROOT%{_libdir}/%{name}/icon.xpm" ]; then
 		install features/org.eclipse.equinox.executable/bin/gtk/linux/x86/icon.xpm $RPM_BUILD_ROOT%{_libdir}/%{name}/icon.xpm
