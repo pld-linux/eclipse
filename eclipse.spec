@@ -1,13 +1,8 @@
 # TODO:
 # - make use of eclipse-swt package
-#   and add proper provides, obsoletes, conflicts etc. where needed.
-#   This will make building such things like Azureus possible without having
-#   whole Eclipse suite installed.
-# - there are unpackaged source files, -devel?
 
 %define		ver_major	3.3.1.1
 %define		buildid	200710231652
-
 Summary:	Eclipse - an open extensible IDE
 Summary(pl.UTF-8):	Eclipse - otwarte, rozszerzalne środowisko programistyczne
 Name:		eclipse
