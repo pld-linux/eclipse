@@ -28,7 +28,6 @@ BuildRequires:	zip
 Requires:	ant
 Requires:	jdk >= 1.4
 Obsoletes:	eclipse-SDK
-ExclusiveArch:	i586 i686 pentium3 pentium4 athlon %{x8664}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		eclipse_arch	%(echo %{_target_cpu} | sed 's/i.86\\|athlon\\|pentium/x86/;s/amd64/x86_64/')
