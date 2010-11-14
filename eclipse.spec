@@ -1,20 +1,18 @@
 # TODO:
 # - make use of eclipse-swt package
 
-%define		ver_major	3.3.1.1
 %include	/usr/lib/rpm/macros.java
 Summary:	Eclipse - an open extensible IDE
 Summary(pl.UTF-8):	Eclipse - otwarte, rozszerzalne środowisko programistyczne
 Name:		eclipse
-Version:	%{ver_major}
-Release:	4
+Version:	3.3.2
+Release:	1
 License:	EPL v1.0
 Group:		Development/Tools
-Source0:	http://download.eclipse.org/eclipse/downloads/drops/R-%{ver_major}-200710231652/%{name}-sourceBuild-srcIncluded-%{version}.zip
-# Source0-md5:	593b56fce7d1f1f799e87365cafefbef
+Source0:	http://archive.eclipse.org/eclipse/downloads/drops/R-%{version}-200802211800/%{name}-sourceBuild-srcIncluded-%{version}.zip
+# Source0-md5:	4b7016cf9aedf07b8f34b39470947799
 Source1:	%{name}.desktop
 Patch0:		%{name}-launcher-set-install-dir-and-shared-config.patch
-Patch1:		%{name}-launcher-double-free-bug.patch
 URL:		http://www.eclipse.org/
 BuildRequires:	ant >= 1.6.1
 BuildRequires:	ant-apache-regexp
@@ -56,7 +54,6 @@ wszystkiego i niczego w szczególności.
 rm plugins/org.eclipse.platform/launchersrc.zip
 cd features/org.eclipse.equinox.executable
 %patch0 -p0
-%patch1 -p0
 # put the configuration directory in an arch-specific location
 sed -i -e 's:/usr/lib/eclipse/configuration:%{_libdir}/%{name}/configuration:' library/eclipse.c
 # make the eclipse binary relocatable
