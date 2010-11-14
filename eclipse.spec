@@ -2,15 +2,15 @@
 # - make use of eclipse-swt package
 
 %define		ver_major	3.3.1.1
-%define		buildid	200710231652
+%include	/usr/lib/rpm/macros.java
 Summary:	Eclipse - an open extensible IDE
 Summary(pl.UTF-8):	Eclipse - otwarte, rozszerzalne środowisko programistyczne
 Name:		eclipse
 Version:	%{ver_major}
-Release:	3
+Release:	4
 License:	EPL v1.0
 Group:		Development/Tools
-Source0:	http://download.eclipse.org/eclipse/downloads/drops/R-%{ver_major}-%{buildid}/%{name}-sourceBuild-srcIncluded-%{version}.zip
+Source0:	http://download.eclipse.org/eclipse/downloads/drops/R-%{ver_major}-200710231652/%{name}-sourceBuild-srcIncluded-%{version}.zip
 # Source0-md5:	593b56fce7d1f1f799e87365cafefbef
 Source1:	%{name}.desktop
 Patch0:		%{name}-launcher-set-install-dir-and-shared-config.patch
@@ -19,14 +19,15 @@ URL:		http://www.eclipse.org/
 BuildRequires:	ant >= 1.6.1
 BuildRequires:	ant-apache-regexp
 BuildRequires:	jdk >= 1.6
+BuildRequires:	jpackage-utils
 BuildRequires:	pkgconfig
+BuildRequires:	rpm-javaprov
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.300
 BuildRequires:	sed >= 4.0
 BuildRequires:	unzip
 BuildRequires:	zip
 Requires:	ant
-Requires:	jdk >= 1.4
 Obsoletes:	eclipse-SDK
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -101,8 +102,8 @@ fi
 if [ ! -f installed.stamp ]; then
 	install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
 
-	install plugins/org.eclipse.core.filesystem/natives/unix/linux/lib*.so $RPM_BUILD_ROOT%{_libdir}/%{name}
-	install plugins/org.eclipse.update.core.linux/src/lib*.so $RPM_BUILD_ROOT%{_libdir}/%{name}
+	install -p plugins/org.eclipse.core.filesystem/natives/unix/linux/lib*.so $RPM_BUILD_ROOT%{_libdir}/%{name}
+	install -p plugins/org.eclipse.update.core.linux/src/lib*.so $RPM_BUILD_ROOT%{_libdir}/%{name}
 
 	# wrapper
 	install -d $RPM_BUILD_ROOT%{_bindir}
@@ -116,12 +117,15 @@ if [ ! -f installed.stamp ]; then
 	version=%{version}
 	EOF
 
-	if [ ! -f "$RPM_BUILD_ROOT%{_libdir}/%{name}/icon.xpm" ]; then
-		install features/org.eclipse.equinox.executable/bin/gtk/linux/x86/icon.xpm $RPM_BUILD_ROOT%{_libdir}/%{name}/icon.xpm
+	if [ ! -f $RPM_BUILD_ROOT%{_libdir}/%{name}/icon.xpm ]; then
+		install -p features/org.eclipse.equinox.executable/bin/gtk/linux/x86/icon.xpm $RPM_BUILD_ROOT%{_libdir}/%{name}/icon.xpm
 	fi
-	install -D features/org.eclipse.equinox.executable/bin/gtk/linux/x86/icon.xpm $RPM_BUILD_ROOT%{_pixmapsdir}/eclipse-icon.xpm
+	install -Dp features/org.eclipse.equinox.executable/bin/gtk/linux/x86/icon.xpm $RPM_BUILD_ROOT%{_pixmapsdir}/eclipse-icon.xpm
 
 	# not packaged -- remove
+	%if 0
+	# if we're removing source bundles, we should adjust manifests as well, but
+	# were not doing that, so don't break packaging
 	rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/features/org.eclipse.cvs.source_*
 	rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/features/org.eclipse.jdt.source_*
 	rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/features/org.eclipse.pde.source_*
@@ -144,6 +148,7 @@ if [ ! -f installed.stamp ]; then
 	rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.eclipse.rcp.source_*
 	rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.junit.source_*
 	rm -rf $RPM_BUILD_ROOT%{_libdir}/%{name}/plugins/org.mortbay.jetty.source_*
+	%endif
 
 	touch installed.stamp
 fi
@@ -304,6 +309,31 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}/plugins/org.junit_*.*.*
 %{_libdir}/%{name}/plugins/org.junit4_*.*.*
 %{_libdir}/%{name}/plugins/org.mortbay.jetty_*.*.*
+
+%if 1
+%{_libdir}/%{name}/features/org.eclipse.cvs.source_*
+%{_libdir}/%{name}/features/org.eclipse.jdt.source_*
+%{_libdir}/%{name}/features/org.eclipse.pde.source_*
+%{_libdir}/%{name}/features/org.eclipse.platform.source_*
+%{_libdir}/%{name}/features/org.eclipse.rcp.source_*
+%{_libdir}/%{name}/plugins/javax.servlet.jsp.source_*
+%{_libdir}/%{name}/plugins/javax.servlet.source_*
+%{_libdir}/%{name}/plugins/org.apache.ant.source_*
+%{_libdir}/%{name}/plugins/org.apache.commons.el.source_*
+%{_libdir}/%{name}/plugins/org.apache.commons.logging.source_*
+%{_libdir}/%{name}/plugins/org.apache.jasper.source_*
+%{_libdir}/%{name}/plugins/org.apache.lucene.analysis.source_*
+%{_libdir}/%{name}/plugins/org.apache.lucene.source_*
+%{_libdir}/%{name}/plugins/org.eclipse.cvs.source_*
+%{_libdir}/%{name}/plugins/org.eclipse.jdt.source_*
+%{_libdir}/%{name}/plugins/org.eclipse.pde.source_*
+%{_libdir}/%{name}/plugins/org.eclipse.platform.source.linux.gtk.*
+%{_libdir}/%{name}/plugins/org.eclipse.platform.source_*
+%{_libdir}/%{name}/plugins/org.eclipse.rcp.source.linux.gtk.*
+%{_libdir}/%{name}/plugins/org.eclipse.rcp.source_*
+%{_libdir}/%{name}/plugins/org.junit.source_*
+%{_libdir}/%{name}/plugins/org.mortbay.jetty.source_*
+%endif
 
 %dir %{_datadir}/%{name}
 %dir %{_datadir}/%{name}/features
