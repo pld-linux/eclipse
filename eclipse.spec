@@ -6,7 +6,7 @@ Summary:	Eclipse - an open extensible IDE
 Summary(pl.UTF-8):	Eclipse - otwarte, rozszerzalne środowisko programistyczne
 Name:		eclipse
 Version:	3.3.2
-Release:	1
+Release:	2
 License:	EPL v1.0
 Group:		Development/Tools
 Source0:	http://archive.eclipse.org/eclipse/downloads/drops/R-%{version}-200802211800/%{name}-sourceBuild-srcIncluded-%{version}.zip
@@ -26,6 +26,7 @@ BuildRequires:	sed >= 4.0
 BuildRequires:	unzip
 BuildRequires:	zip
 Requires:	ant
+Provides:	eclipse-jdt = %{version}-%{release}
 Obsoletes:	eclipse-SDK
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
