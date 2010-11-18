@@ -5,13 +5,15 @@
 Summary:	Eclipse - an open extensible IDE
 Summary(pl.UTF-8):	Eclipse - otwarte, rozszerzalne środowisko programistyczne
 Name:		eclipse
-Version:	3.3.2
-Release:	2
+Version:	3.6.1
+Release:	0.1
 License:	EPL v1.0
 Group:		Development/Tools
-Source0:	http://archive.eclipse.org/eclipse/downloads/drops/R-%{version}-200802211800/%{name}-sourceBuild-srcIncluded-%{version}.zip
-# Source0-md5:	4b7016cf9aedf07b8f34b39470947799
-Source1:	%{name}.desktop
+Source0:	http://download.eclipse.org/technology/linuxtools/eclipse-build/3.6.x_Helios/%{name}-%{version}-src.tar.bz2
+# Source0-md5:	306f8bf4ec2b0bf6f3f8329608cb15dd
+Source1:	http://download.eclipse.org/technology/linuxtools/eclipse-build/3.6.x_Helios/%{name}-build-%{version}.tar.bz2
+# Source1-md5:	dac006a81d45f366ecbf3f78f7fa9424
+Source2:	%{name}.desktop
 Patch0:		%{name}-launcher-set-install-dir-and-shared-config.patch
 URL:		http://www.eclipse.org/
 BuildRequires:	ant >= 1.6.1
