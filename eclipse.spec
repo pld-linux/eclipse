@@ -1,5 +1,6 @@
 # TODO:
 # - make use of eclipse-swt package
+%define		ebuildver	0.6.1
 
 %include	/usr/lib/rpm/macros.java
 Summary:	Eclipse - an open extensible IDE
@@ -11,7 +12,7 @@ License:	EPL v1.0
 Group:		Development/Tools
 Source0:	http://download.eclipse.org/technology/linuxtools/eclipse-build/3.6.x_Helios/%{name}-%{version}-src.tar.bz2
 # Source0-md5:	306f8bf4ec2b0bf6f3f8329608cb15dd
-Source1:	http://download.eclipse.org/technology/linuxtools/eclipse-build/3.6.x_Helios/%{name}-build-%{version}.tar.bz2
+Source1:	http://download.eclipse.org/technology/linuxtools/eclipse-build/3.6.x_Helios/%{name}-build-%{ebuildver}.tar.bz2
 # Source1-md5:	dac006a81d45f366ecbf3f78f7fa9424
 Source2:	%{name}.desktop
 Patch0:		%{name}-launcher-set-install-dir-and-shared-config.patch
