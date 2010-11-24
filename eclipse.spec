@@ -1,5 +1,7 @@
 # TODO:
 # - make use of eclipse-swt package
+# - this shit needs jetty(!) to build
+#
 %define		ebuildver	0.6.1
 
 %include	/usr/lib/rpm/macros.java
@@ -10,16 +12,21 @@ Version:	3.6.1
 Release:	0.1
 License:	EPL v1.0
 Group:		Development/Tools
-Source0:	http://download.eclipse.org/technology/linuxtools/eclipse-build/3.6.x_Helios/%{name}-%{version}-src.tar.bz2
-# Source0-md5:	306f8bf4ec2b0bf6f3f8329608cb15dd
-Source1:	http://download.eclipse.org/technology/linuxtools/eclipse-build/3.6.x_Helios/%{name}-build-%{ebuildver}.tar.bz2
-# Source1-md5:	dac006a81d45f366ecbf3f78f7fa9424
+Source0:	http://download.eclipse.org/technology/linuxtools/eclipse-build/3.6.x_Helios/%{name}-build-%{ebuildver}.tar.bz2
+# Source0-md5:	dac006a81d45f366ecbf3f78f7fa9424
+Source1:	http://download.eclipse.org/technology/linuxtools/eclipse-build/3.6.x_Helios/%{name}-%{version}-src.tar.bz2
+# Source1-md5:	306f8bf4ec2b0bf6f3f8329608cb15dd
 Source2:	%{name}.desktop
 Patch0:		%{name}-launcher-set-install-dir-and-shared-config.patch
 URL:		http://www.eclipse.org/
 BuildRequires:	ant >= 1.6.1
 BuildRequires:	ant-apache-regexp
+BuildRequires:	ant-nodeps
+BuildRequires:	java-commons-el >= 1.0-5
+BuildRequires:	java-commons-httpclient >= 3.1-4
+BuildRequires:	java-sat4j
 BuildRequires:	jdk >= 1.6
+BuildRequires:	jetty
 BuildRequires:	jpackage-utils
 BuildRequires:	pkgconfig
 BuildRequires:	rpm-javaprov
@@ -49,40 +56,20 @@ rozszerzalne IDE (zintegrowane środowisko programistyczne) do
 wszystkiego i niczego w szczególności.
 
 %prep
-%setup -q -c
+%setup -q -n %{name}-build-%{ebuildver}
+cp %{SOURCE1} .
+ant -Dlabel=%{version} -DbuildArch=%{eclipse_arch} applyPatches
 
 # Build Id - it's visible in couple places in GUI
-%{__sed} -i -e 's,buildId=.*,& (PLD Linux %{name}-%{version}-%{release}),' label.properties
-
-# launcher patches
-rm plugins/org.eclipse.platform/launchersrc.zip
-cd features/org.eclipse.equinox.executable
-%patch0 -p0
-# put the configuration directory in an arch-specific location
-sed -i -e 's:/usr/lib/eclipse/configuration:%{_libdir}/%{name}/configuration:' library/eclipse.c
-# make the eclipse binary relocatable
-sed -i -e 's:/usr/share/eclipse:%{_datadir}/%{name}:' library/eclipse.c
-zip -q -9 -r ../../plugins/org.eclipse.platform/launchersrc.zip library
-cd -
+%{__sed} -i -e 's,buildId=.*,& (PLD Linux %{name}-%{version}-%{release}),' build/%{name}-%{version}-src/label.properties
 
 %build
 unset CLASSPATH || :
 export JAVA_HOME=%{java_home}
 
-./build -os linux -ws gtk -arch %{eclipse_arch} -target compile
-
+#-./build -os linux -ws gtk -arch %{eclipse_arch} -target compile
+%ant -Dlabel=%{version} -DbuildArch=%{eclipse_arch}
 %ant insertBuildId
-
-export JAVA_INC="-I$JAVA_HOME/include -I$JAVA_HOME/include/linux"
-
-%{__make} -C plugins/org.eclipse.core.filesystem/natives/unix/linux/ \
-    OPT_FLAGS="%{rpmcflags} $JAVA_INC" \
-    CFLAGS="%{rpmcflags} $JAVA_INC" \
-    LDFLAGS="%{rpmldflags}"
-
-cd plugins/org.eclipse.update.core.linux/src
-%{__cc} %{rpmcflags} -fPIC %{rpmldflags} -I. $JAVA_INC update.c -o libupdate.so -shared
-cd -
 
 %install
 if [ ! -f makeinstall.stamp -o ! -d $RPM_BUILD_ROOT ]; then
