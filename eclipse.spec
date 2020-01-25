@@ -4,7 +4,6 @@
 #
 %define		ebuildver	0.6.1
 
-%include	/usr/lib/rpm/macros.java
 Summary:	Eclipse - an open extensible IDE
 Summary(pl.UTF-8):	Eclipse - otwarte, rozszerzalne środowisko programistyczne
 Name:		eclipse
